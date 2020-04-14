@@ -1,0 +1,10 @@
+.text-vertical {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+img {
+  object-fit: contain;
+  max-height: 350px;
+}

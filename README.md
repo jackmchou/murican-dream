@@ -1,2 +1,75 @@
 # murican-dream
-A full stack shopping app allowing the user to simulate the murican dream via virtual consumption
+A full stack Node.js and React.js shopping app allowing the user to simulate the murican dream via virtual consumption
+## Technologies Used
+|             Dependency             |   Version   |
+|------------------------------------|------------:|
+| @Babel/Core                        |    7.8.7    |
+| @Babel/Plugin-Transform-React-JSX  |    7.8.3    |
+| Babel-Loader                       |    8.0.6    |
+| Bootstrap                          |    4.3.1    |
+| Dotenv                             |    8.2.0    |
+| Express                            |    4.17.1   |
+| Express-Session                    |    1.17.0   |
+| FontAwesome                        |    5.11.2   |
+| Node Postgres                      |    7.18.2   |
+| PM2                                |    4.2.3    |
+| React                              |   16.13.0   |
+| React-DOM                          |   16.13.0   |
+| React-Router-DOM                   |    5.1.2    |
+| Session-File-Store                 |    1.4.0    |
+| Webpack                            |    4.42.0   |
+| Webpack-CLI                        |    3.3.11   |
+## Live Demo
+[Murican Dream](https://murican-dream.jackmchou.com/)
+## Features
+- User can view the products for sale
+- User can view the details of a product
+- User can add a product to the shopping cart
+- User can view the cart summary of all the items added to see the total price
+- User can delete an item from the cart summary
+- User can place an order
+## Preview
+![Murican Dream Preview](preview.gif "Murican Preview")
+## Development
+#### System Requirements
+|   Requirement   |     Version      |
+|-----------------|-----------------:|
+| Nginx           |  1.10 or higher  |
+| Node            |   10 or higher   |
+| NPM             |    6 or higher   |
+| PM2             |    4 or higher   |
+| PostgreSQL      |   10 or higher   |
+#### Getting Started
+1. Clone the repository
+  ```shell
+  git clone https://github.com/jackmchou/murican-dream.git
+  ```
+2. Change directory to cloned folder
+  ```shell
+  cd murican-dream/
+  ```
+3. Install all dependencies with NPM
+  ```shell
+  npm install
+  ```
+4. Start PostgreSQL server
+  ```shell
+  sudo service postgresql start
+  ```
+5. Create the database
+  ```shell
+  createdb muricanDream
+  ```
+6. Import the example database to PostgreSQL
+  ```shell
+  npm db:import
+  ```
+7. Access the Murican Dream database using pgweb in your default web browser
+  ```shell
+  pgweb --db=muricanDream
+  ```
+  - Then navigate to http://localhost:8081 and click on the "Query" tab
+8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+  ```shell
+  npm run dev
+  ```
