@@ -124,7 +124,6 @@ export default class App extends React.Component {
               viewParams={this.state.view.params}
               addToCart={this.addToCart} />;
           </Route>
-
         </Switch>
       </Router>
       // <div>

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import CartSummaryItem from './cartsummaryitem';
 
-function CartSummary(props) {
+export default function CartSummary(props) {
   const itemsArr = props.cart;
   return (
     <div className="p-5">
-      <p className="m-3" onClick={() => props.setView('catalog', {})}> &lt; Back to Catalog</p>
+      <Link to="/">
+        <p className="m-3"> &lt; Back to Catalog</p>
+      </Link>
       <h1>My Cart</h1>
       {
         itemsArr.length === 0
@@ -22,13 +24,9 @@ function CartSummary(props) {
       <div>
         <h3 className="d-inline">Subtotal: ${(itemsArr.reduce((cur, acc) => cur + acc.price, 0) * 0.01).toFixed(2)}</h3>
         <Link to="/checkout">
-          <button className="btn btn-primary float-right"
-            onClick={() => props.setView('checkout', {})}>
-            Check Out</button>
+          <button className="btn btn-primary float-right">Check Out</button>
         </Link>
       </div>
     </div>
   );
 }
-
-export default withRouter(CartSummary);
