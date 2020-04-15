@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
@@ -11,10 +13,10 @@ export default class App extends React.Component {
     this.state = {
       message: null,
       isLoading: true,
-      view: { name: 'catalog', params: {} },
+      params: {},
       cart: []
     };
-    this.setView = this.setView.bind(this);
+    this.setParams = this.setParams.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -74,35 +76,33 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  setView(name, params) {
-    this.setState({ view: { name, params } });
+  setParams(params) {
+    this.setState({ params });
   }
 
   render() {
-    let views;
-    switch (this.state.view.name) {
-      case 'details':
-        views = <ProductDetails setView={this.setView}
-          viewParams={this.state.view.params}
-          addToCart={this.addToCart} />;
-        break;
-      case 'cart':
-        views = <CartSummary cart={this.state.cart} setView={this.setView} deleteCartItems={this.deleteCartItems} />;
-        break;
-      case 'checkout':
-        views = <CheckoutForm onSubmit={this.placeOrder}
-          setView={this.setView}
-          cart={this.state.cart} />;
-        break;
-      default:
-        views = <ProductList setView={this.setView} />;
-        break;
-    }
     return (
-      <div>
-        <Header cartItemCount={this.state.cart.length} setView={this.setView} />
-        <div className="container-lg">{views}</div>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/productdetails/:id">
+            <Header cartItemCount={this.state.cart.length} />
+            <ProductDetails setParams={this.state.params}
+              addToCart={this.addToCart} />;
+          </Route>
+          <Route path="/cartsummary">
+            <Header cartItemCount={this.state.cart.length} />
+            <CartSummary cart={this.state.cart} deleteCartItems={this.deleteCartItems} />
+          </Route>
+          <Route path="/checkout">
+            <Header cartItemCount={this.state.cart.length} />
+            <CheckoutForm onSubmit={this.placeOrder} cart={this.state.cart} />
+          </Route>
+          <Route path="/">
+            <Header cartItemCount={this.state.cart.length} />
+            <ProductList setParams={this.setParams} />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }

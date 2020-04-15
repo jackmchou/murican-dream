@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class ProductDetails extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/products/${this.props.viewParams}`)
+    fetch(`/api/products/${this.props.setParams}`)
       .then(res => res.json())
       .then(product => this.setState({ product }))
       .catch(err => console.error(err))
@@ -18,13 +19,16 @@ export default class ProductDetails extends React.Component {
   }
 
   render() {
-    const product = this.state.product;
+    const { product } = this.state;
+    const { addToCart } = this.props;
     return (
       <div className="row no-gutters p-5">
         {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card p-3">
-              <p className="m-2" onClick={() => this.props.setView('catalog', {})}> &lt; Back to Catalog</p>
+              <Link to="/">
+                <p className="text-dark m-2"> &lt; Back to Catalog</p>
+              </Link>
               <div className="row">
                 <div className="col-md-5">
                   <img src={product.image} className="card-img img-fluid mb-3" alt={product.name} />
@@ -33,7 +37,7 @@ export default class ProductDetails extends React.Component {
                   <h4 className="card-title">{product.name}</h4>
                   <p className="card-subtitle text-muted font-weight-bolder">$ {(product.price * 0.01).toFixed(2)}</p>
                   <p className="card-text">{product.shortDescription}</p>
-                  <button className="btn btn-primary" onClick={() => this.props.addToCart(product)}>Add to Cart</button>
+                  <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
                 </div>
               </div>
               <p className="card-text">{product.longDescription}</p>
