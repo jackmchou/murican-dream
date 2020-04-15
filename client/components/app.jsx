@@ -14,9 +14,11 @@ export default class App extends React.Component {
       message: null,
       isLoading: true,
       view: { name: 'catalog', params: {} },
+      params: {},
       cart: []
     };
     this.setView = this.setView.bind(this);
+    this.setParams = this.setParams.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -80,6 +82,10 @@ export default class App extends React.Component {
     this.setState({ view: { name, params } });
   }
 
+  setParams(params) {
+    this.setState({ params });
+  }
+
   render() {
     // let views;
     // switch (this.state.view.name) {
@@ -103,9 +109,9 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/productdetails">
-            <ProductDetails setView={this.setView}
-              viewParams={this.state.view.params}
+          <Route path="/productdetails/:id">
+            <Header cartItemCount={this.state.cart.length} />
+            <ProductDetails setParams={this.state.params}
               addToCart={this.addToCart} />;
           </Route>
           <Route path="/cartsummary">
@@ -118,7 +124,7 @@ export default class App extends React.Component {
           </Route>
           <Route path="/">
             <Header cartItemCount={this.state.cart.length} />
-            <ProductList />
+            <ProductList setParams={this.setParams}/>
           </Route>
         </Switch>
       </Router>
