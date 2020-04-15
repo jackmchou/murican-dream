@@ -13,11 +13,9 @@ export default class App extends React.Component {
     this.state = {
       message: null,
       isLoading: true,
-      view: { name: 'catalog', params: {} },
       params: {},
       cart: []
     };
-    this.setView = this.setView.bind(this);
     this.setParams = this.setParams.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -78,34 +76,11 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  setView(name, params) {
-    this.setState({ view: { name, params } });
-  }
-
   setParams(params) {
     this.setState({ params });
   }
 
   render() {
-    // let views;
-    // switch (this.state.view.name) {
-    //   case 'details':
-    //     views = <ProductDetails setView={this.setView}
-    //       viewParams={this.state.view.params}
-    //       addToCart={this.addToCart} />;
-    //     break;
-    //   case 'cart':
-    //     views = <CartSummary cart={this.state.cart} setView={this.setView} deleteCartItems={this.deleteCartItems} />;
-    //     break;
-    //   case 'checkout':
-    //     views = <CheckoutForm onSubmit={this.placeOrder}
-    //       setView={this.setView}
-    //       cart={this.state.cart} />;
-    //     break;
-    //   default:
-    //     views = <ProductList setView={this.setView} />;
-    //     break;
-    // }
     return (
       <Router>
         <Switch>
@@ -124,14 +99,10 @@ export default class App extends React.Component {
           </Route>
           <Route path="/">
             <Header cartItemCount={this.state.cart.length} />
-            <ProductList setParams={this.setParams}/>
+            <ProductList setParams={this.setParams} />
           </Route>
         </Switch>
       </Router>
-      // <div>
-      //   <Header cartItemCount={this.state.cart.length} setView={this.setView} />
-      //   <div className="container-lg">{views}</div>
-      // </div>
     );
   }
 }
