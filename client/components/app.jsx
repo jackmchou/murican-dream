@@ -103,9 +103,10 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/cartsummary">
-            <Header cartItemCount={this.state.cart.length} />
-            <CartSummary cart={this.state.cart} deleteCartItems={this.deleteCartItems} />
+          <Route path="/productdetails">
+            <ProductDetails setView={this.setView}
+              viewParams={this.state.view.params}
+              addToCart={this.addToCart} />;
           </Route>
           <Route path="/cartsummary">
             <Header cartItemCount={this.state.cart.length} />
@@ -118,11 +119,6 @@ export default class App extends React.Component {
           <Route path="/">
             <Header cartItemCount={this.state.cart.length} />
             <ProductList />
-          </Route>
-          <Route path="/productdetails">
-            <ProductDetails setView={this.setView}
-              viewParams={this.state.view.params}
-              addToCart={this.addToCart} />;
           </Route>
         </Switch>
       </Router>

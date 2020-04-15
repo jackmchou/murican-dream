@@ -8,7 +8,7 @@ export default function CartSummary(props) {
   return (
     <div className="p-5">
       <Link to="/">
-        <p className="m-3"> &lt; Back to Catalog</p>
+        <p className="text-dark m-3"> &lt; Back to Catalog</p>
       </Link>
       <h1>My Cart</h1>
       {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class CheckoutForm extends React.Component {
   constructor(props) {
@@ -53,7 +54,9 @@ export default class CheckoutForm extends React.Component {
           <small id="infoHelp" className="form-text text-muted">Please DO NOT use personal information</small>
         </div>
         <div className="p-2">
-          <span onClick={() => this.props.setView('catalog', {})}> &lt; Continue Shopping</span>
+          <Link to="/">
+            <span className="text-dark"> &lt; Continue Shopping</span>
+          </Link>
           <button type="submit" className="btn btn-primary float-right">Submit</button>
         </div>
       </form>
