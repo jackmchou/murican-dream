@@ -27,7 +27,7 @@ export default class ProductDetails extends React.Component {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card p-3">
               <Link to="/">
-                <p className="text-dark m-2"> &lt; Back to Catalog</p>
+                <p className="text-dark w-25 m-2 interactable-element"> &lt; Back to Catalog</p>
               </Link>
               <div className="row">
                 <div className="col-md-5">

@@ -21,16 +21,18 @@ export default class ProductList extends React.Component {
 
   render() {
     return (
-      <div className="row p-5">
-        {
-          this.state.products.map(product => {
-            return (<ProductListItem
-              key={product.productId}
-              products={product}
-              setParams={this.props.setParams}
-            />);
-          })
-        }
+      <div className="container-fluid">
+        <div className="row p-5">
+          {
+            this.state.products.map(product => {
+              return (<ProductListItem
+                key={product.productId}
+                products={product}
+                setParams={this.props.setParams}
+              />);
+            })
+          }
+        </div>
       </div>
     );
   }
