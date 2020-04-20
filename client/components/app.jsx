@@ -19,6 +19,7 @@ export default class App extends React.Component {
       cart: []
     };
     this.setParams = this.setParams.bind(this);
+    this.acceptTerms = this.acceptTerms.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -82,8 +83,12 @@ export default class App extends React.Component {
     this.setState({ params });
   }
 
+  acceptTerms() {
+    this.setState({ termsAccepted: !this.state.termsAccepted });
+  }
+
   render() {
-    const { termsAccepted, cart } = this.state;
+    const { cart, termsAccepted } = this.state;
     return (
       <Router>
         <Switch>
@@ -101,9 +106,11 @@ export default class App extends React.Component {
             <CheckoutForm onSubmit={this.placeOrder} cart={cart} />
           </Route>
           <Route path="/">
-            <DemoDisclaimer termsAccepted={termsAccepted} />
-            <Header cartItemCount={cart.length} />
-            <ProductList setParams={this.setParams} />
+            {!termsAccepted ? <DemoDisclaimer acceptTerms={this.acceptTerms} />
+              : <React.Fragment>
+                <Header cartItemCount={cart.length} />
+                <ProductList setParams={this.setParams} />
+              </React.Fragment>}
           </Route>
         </Switch>
       </Router>
