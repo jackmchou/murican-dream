@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './header';
+import DemoDisclaimer from './demo-disclaimer';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cartsummary';
@@ -11,12 +12,14 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      termsAccepted: false,
       message: null,
       isLoading: true,
       params: {},
       cart: []
     };
     this.setParams = this.setParams.bind(this);
+    this.acceptTerms = this.acceptTerms.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -80,26 +83,34 @@ export default class App extends React.Component {
     this.setState({ params });
   }
 
+  acceptTerms() {
+    this.setState({ termsAccepted: !this.state.termsAccepted });
+  }
+
   render() {
+    const { cart, termsAccepted } = this.state;
     return (
       <Router>
         <Switch>
           <Route path="/productdetails/:id">
-            <Header cartItemCount={this.state.cart.length} />
+            <Header cartItemCount={cart.length} />
             <ProductDetails setParams={this.state.params}
               addToCart={this.addToCart} />;
           </Route>
           <Route path="/cartsummary">
-            <Header cartItemCount={this.state.cart.length} />
-            <CartSummary cart={this.state.cart} deleteCartItems={this.deleteCartItems} />
+            <Header cartItemCount={cart.length} />
+            <CartSummary cart={cart} deleteCartItems={this.deleteCartItems} />
           </Route>
           <Route path="/checkout">
-            <Header cartItemCount={this.state.cart.length} />
-            <CheckoutForm onSubmit={this.placeOrder} cart={this.state.cart} />
+            <Header cartItemCount={cart.length} />
+            <CheckoutForm onSubmit={this.placeOrder} cart={cart} />
           </Route>
           <Route path="/">
-            <Header cartItemCount={this.state.cart.length} />
-            <ProductList setParams={this.setParams} />
+            {!termsAccepted ? <DemoDisclaimer acceptTerms={this.acceptTerms} />
+              : <React.Fragment>
+                <Header cartItemCount={cart.length} />
+                <ProductList setParams={this.setParams} />
+              </React.Fragment>}
           </Route>
         </Switch>
       </Router>
