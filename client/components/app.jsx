@@ -89,6 +89,10 @@ export default class App extends React.Component {
     this.setState({ termsAccepted: !this.state.termsAccepted });
   }
 
+  confirmDelete() {
+    this.setState({ deleteConfirmed: !this.state.deleteConfirmed });
+  }
+
   render() {
     const { cart, termsAccepted } = this.state;
     return (
@@ -102,7 +106,7 @@ export default class App extends React.Component {
           <Route path="/cartsummary">
             <Header cartItemCount={cart.length} />
             <CartSummary cart={cart} deleteCartItems={this.deleteCartItems} />
-            <ConfirmDelete deleteConfirm={this.state.deleteConfirmed}/>
+            <ConfirmDelete deleteConfirmed={this.state.deleteConfirmed} />
           </Route>
           <Route path="/checkout">
             <Header cartItemCount={cart.length} />
