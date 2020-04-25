@@ -7,14 +7,12 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cartsummary';
 import CheckoutForm from './checkout-form';
-import ConfirmDelete from './confirm-delete';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       termsAccepted: false,
-      deleteConfirmed: false,
       message: null,
       isLoading: true,
       params: {},
@@ -26,7 +24,6 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
-    this.confirmDelete = this.confirmDelete.bind(this);
   }
 
   componentDidMount() {
@@ -90,10 +87,6 @@ export default class App extends React.Component {
     this.setState({ termsAccepted: !this.state.termsAccepted });
   }
 
-  confirmDelete() {
-    this.setState({ deleteConfirmed: !this.state.deleteConfirmed });
-  }
-
   render() {
     const { cart, termsAccepted } = this.state;
     return (
@@ -107,7 +100,6 @@ export default class App extends React.Component {
           <Route path="/cartsummary">
             <Header cartItemCount={cart.length} />
             <CartSummary cart={cart} deleteCartItem={this.deleteCartItem} />
-            <ConfirmDelete confirmDelete={this.confirmDelete} deleteConfirmed={this.state.deleteConfirmed} />
           </Route>
           <Route path="/checkout">
             <Header cartItemCount={cart.length} />
