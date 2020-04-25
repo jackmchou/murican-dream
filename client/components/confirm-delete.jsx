@@ -1,8 +1,13 @@
 import React from 'react';
 
 export default function ConfirmDelete(props) {
+  function deleteOperation() {
+    props.showModal();
+    props.deleteCartItem(props.cartItem.cartItemId);
+  }
   const qty = 1;
   const itemName = 'name';
+  if (!props.show) return null;
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
@@ -15,8 +20,8 @@ export default function ConfirmDelete(props) {
             {`Are you sure you want to remove ${qty} of ${itemName} from your cart?`}
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary"
-              onClick={() => props.acceptTerms()} data-dismiss="modal">Yes</button>
+            <button type="button" className="btn btn-danger" onClick={deleteOperation}>DELETE</button>
+            <button type="button" className="btn btn-secondary" onClick={() => props.showModal()}>Cancel</button>
           </div>
         </div>
       </div>
