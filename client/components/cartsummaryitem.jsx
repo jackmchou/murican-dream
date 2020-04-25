@@ -13,7 +13,7 @@ export default function CartSummaryItem(props) {
             <h5 className="card-title">{cartItem.name}</h5>
             <p className="card-subtitle text-muted">$ {(cartItem.price * 0.01).toFixed(2)}</p>
             <p className="card-text">{cartItem.shortDescription}</p>
-            <button className="btn btn-danger" onClick={() => props.deleteCartItems(cartItem.cartItemId)}>DELETE</button>
+            <button className="btn btn-danger" onClick={() => props.deleteCartItems(cartItem.cartItemId)}>Remove from Cart</button>
           </div>
         </span>
       </div>
