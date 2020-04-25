@@ -106,7 +106,7 @@ export default class App extends React.Component {
           </Route>
           <Route path="/cartsummary">
             <Header cartItemCount={cart.length} />
-            <CartSummary cart={cart} deleteCartItems={this.deleteCartItems} />
+            <CartSummary cart={cart} deleteCartItem={this.deleteCartItem} />
             <ConfirmDelete confirmDelete={this.confirmDelete} deleteConfirmed={this.state.deleteConfirmed} />
           </Route>
           <Route path="/checkout">
