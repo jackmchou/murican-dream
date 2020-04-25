@@ -23,7 +23,7 @@ export default class App extends React.Component {
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
-    this.deleteCartItems = this.deleteCartItems.bind(this);
+    this.deleteCartItem = this.deleteCartItem.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +53,7 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  deleteCartItems(cartItemId) {
+  deleteCartItem(cartItemId) {
     const req = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
@@ -99,7 +99,7 @@ export default class App extends React.Component {
           </Route>
           <Route path="/cartsummary">
             <Header cartItemCount={cart.length} />
-            <CartSummary cart={cart} deleteCartItems={this.deleteCartItems} />
+            <CartSummary cart={cart} deleteCartItem={this.deleteCartItem} />
           </Route>
           <Route path="/checkout">
             <Header cartItemCount={cart.length} />
