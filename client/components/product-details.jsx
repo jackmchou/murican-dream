@@ -8,7 +8,7 @@ export default class ProductDetails extends React.Component {
     this.state = {
       product: null,
       isLoading: true,
-      showModal: false
+      show: false
     };
     this.showModal = this.showModal.bind(this);
   }
@@ -22,7 +22,7 @@ export default class ProductDetails extends React.Component {
   }
 
   showModal() {
-    this.setState({ showModal: !this.state.showModal });
+    this.setState({ show: !this.state.show });
   }
 
   render() {
@@ -50,7 +50,7 @@ export default class ProductDetails extends React.Component {
               <p className="card-text">{product.longDescription}</p>
             </div>
         }
-        <Modal showModal={this.showModal} show={this.state.show} />
+        <Modal showModal={this.showModal} show={this.state.showModal} />
       </div>
     );
   }
