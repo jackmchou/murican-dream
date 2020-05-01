@@ -1,28 +1,24 @@
 import React from 'react';
 
 export default function Modal(props) {
-  const { cartItem } = props;
-  const itemName = cartItem.name;
-  const qty = 1;
-  function deleteOperation() {
+  function productListOrCheckOut() {
     props.showModal();
-    props.deleteCartItem(cartItem.cartItemId);
   }
-  if (!props.show) return null;
+  if (!props.showModal) return null;
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header d-inline">
-            <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Please confirm</h5>
+            <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Item Added!</h5>
           </div>
           <div className="modal-body">
-            {`Are you sure you want to remove ${qty} of ${itemName} from your cart?`}
+            Would you like to check out? Or Continue to shopping cart?
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-danger" onClick={deleteOperation}>DELETE</button>
-            <button type="button" className="btn btn-secondary" onClick={() => props.showModal()}>Cancel</button>
+            <button type="button" className="btn btn-info" onClick={productListOrCheckOut}>View Cart</button>
+            <button type="button" className="btn btn-success" onClick={() => props.showModal()}>Check Out</button>
           </div>
         </div>
       </div>
