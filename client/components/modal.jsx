@@ -1,10 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Modal(props) {
-  function productListOrCheckOut() {
-    props.showModal();
-  }
-  if (!props.showModal) return null;
+  if (!props.show) return null;
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
@@ -14,11 +12,15 @@ export default function Modal(props) {
             <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Item Added!</h5>
           </div>
           <div className="modal-body">
-            Would you like to check out? Or Continue to shopping cart?
+            Would you like to continue shopping? or view shopping cart?
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-info" onClick={productListOrCheckOut}>View Cart</button>
-            <button type="button" className="btn btn-success" onClick={() => props.showModal()}>Check Out</button>
+            <Link to="/">
+              <button type="button" className="btn btn-info" onClick={() => props.showModal()}>Continue Shopping</button>
+            </Link>
+            <Link to="/cartsummary">
+              <button type="button" className="btn btn-success" onClick={() => props.showModal()}>View Cart</button>
+            </Link>
           </div>
         </div>
       </div>
