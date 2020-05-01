@@ -10,7 +10,7 @@ export default class ProductDetails extends React.Component {
       isLoading: true,
       showModal: false
     };
-    this.productListOrCheckOut = this.productListOrCheckOut.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   componentDidMount() {
