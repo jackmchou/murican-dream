@@ -18,7 +18,7 @@ export default function ConfirmDelete(props) {
             <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Please confirm</h5>
           </div>
           <div className="modal-body">
-            {`Are you sure you want to remove ${qty} of ${itemName} from your cart?`}
+            {`You want to remove ${qty} of ${itemName} from your cart?`}
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-danger" onClick={deleteOperation}>DELETE</button>

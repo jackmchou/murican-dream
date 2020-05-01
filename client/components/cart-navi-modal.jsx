@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Modal(props) {
+export default function CartNaviModal(props) {
   if (!props.show) return null;
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"

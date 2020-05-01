@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Modal from './modal';
+import CartNaviModal from './modal';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ export default class ProductDetails extends React.Component {
       isLoading: true,
       show: false
     };
+    this.addItem = this.addItem.bind(this);
     this.showModal = this.showModal.bind(this);
   }
 
@@ -21,13 +22,17 @@ export default class ProductDetails extends React.Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
+  addItem() {
+    this.props.addToCart(this.state.product);
+    this.showModal();
+  }
+
   showModal() {
     this.setState({ show: !this.state.show });
   }
 
   render() {
     const { product } = this.state;
-    const { addToCart } = this.props;
     return (
       <div className="row no-gutters p-5">
         {
@@ -44,13 +49,13 @@ export default class ProductDetails extends React.Component {
                   <h4 className="card-title">{product.name}</h4>
                   <p className="card-subtitle text-muted font-weight-bolder">$ {(product.price * 0.01).toFixed(2)}</p>
                   <p className="card-text">{product.shortDescription}</p>
-                  <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
+                  <button className="btn btn-primary" onClick={this.addItem}>Add to Cart</button>
                 </div>
               </div>
               <p className="card-text">{product.longDescription}</p>
             </div>
         }
-        <Modal showModal={this.showModal} show={this.state.showModal} />
+        <CartNaviModal showModal={this.showModal} show={this.state.show} />
       </div>
     );
   }
