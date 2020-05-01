@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Modal from './modal';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
-      isLoading: true
+      isLoading: true,
+      showModal: false
     };
+    this.productListOrCheckOut = this.productListOrCheckOut.bind(this);
   }
 
   componentDidMount() {
@@ -16,6 +19,10 @@ export default class ProductDetails extends React.Component {
       .then(product => this.setState({ product }))
       .catch(err => console.error(err))
       .finally(() => this.setState({ isLoading: false }));
+  }
+
+  showModal() {
+    this.setState({ showModal: !this.state.showModal });
   }
 
   render() {
@@ -43,6 +50,7 @@ export default class ProductDetails extends React.Component {
               <p className="card-text">{product.longDescription}</p>
             </div>
         }
+        <Modal showModal={this.showModal} show={this.state.show} />
       </div>
     );
   }
