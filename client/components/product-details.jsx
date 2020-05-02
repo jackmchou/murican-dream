@@ -38,7 +38,7 @@ class ProductDetails extends React.Component {
         {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card text-white bg-dark p-3">
-              <Link to="/">
+              <Link to="/productlist">
                 <button className="m-2 btn btn-outline-info">Back to Catalog</button>
               </Link>
               <div className="row">
