@@ -2,11 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Header from './header';
+import VersionModal from './version-modal';
 import DemoDisclaimer from './demo-disclaimer';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cartsummary';
 import CheckoutForm from './checkout-form';
+import PPEHeader from './ppeheader';
+import PPEProductList from './ppeproduct-list';
+import PPEProductDetails from './ppeproduct-details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,10 +19,8 @@ export default class App extends React.Component {
       termsAccepted: false,
       message: null,
       isLoading: true,
-      params: {},
       cart: []
     };
-    this.setParams = this.setParams.bind(this);
     this.acceptTerms = this.acceptTerms.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -79,10 +81,6 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  setParams(params) {
-    this.setState({ params });
-  }
-
   acceptTerms() {
     this.setState({ termsAccepted: !this.state.termsAccepted });
   }
@@ -94,8 +92,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/productdetails/:id">
             <Header cartItemCount={cart.length} />
-            <ProductDetails setParams={this.state.params}
-              addToCart={this.addToCart} />;
+            <ProductDetails addToCart={this.addToCart} />
           </Route>
           <Route path="/cartsummary">
             <Header cartItemCount={cart.length} />
@@ -105,12 +102,23 @@ export default class App extends React.Component {
             <Header cartItemCount={cart.length} />
             <CheckoutForm onSubmit={this.placeOrder} cart={cart} />
           </Route>
-          <Route path="/">
+          <Route path="/ppeproductdetails/:id">
+            <PPEHeader />
+            <PPEProductDetails />
+          </Route>
+          <Route path="/ppeproductlist">
+            <PPEHeader />
+            <PPEProductList />
+          </Route>
+          <Route path="/productlist">
             {!termsAccepted ? <DemoDisclaimer acceptTerms={this.acceptTerms} />
               : <React.Fragment>
                 <Header cartItemCount={cart.length} />
-                <ProductList setParams={this.setParams} />
+                <ProductList />
               </React.Fragment>}
+          </Route>
+          <Route path="/">
+            <VersionModal />
           </Route>
         </Switch>
       </Router>
