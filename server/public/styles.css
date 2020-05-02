@@ -1,3 +1,10 @@
+body {
+  background: #1e1e1e url(./images/bg.png);
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  font-family: 'Public Sans', sans-serif;
+}
+
 img {
   object-fit: contain;
   max-height: 350px;
@@ -21,7 +28,7 @@ img {
 
 .interactable-element:hover {
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.75);
 }
 
 i.interactable-element:hover {
