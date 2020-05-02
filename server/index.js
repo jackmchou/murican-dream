@@ -78,6 +78,27 @@ app.get('/api/cart', (req, res, next) => {
   }
 });
 
+app.get('/api/ppecart', (req, res, next) => {
+  const { ppeCartId } = req.session;
+  if (!ppeCartId) {
+    res.send([]);
+  } else {
+    const sql = `
+    select "c"."ppeCartItemId",
+       "c"."price",
+       "p"."productId",
+       "p"."image",
+       "p"."name",
+       "p"."shortDescription"
+      from "ppeCartItems" as "c"
+      join "ppeProducts" as "p" using ("productId")
+      where "c"."ppeCartId" = $1`;
+    db.query(sql, [ppeCartId])
+      .then(result => res.json(result.rows))
+      .catch(err => next(err));
+  }
+});
+
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   if (!parseInt(productId, 10)) {
@@ -120,6 +141,53 @@ app.post('/api/cart', (req, res, next) => {
           JOIN "products" AS "p" USING ("productId")
           WHERE "c"."cartItemId" = $1`;
         return db.query(sql, [cartItemId]).then(result => res.status(201).json(result.rows[0]));
+      })
+      .catch(err => next(err));
+  }
+});
+
+app.post('/api/ppecart', (req, res, next) => {
+  const { productId } = req.body;
+  if (!parseInt(productId, 10)) {
+    return res.status(400).json({ error: 'productId is required and must be a positive integer' });
+  } else {
+    db.query('SELECT "price" FROM "ppeProducts" WHERE "productId" = $1', [productId])
+      .then(price => {
+        if (price.rows.length === 0) {
+          throw new ClientError(`productId ${productId} not found in ppeProducts database`, 400);
+        } else {
+          if (req.session.ppeCartId) {
+            return { ppeCartId: req.session.ppeCartId, price: price.rows[0].price };
+          } else {
+            const sql = `
+            INSERT INTO "ppeCarts" ("ppeCartId", "createdAt")
+              VALUES (default, default)
+              RETURNING "ppeCartId";`;
+            return db.query(sql).then(ppeCartId => Object.assign(ppeCartId.rows[0], price.rows[0]));
+          }
+        }
+      })
+      .then(ppeCartIdPriceObj => {
+        req.session.ppeCartId = ppeCartIdPriceObj.ppeCartId;
+        const sql = `
+        INSERT INTO "ppeCartItems" ("ppeCartId", "productId", "price")
+          VALUES ($1, $2, $3)
+          RETURNING "ppeCartItemId"`;
+        const params = [ppeCartIdPriceObj.ppeCartId, productId, ppeCartIdPriceObj.price];
+        return db.query(sql, params).then(ppeCartItemId => ppeCartItemId.rows[0].ppeCartItemId);
+      })
+      .then(ppeCartItemId => {
+        const sql = `
+        SELECT "c"."ppeCartItemId",
+            "c"."price",
+            "p"."productId",
+            "p"."image",
+            "p"."name",
+            "p"."shortDescription"
+          FROM "ppeCartItems" AS "c"
+          JOIN "ppeProducts" AS "p" USING ("productId")
+          WHERE "c"."ppeCartItemId" = $1`;
+        return db.query(sql, [ppeCartItemId]).then(result => res.status(201).json(result.rows[0]));
       })
       .catch(err => next(err));
   }
