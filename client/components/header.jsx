@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 export default function Header(props) {
   return (
-    <div className="container- p-3 px-5 text-white bg-dark">
-      <NavLink to="/">
-        <span className="text-white interactable-element">Murican Dream</span>
+    <div className="container-fluid p-3 px-5 bg-secondary text-white fixed-top">
+      <NavLink to="/productlist">
+        <span className="text-dark h4 interactable-element">Murican Dream</span>
       </NavLink>
       <NavLink to="/cartsummary">
-        <span className="text-white float-right">
+        <span className="text-dark h4 float-right">
           {props.cartItemCount > 1
             ? props.cartItemCount + ' items '
             : props.cartItemCount + ' item '}
