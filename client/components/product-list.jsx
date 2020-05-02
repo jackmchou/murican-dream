@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import ProductListItem from './product-list-item';
 
-export default class ProductList extends React.Component {
+class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +23,7 @@ export default class ProductList extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row p-5">
+        <div className="row m-5 p-5">
           {
             this.state.products.map(product => {
               return (<ProductListItem
@@ -37,3 +38,5 @@ export default class ProductList extends React.Component {
     );
   }
 }
+
+export default withRouter(ProductList);
