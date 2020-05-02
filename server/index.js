@@ -25,12 +25,31 @@ app.get('/api/products', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/ppeproducts', (req, res, next) => {
+  db.query('SELECT "productId", "name", "price", "image", "shortDescription" FROM "ppeProducts"')
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
   if (!parseInt(productId, 10)) {
     return res.status(400).json({ error: 'productId must be a positive integer' });
   } else {
     const sql = `SELECT * FROM "products"
+    WHERE "productId" = $1`;
+    db.query(sql, [productId])
+      .then(result => res.json(result.rows[0]))
+      .catch(err => next(new ClientError(`cannot ${req.method} ${req.originalUrl} ${err}`, 404)));
+  }
+});
+
+app.get('/api/ppeproducts/:productId', (req, res, next) => {
+  const { productId } = req.params;
+  if (!parseInt(productId, 10)) {
+    return res.status(400).json({ error: 'productId must be a positive integer' });
+  } else {
+    const sql = `SELECT * FROM "ppeProducts"
     WHERE "productId" = $1`;
     db.query(sql, [productId])
       .then(result => res.json(result.rows[0]))
