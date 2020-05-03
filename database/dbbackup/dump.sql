@@ -17,37 +17,21 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 ALTER TABLE ONLY public.products DROP CONSTRAINT products_pkey;
-ALTER TABLE ONLY public."ppeOrders" DROP CONSTRAINT "ppeOrders_pkey";
-ALTER TABLE ONLY public."ppeCarts" DROP CONSTRAINT "ppeCarts_pkey";
-ALTER TABLE ONLY public."ppeCartItems" DROP CONSTRAINT "ppeCartItems_pkey";
 ALTER TABLE ONLY public.orders DROP CONSTRAINT orders_pkey;
 ALTER TABLE ONLY public.carts DROP CONSTRAINT carts_pkey;
 ALTER TABLE ONLY public."cartItems" DROP CONSTRAINT "cartItems_pkey";
-ALTER TABLE ONLY public."ppeProducts" DROP CONSTRAINT "PPEproducts_pkey";
 ALTER TABLE public.products ALTER COLUMN "productId" DROP DEFAULT;
-ALTER TABLE public."ppeProducts" ALTER COLUMN "productId" DROP DEFAULT;
-ALTER TABLE public."ppeOrders" ALTER COLUMN "ppeOrderId" DROP DEFAULT;
-ALTER TABLE public."ppeCarts" ALTER COLUMN "ppeCartId" DROP DEFAULT;
-ALTER TABLE public."ppeCartItems" ALTER COLUMN "ppeCartItemId" DROP DEFAULT;
 ALTER TABLE public.orders ALTER COLUMN "orderId" DROP DEFAULT;
 ALTER TABLE public.carts ALTER COLUMN "cartId" DROP DEFAULT;
 ALTER TABLE public."cartItems" ALTER COLUMN "cartItemId" DROP DEFAULT;
 DROP SEQUENCE public."products_productId_seq";
 DROP TABLE public.products;
-DROP SEQUENCE public."ppeOrders_ppeOrderId_seq";
-DROP TABLE public."ppeOrders";
-DROP SEQUENCE public."ppeCarts_ppeCartId_seq";
-DROP TABLE public."ppeCarts";
-DROP SEQUENCE public."ppeCartItems_ppeCartItemId_seq";
-DROP TABLE public."ppeCartItems";
 DROP SEQUENCE public."orders_orderId_seq";
 DROP TABLE public.orders;
 DROP SEQUENCE public."carts_cartId_seq";
 DROP TABLE public.carts;
 DROP SEQUENCE public."cartItems_cartItemId_seq";
 DROP TABLE public."cartItems";
-DROP SEQUENCE public."PPEproducts_productId_seq";
-DROP TABLE public."ppeProducts";
 DROP EXTENSION plpgsql;
 DROP SCHEMA public;
 --
@@ -81,40 +65,6 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET default_tablespace = '';
 
 SET default_with_oids = false;
-
---
--- Name: ppeProducts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."ppeProducts" (
-    "productId" integer NOT NULL,
-    name text NOT NULL,
-    price integer NOT NULL,
-    image text NOT NULL,
-    "shortDescription" text NOT NULL,
-    "longDescription" text NOT NULL
-);
-
-
---
--- Name: PPEproducts_productId_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."PPEproducts_productId_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: PPEproducts_productId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."PPEproducts_productId_seq" OWNED BY public."ppeProducts"."productId";
-
 
 --
 -- Name: cartItems; Type: TABLE; Schema: public; Owner: -
@@ -213,102 +163,6 @@ ALTER SEQUENCE public."orders_orderId_seq" OWNED BY public.orders."orderId";
 
 
 --
--- Name: ppeCartItems; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."ppeCartItems" (
-    "ppeCartItemId" integer NOT NULL,
-    "ppeCartId" integer NOT NULL,
-    "productId" integer NOT NULL,
-    price integer NOT NULL
-);
-
-
---
--- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."ppeCartItems_ppeCartItemId_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."ppeCartItems_ppeCartItemId_seq" OWNED BY public."ppeCartItems"."ppeCartItemId";
-
-
---
--- Name: ppeCarts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."ppeCarts" (
-    "ppeCartId" integer NOT NULL,
-    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
-);
-
-
---
--- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."ppeCarts_ppeCartId_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."ppeCarts_ppeCartId_seq" OWNED BY public."ppeCarts"."ppeCartId";
-
-
---
--- Name: ppeOrders; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."ppeOrders" (
-    "ppeOrderId" integer NOT NULL,
-    "ppeCartId" integer NOT NULL,
-    name text NOT NULL,
-    "creditCard" text NOT NULL,
-    "shippingAddress" text NOT NULL,
-    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
-);
-
-
---
--- Name: ppeOrders_ppeOrderId_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."ppeOrders_ppeOrderId_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ppeOrders_ppeOrderId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."ppeOrders_ppeOrderId_seq" OWNED BY public."ppeOrders"."ppeOrderId";
-
-
---
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -364,34 +218,6 @@ ALTER TABLE ONLY public.orders ALTER COLUMN "orderId" SET DEFAULT nextval('publi
 
 
 --
--- Name: ppeCartItems ppeCartItemId; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeCartItems" ALTER COLUMN "ppeCartItemId" SET DEFAULT nextval('public."ppeCartItems_ppeCartItemId_seq"'::regclass);
-
-
---
--- Name: ppeCarts ppeCartId; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeCarts" ALTER COLUMN "ppeCartId" SET DEFAULT nextval('public."ppeCarts_ppeCartId_seq"'::regclass);
-
-
---
--- Name: ppeOrders ppeOrderId; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeOrders" ALTER COLUMN "ppeOrderId" SET DEFAULT nextval('public."ppeOrders_ppeOrderId_seq"'::regclass);
-
-
---
--- Name: ppeProducts productId; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeProducts" ALTER COLUMN "productId" SET DEFAULT nextval('public."PPEproducts_productId_seq"'::regclass);
-
-
---
 -- Name: products productId; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -422,7 +248,6 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 33	20	4	999
 34	20	5	9900
 35	20	6	830
-201	39	1	999999999
 40	23	2	2595
 41	24	2	2595
 42	25	3	2900
@@ -479,7 +304,6 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 35	2020-04-17 09:27:02.5725-07
 36	2020-04-18 15:02:12.500266-07
 37	2020-04-24 16:50:24.546282-07
-39	2020-05-02 09:52:05.175395-07
 \.
 
 
@@ -495,49 +319,6 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 5	24	feawfewf	00000000	123 Main St	2020-03-10 17:51:45.02779-07
 6	25	afewf	0000000000000000	12fewafarwr	2020-03-10 17:53:46.130245-07
 7	28	Jane Doe	123124151231231	111 Main St 	2020-04-06 09:35:04.15409-07
-8	39	fwafwef	2312312321321321	gfegfegesgregesrgresgsregesrg	2020-05-02 10:16:29.167613-07
-\.
-
-
---
--- Data for Name: ppeCartItems; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price) FROM stdin;
-1	1	1	100
-11	2	1	100
-\.
-
-
---
--- Data for Name: ppeCarts; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
-1	2020-05-02 06:52:40.902399-07
-2	2020-05-02 07:22:33.776256-07
-\.
-
-
---
--- Data for Name: ppeOrders; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-\.
-
-
---
--- Data for Name: ppeProducts; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ppeProducts" ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-1	Surgical Mask	50	/images/surgicalmask.png	Designed to prevent infections in patients and treating personnel	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
-2	N95 Mask	50	/images/N95mask.png	A particulate-filtering facepiece respirator that meets the U.S N95 classification of air filtration	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
-3	Respirator	7500	/images/respirator.png	Designed to protect the wearer from inhaling hazardous atmospheres	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
-4	Gloves	100	/images/gloves.png	Protect hands against cold or heat, damage by friction, abrasion or chemicals, and disease	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
-5	Hazmat Suit	10000	/images/hazmat.png	Whole-body garment worn as protection against hazardous materials	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
-6	Hand Sanitizer	300	/images/handsanitizer.png	Alcohol based liquid gel used to protect against germs and viruses	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
 \.
 
 
@@ -574,52 +355,24 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 
 
 --
--- Name: PPEproducts_productId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."PPEproducts_productId_seq"', 1, false);
-
-
---
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 201, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 195, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 39, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 38, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 8, true);
-
-
---
--- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 12, true);
-
-
---
--- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 2, true);
-
-
---
--- Name: ppeOrders_ppeOrderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 7, true);
 
 
 --
@@ -627,14 +380,6 @@ SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 1, false);
 --
 
 SELECT pg_catalog.setval('public."products_productId_seq"', 1, false);
-
-
---
--- Name: ppeProducts PPEproducts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeProducts"
-    ADD CONSTRAINT "PPEproducts_pkey" PRIMARY KEY ("productId");
 
 
 --
@@ -659,30 +404,6 @@ ALTER TABLE ONLY public.carts
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY ("orderId");
-
-
---
--- Name: ppeCartItems ppeCartItems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeCartItems"
-    ADD CONSTRAINT "ppeCartItems_pkey" PRIMARY KEY ("ppeCartItemId");
-
-
---
--- Name: ppeCarts ppeCarts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeCarts"
-    ADD CONSTRAINT "ppeCarts_pkey" PRIMARY KEY ("ppeCartId");
-
-
---
--- Name: ppeOrders ppeOrders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."ppeOrders"
-    ADD CONSTRAINT "ppeOrders_pkey" PRIMARY KEY ("ppeOrderId");
 
 
 --
