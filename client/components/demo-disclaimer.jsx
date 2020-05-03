@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function DemoDisclaimer(props) {
   return (
@@ -21,8 +22,10 @@ export default function DemoDisclaimer(props) {
           <div className="modal-footer bg-danger">
             <button type="button" className="btn btn-primary"
               onClick={() => props.acceptTerms()} data-dismiss="modal">Accept</button>
-            <a href="https://jackmchou.com"><button type="button" className="btn btn-secondary"
-              data-dismiss="modal" aria-label="Close">Nah</button></a>
+            <Link to="/">
+              <button type="button" className="btn btn-secondary"
+                data-dismiss="modal" aria-label="Close">Nah</button>
+            </Link>
           </div>
         </div>
       </div>
