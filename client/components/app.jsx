@@ -8,6 +8,7 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cartsummary';
 import CheckoutForm from './checkout-form';
+import OrderConfirm from './orderconfirm';
 import PPEHeader from './ppeheader';
 import PPEDemoDisclaimer from './ppedemo-disclaimer';
 import PPEProductList from './ppeproduct-list';
@@ -24,8 +25,10 @@ export default class App extends React.Component {
       message: null,
       isLoading: true,
       cart: [],
+      orderConfirmed: false,
       ppeTermsAccepted: false,
-      ppeCart: []
+      ppeCart: [],
+      ppeOrderConfirmed: false
     };
     this.acceptTerms = this.acceptTerms.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
@@ -121,7 +124,7 @@ export default class App extends React.Component {
     };
     fetch('/api/orders', req)
       .then(res => res.json())
-      .then(order => this.setState({ cart: [], view: { name: 'catalog', params: {} } }))
+      .then(order => this.setState({ cart: [], orderConfirmed: true }))
       .catch(err => console.error(err));
   }
 
@@ -133,7 +136,7 @@ export default class App extends React.Component {
     };
     fetch('/api/ppeorders', req)
       .then(res => res.json())
-      .then(ppeorder => this.setState({ ppeCart: [] }))
+      .then(ppeorder => this.setState({ ppeCart: [], ppeOrderConfirmed: true }))
       .catch(err => console.error(err));
   }
 
@@ -146,7 +149,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { cart, ppeCart, termsAccepted, ppeTermsAccepted } = this.state;
+    const { cart, ppeCart, termsAccepted, ppeTermsAccepted, orderConfirmed, ppeOrderConfirmed } = this.state;
     return (
       <Router>
         <Switch>
@@ -160,7 +163,8 @@ export default class App extends React.Component {
           </Route>
           <Route path="/checkout">
             <Header cartItemCount={cart.length} />
-            <CheckoutForm onSubmit={this.placeOrder} cart={cart} />
+            {orderConfirmed ? <OrderConfirm />
+              : <CheckoutForm onSubmit={this.placeOrder} cart={cart} />}
           </Route>
           <Route path="/productlist">
             {!termsAccepted ? <DemoDisclaimer acceptTerms={this.acceptTerms} />
@@ -179,11 +183,8 @@ export default class App extends React.Component {
           </Route>
           <Route path="/ppecheckout">
             <PPEHeader ppeCartItemCount={ppeCart.length} />
-            <PPECheckOut onSubmit={this.placePPEOrder} ppeCart={ppeCart} />
-          </Route>
-          <Route path="/ppeorderconfirm">
-            <PPEHeader ppeCartItemCount={ppeCart.length} />
-            <PPEOrderConfirm />
+            {ppeOrderConfirmed ? <PPEOrderConfirm />
+              : <PPECheckOut onSubmit={this.placePPEOrder} ppeCart={ppeCart} />}
           </Route>
           <Route path="/ppeproductlist">
             {!ppeTermsAccepted ? <PPEDemoDisclaimer ppeAcceptTerms={this.ppeAcceptTerms} />
