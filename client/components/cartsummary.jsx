@@ -11,8 +11,8 @@ export default function CartSummary(props) {
       <Link to="/productlist">
         <button className="m-2 btn btn-outline-info">Back to Catalog</button>
       </Link>
-      <div className="bg-dark p-4">
-        <h1 className="text-white">My Cart</h1>
+      <div className="bg-dark text-white p-4">
+        <h1 className="">My Cart</h1>
         {
           emptyCart ? <h1>No items in cart</h1>
             : itemsArr.map(item => {
@@ -23,7 +23,7 @@ export default function CartSummary(props) {
             })
         }
         <div>
-          <h3 className="text-white d-inline">Subtotal: ${(itemsArr.reduce((cur, acc) => cur + acc.price, 0) * 0.01).toFixed(2)}</h3>
+          <h3 className="d-inline">Subtotal: ${(itemsArr.reduce((cur, acc) => cur + acc.price, 0) * 0.01).toFixed(2)}</h3>
           <Link to="/checkout">
             <button className="btn btn-primary float-right" disabled={emptyCart}>Check Out</button>
           </Link>
