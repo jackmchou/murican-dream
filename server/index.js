@@ -215,6 +215,28 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
   }
 });
 
+app.delete('/api/ppecart/:ppeCartItemId', (req, res, next) => {
+  const { ppeCartItemId } = req.params;
+  if (!parseInt(ppeCartItemId, 10)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  else {
+    const sql = `
+    DELETE FROM "ppeCartItems"
+      WHERE "ppeCartItemId" = $1
+      RETURNING *;`;
+    db.query(sql, [ppeCartItemId])
+      .then(result => {
+        const deletedItem = result.rows[0];
+        if (!deletedItem) return res.status(404).json({ error: `No ppeCartItem with ${deletedItem} found` });
+        else return res.json(deletedItem);
+      })
+      .catch(err => {
+        console.error(err.stack);
+        next(err);
+        res.status(500).json({ error: 'An unexpected error occured' });
+      });
+  }
+});
+
 app.post('/api/orders', (req, res, next) => {
   const { name, creditCard, shippingAddress } = req.body;
   const { cartId } = req.session;
@@ -225,6 +247,21 @@ app.post('/api/orders', (req, res, next) => {
   db.query(sql, [cartId, name, creditCard, shippingAddress])
     .then(order => {
       delete req.session.cartId;
+      res.status(201).json(order.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/ppeorders', (req, res, next) => {
+  const { name, creditCard, shippingAddress } = req.body;
+  const { ppeCartId } = req.session;
+  if (!ppeCartId) return res.status(400).json({ error: `ppeCartId not found ${ppeCartId}` });
+  if (!name || !creditCard || !shippingAddress) return res.status(400).json({ error: 'name, creditcard and shippingAddress are required fields' });
+  const sql = `INSERT INTO "ppeOrders" ("ppeCartId", "name", "creditCard", "shippingAddress")
+                VALUES($1, $2, $3, $4) RETURNING *;`;
+  db.query(sql, [ppeCartId, name, creditCard, shippingAddress])
+    .then(order => {
+      delete req.session.ppeCartId;
       res.status(201).json(order.rows[0]);
     })
     .catch(err => next(err));
