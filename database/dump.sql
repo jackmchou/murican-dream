@@ -422,6 +422,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 33	20	4	999
 34	20	5	9900
 35	20	6	830
+201	39	1	999999999
 40	23	2	2595
 41	24	2	2595
 42	25	3	2900
@@ -478,6 +479,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 35	2020-04-17 09:27:02.5725-07
 36	2020-04-18 15:02:12.500266-07
 37	2020-04-24 16:50:24.546282-07
+39	2020-05-02 09:52:05.175395-07
 \.
 
 
@@ -493,6 +495,7 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 5	24	feawfewf	00000000	123 Main St	2020-03-10 17:51:45.02779-07
 6	25	afewf	0000000000000000	12fewafarwr	2020-03-10 17:53:46.130245-07
 7	28	Jane Doe	123124151231231	111 Main St 	2020-04-06 09:35:04.15409-07
+8	39	fwafwef	2312312321321321	gfegfegesgregesrgresgsregesrg	2020-05-02 10:16:29.167613-07
 \.
 
 
@@ -501,6 +504,8 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price) FROM stdin;
+1	1	1	100
+11	2	1	100
 \.
 
 
@@ -509,6 +514,8 @@ COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price) FR
 --
 
 COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
+1	2020-05-02 06:52:40.902399-07
+2	2020-05-02 07:22:33.776256-07
 \.
 
 
@@ -525,7 +532,12 @@ COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "shippin
 --
 
 COPY public."ppeProducts" ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-1	Surgical Mask	100	/images/surgicalmask.png	Designed to prevent infections in patients and treating personnel	Lorem
+1	Surgical Mask	50	/images/surgicalmask.png	Designed to prevent infections in patients and treating personnel	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
+2	N95 Mask	50	/images/N95mask.png	A particulate-filtering facepiece respirator that meets the U.S N95 classification of air filtration	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
+3	Respirator	7500	/images/respirator.png	Designed to protect the wearer from inhaling hazardous atmospheres	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
+4	Gloves	100	/images/gloves.png	Protect hands against cold or heat, damage by friction, abrasion or chemicals, and disease	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
+5	Hazmat Suit	10000	/images/hazmat.png	Whole-body garment worn as protection against hazardous materials	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
+6	Hand Sanitizer	300	/images/handsanitizer.png	Alcohol based liquid gel used to protect against germs and viruses	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
 \.
 
 
@@ -572,35 +584,35 @@ SELECT pg_catalog.setval('public."PPEproducts_productId_seq"', 1, false);
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 200, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 201, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 38, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 39, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 7, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 8, true);
 
 
 --
 -- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 1, false);
+SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 12, true);
 
 
 --
 -- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 1, false);
+SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 2, true);
 
 
 --

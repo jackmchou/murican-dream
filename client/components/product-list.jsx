@@ -23,7 +23,7 @@ class ProductList extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row m-5 p-5">
+        <div className="row mt-5 pt-5">
           {
             this.state.products.map(product => {
               return (<ProductListItem
