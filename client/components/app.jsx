@@ -9,19 +9,19 @@ import ProductDetails from './product-details';
 import CartSummary from './cartsummary';
 import CheckoutForm from './checkout-form';
 import OrderConfirm from './orderconfirm';
-import PPEHeader from './ppeheader';
-import PPEDemoDisclaimer from './ppedemo-disclaimer';
-import PPEProductList from './ppeproduct-list';
-import PPEProductDetails from './ppeproduct-details';
-import PPECartSummary from './ppecartsummary';
-import PPECheckOut from './ppecheckout';
-import PPEOrderConfirm from './ppeorderconfirm';
+import MuricanRoute from './murican-route';
+import PPEHeader from '../componentsppe/ppeheader';
+import PPEDemoDisclaimer from '../componentsppe/ppedemo-disclaimer';
+import PPEProductList from '../componentsppe/ppeproduct-list';
+import PPEProductDetails from '../componentsppe/ppeproduct-details';
+import PPECartSummary from '../componentsppe/ppecartsummary';
+import PPECheckOut from '../componentsppe/ppecheckout';
+import PPEOrderConfirm from '../componentsppe/ppeorderconfirm';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      termsAccepted: false,
       message: null,
       isLoading: true,
       cart: [],
@@ -30,7 +30,6 @@ export default class App extends React.Component {
       ppeCart: [],
       ppeOrderConfirmed: false
     };
-    this.acceptTerms = this.acceptTerms.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -140,16 +139,12 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  acceptTerms() {
-    this.setState({ termsAccepted: !this.state.termsAccepted });
-  }
-
   ppeAcceptTerms() {
     this.setState({ ppeTermsAccepted: !this.state.ppeTermsAccepted });
   }
 
   render() {
-    const { cart, ppeCart, termsAccepted, ppeTermsAccepted, orderConfirmed, ppeOrderConfirmed } = this.state;
+    const { cart, ppeCart, ppeTermsAccepted, orderConfirmed, ppeOrderConfirmed } = this.state;
     return (
       <Router>
         <Switch>
@@ -166,13 +161,13 @@ export default class App extends React.Component {
             {orderConfirmed ? <OrderConfirm />
               : <CheckoutForm onSubmit={this.placeOrder} cart={cart} />}
           </Route>
-          <Route path="/productlist">
-            {!termsAccepted ? <DemoDisclaimer acceptTerms={this.acceptTerms} />
-              : <React.Fragment>
-                <Header cartItemCount={cart.length} />
-                <ProductList />
-              </React.Fragment>}
+          <Route path="/muricanlogin">
+            <DemoDisclaimer />
           </Route>
+          <MuricanRoute path="/productlist">
+            <Header cartItemCount={cart.length} />
+            <ProductList />
+          </MuricanRoute>
           <Route path="/ppeproductdetails/:id">
             <PPEHeader ppeCartItemCount={ppeCart.length} />
             <PPEProductDetails addPPEToCart={this.addPPEToCart} />
