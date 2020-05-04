@@ -1,5 +1,4 @@
 import React from 'react';
-import AuthButton from './authbutton';
 import { Link } from 'react-router-dom';
 
 export default function VersionModal(props) {
@@ -15,14 +14,13 @@ export default function VersionModal(props) {
             Welcome to my e-commerce site demo, please choose a storefront.
             PPE Agora is open to the public.
             Murican Dream is invite only and requires a passphrase from the host.
-            <AuthButton />
           </div>
           <div className="modal-footer bg-dark justify-content-center">
             <Link to="/ppeproductlist">
               <button type="button" className="btn btn-primary mr-3"
                 data-dismiss="modal">PPE Agora</button>
             </Link>
-            <Link to="/muricanlogin">
+            <Link to="/productlist">
               <button type="button" className="btn btn-danger ml-3"
                 data-dismiss="modal" aria-label="Close">Murican Dream</button>
             </Link>

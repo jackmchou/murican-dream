@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PPECartSummaryItem from './ppecartsummaryitem';
+import PPECartSummaryItem from '../componentsppe/ppecartsummaryitem';
 
 export default function PPECartSummary(props) {
   const itemsArr = props.ppeCart;

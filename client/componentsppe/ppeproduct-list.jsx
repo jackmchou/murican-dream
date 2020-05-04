@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import PPEProductListItem from './ppeproductlist-item';
+import PPEProductListItem from '../componentsppe/ppeproductlist-item';
 
 class PPEProductList extends React.Component {
   constructor(props) {

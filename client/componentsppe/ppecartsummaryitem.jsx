@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PPEConfirmDelete from './ppeconfirm-delete';
+import PPEConfirmDelete from '../componentsppe/ppeconfirm-delete';
 
 export default class PPECartSummaryItem extends Component {
   constructor(props) {

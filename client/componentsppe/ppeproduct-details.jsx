@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import PPECartNaviModal from './ppecart-navi-modal';
+import PPECartNaviModal from '../componentsppe/ppecart-navi-modal';
 
 class PPEProductDetails extends React.Component {
   constructor(props) {
