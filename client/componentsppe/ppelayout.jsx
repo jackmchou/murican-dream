@@ -1,12 +1,13 @@
 import React from 'react';
-// import PPEHeader from '../componentsppe/ppeheader';
+import PPEHeader from '../componentsppe/ppeheader';
+import PPEFooter from '../componentsppe/ppefooter';
 
 export default function PPELayOut(props) {
   return (
-    <div>
-      {/* <PPEHeader ppeCartItemCount={ppeCart.length} /> */}
+    <div className="ppe-bg">
+      <PPEHeader ppeCartItemCount={props.ppeCartItemCount} />
       {props.children}
-      {/* <PPEFooter /> */}
+      <PPEFooter />
     </div>
   );
 }
