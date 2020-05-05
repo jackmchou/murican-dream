@@ -10,13 +10,13 @@ import CartSummary from './cartsummary';
 import CheckoutForm from './checkout-form';
 import OrderConfirm from './orderconfirm';
 import MuricanRoute from './murican-route';
-import PPEHeader from '../componentsppe/ppeheader';
 import PPEDemoDisclaimer from '../componentsppe/ppedemo-disclaimer';
 import PPEProductList from '../componentsppe/ppeproduct-list';
 import PPEProductDetails from '../componentsppe/ppeproduct-details';
 import PPECartSummary from '../componentsppe/ppecartsummary';
 import PPECheckOut from '../componentsppe/ppecheckout';
 import PPEOrderConfirm from '../componentsppe/ppeorderconfirm';
+import PPELayOut from '../componentsppe/ppelayout';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -169,24 +169,26 @@ export default class App extends React.Component {
             <ProductList />
           </MuricanRoute>
           <Route path="/ppeproductdetails/:id">
-            <PPEHeader ppeCartItemCount={ppeCart.length} />
-            <PPEProductDetails addPPEToCart={this.addPPEToCart} />
+            <PPELayOut ppeCartItemCount={ppeCart.length}>
+              <PPEProductDetails addPPEToCart={this.addPPEToCart} />
+            </PPELayOut>
           </Route>
           <Route path="/ppecartsummary">
-            <PPEHeader ppeCartItemCount={ppeCart.length} />
-            <PPECartSummary ppeCart={ppeCart} deletePPECartItem={this.deletePPECartItem} />
+            <PPELayOut ppeCartItemCount={ppeCart.length}>
+              <PPECartSummary ppeCart={ppeCart} deletePPECartItem={this.deletePPECartItem} />
+            </PPELayOut>
           </Route>
           <Route path="/ppecheckout">
-            <PPEHeader ppeCartItemCount={ppeCart.length} />
-            {ppeOrderConfirmed ? <PPEOrderConfirm />
-              : <PPECheckOut onSubmit={this.placePPEOrder} ppeCart={ppeCart} />}
+            <PPELayOut ppeCartItemCount={ppeCart.length}>
+              {ppeOrderConfirmed ? <PPEOrderConfirm />
+                : <PPECheckOut onSubmit={this.placePPEOrder} ppeCart={ppeCart} />}
+            </PPELayOut>
           </Route>
           <Route path="/ppeproductlist">
             {!ppeTermsAccepted ? <PPEDemoDisclaimer ppeAcceptTerms={this.ppeAcceptTerms} />
-              : <React.Fragment>
-                <PPEHeader ppeCartItemCount={ppeCart.length} />
+              : <PPELayOut ppeCartItemCount={ppeCart.length}>
                 <PPEProductList addPPEToCart={this.addPPEToCart} />
-              </React.Fragment>}
+              </PPELayOut>}
           </Route>
           <Route path="/">
             <VersionModal />
