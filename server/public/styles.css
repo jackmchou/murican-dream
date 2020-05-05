@@ -1,5 +1,5 @@
 body {
-  background: #1e1e1e url(./images/bg.png);
+  /* background: #1e1e1e url(./images/bg.png); */
   background-repeat: no-repeat;
   background-position: 50% 0%;
   font-family: 'Public Sans', sans-serif;
@@ -8,6 +8,13 @@ body {
 img {
   object-fit: contain;
   max-height: 350px;
+}
+
+.ppe-bg {
+  background: #1e1e1e url(./images/bg.png);
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  height: 100vh;
 }
 
 .text-vertical {
