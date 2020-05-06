@@ -19,7 +19,7 @@ export default function MuricanLogin(props) {
       <form>
         <div className="form-group">
           <label htmlFor="passphrase">Passphrase</label>
-          <input onBlur={event => setPass(event.target.value)} className="form-control" type="text" name="passphrase" />
+          <input onChange={event => setPass(event.target.value)} className="form-control" type="text" name="passphrase" />
         </div>
         <p>You must enter the passphrase to view Murican Dream</p>
         <button className="btn btn-primary mr-2" onClick={login}>Log in</button>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function VersionModal(props) {
   return (
-    <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
+    <div className="modal bg-light d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content text-white">
