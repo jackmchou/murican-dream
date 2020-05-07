@@ -24,8 +24,12 @@ class PPEProductList extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
-          <div>Title</div>
-          <button className="btn btn-warning">Explore</button>
+          <div className="display-3">Website Presentation</div>
+          <div className="h1 mb-5">Subtitles and text descriptions</div>
+          <button className="mt-5 px-5 py-3 btn btn-warning" onClick={() => scroll({ top: 900, left: 0, behavior: 'smooth' })}>Explore</button>
+        </div>
+        <div className="row">
+          <a href="#about">About</a>
         </div>
         <div className="row mt-5">
           {
