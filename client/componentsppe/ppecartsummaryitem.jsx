@@ -15,7 +15,7 @@ export default class PPECartSummaryItem extends Component {
   render() {
     const cartItem = this.props.item;
     return (
-      <div className="card text-dark m-3">
+      <div className="card bg-light text-dark m-3">
         <div className="row no-gutters">
           <div className="col-md-4">
             <img src={cartItem.image} className="card-img" alt={cartItem.name} />

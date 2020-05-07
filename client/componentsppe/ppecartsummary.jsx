@@ -8,10 +8,10 @@ export default function PPECartSummary(props) {
   const emptyCart = itemsArr.length === 0;
   return (
     <div className="p-5 mt-5">
-      <Link to="/ppeproductlist">
-        <button className="m-2 btn btn-outline-info">Back to Catalog</button>
-      </Link>
       <div className="bg-dark text-white p-4">
+        <Link to="/ppeproductlist">
+          <button className="m-2 btn btn-outline-info">Back to Catalog</button>
+        </Link>
         <h1>My Cart</h1>
         {
           emptyCart ? <h1>No items in cart</h1>
