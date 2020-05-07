@@ -23,7 +23,11 @@ class PPEProductList extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row mt-5 pt-5">
+        <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
+          <div>Title</div>
+          <button className="btn btn-warning">Explore</button>
+        </div>
+        <div className="row mt-5">
           {
             this.state.products.map(product => {
               return (<PPEProductListItem
