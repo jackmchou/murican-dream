@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import AuthButton from './authbutton';
 
 export default function Header(props) {
   return (
@@ -15,6 +16,7 @@ export default function Header(props) {
           <i className="fas fa-shopping-cart interactable-element" />
         </span>
       </NavLink>
+      <AuthButton />
     </div>
   );
 }

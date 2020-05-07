@@ -99,6 +99,12 @@ app.get('/api/ppecart', (req, res, next) => {
   }
 });
 
+app.post('/api/auth', (req, res) => {
+  const { passphrase } = req.body;
+  if (!passphrase || passphrase !== process.env.MDPASSPHRASE) return res.status(403).json({ error: 'Unauthorized' });
+  else res.status(200).json({ success: 'Welcome, guest!' });
+});
+
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   if (!parseInt(productId, 10)) {
