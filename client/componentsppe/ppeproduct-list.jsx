@@ -24,12 +24,22 @@ class PPEProductList extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
-          <div className="display-3">Website Presentation</div>
+          <div className="display-3">Website Demo</div>
           <div className="h1 mb-5">Subtitles and text descriptions</div>
-          <button className="mt-5 px-5 py-3 btn btn-warning" onClick={() => scroll({ top: 900, left: 0, behavior: 'smooth' })}>Explore</button>
+          <button className="mt-5 px-5 py-3 btn btn-warning"
+            onClick={() => scroll({ top: 800, left: 0, behavior: 'smooth' })}>Explore</button>
         </div>
-        <div className="row">
-          <a href="#about">About</a>
+        <div className="row ppe-about pt-5 text-center">
+          <div className="col-md-4 col-sm-12"><i className="fas fa-pump-medical fa-10x"></i>
+            <p>Feature Text</p>
+          </div>
+          <div className="col-md-4 col-sm-12"><i className="fas fa-virus-slash fa-10x"></i>
+            <p>Feature Text</p>
+
+          </div>
+          <div className="col-md-4 col-sm-12"><i className="fas fa-shield-virus fa-10x"></i>
+            <p>Feature Text</p>
+          </div>
         </div>
         <div className="row mt-5">
           {
