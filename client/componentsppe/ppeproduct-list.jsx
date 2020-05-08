@@ -55,29 +55,34 @@ class PPEProductList extends React.Component {
                   <h1>Our Story</h1>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique expedita doloribus
                     voluptatum architecto, dignissimos dolorem sint cumque atque nostrum quaerat sunt porro
-                    quae quis est, reprehenderit mollitia eaque minus veritatis!</p>
+                    quae quis est, reprehenderit mollitia eaque minus veritatis! Lorem ipsum dolor, sit amet
+                    consectetur adipisicing elit. Facere iure, ipsa corrupti maiores reiciendis numquam hic
+                    similique, quidem recusandae cumque blanditiis magnam aperiam neque! Molestiae et provident
+                    pariatur tenetur eum.</p>
                 </div>
+                <div className="col-lg-4 col-3 d-none d-sm-flex"></div>
               </div>
             </div>
+            <div className="col-1 bg-lightblue"></div>
           </div>
           <div className="row ppe-about pt-5 mb-5 text-center">
             <div className="col-md-4 col-sm-12"><i className="fas fa-pump-medical fa-10x pb-3"></i>
-              <p>Feature Text</p>
-              <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusamus fugit consequatur
+              <h5>Feature Text</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusamus fugit consequatur
                 eius alias veniam, ut temporibus explicabo nesciunt necessitatibus sunt quisquam! Obcaecati ex sequi
-                quidem, perferendis unde consequuntur voluptatem!</small>
+                quidem, perferendis unde consequuntur voluptatem!</p>
             </div>
             <div className="col-md-4 col-sm-12"><i className="fas fa-virus-slash fa-10x pb-3"></i>
-              <p>Feature Text</p>
-              <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde hic cupiditate aut recusandae
+              <h5>Feature Text</h5>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde hic cupiditate aut recusandae
                 laborum id quae saepe vitae illo soluta. Amet perferendis sunt eos impedit dolores illo praesentium
-                tempore reprehenderit.</small>
+                tempore reprehenderit.</p>
             </div>
             <div className="col-md-4 col-sm-12"><i className="fas fa-shield-virus fa-10x pb-3"></i>
-              <p>Feature Text</p>
-              <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt obcaecati laborum repellat alias.
+              <h5>Feature Text</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt obcaecati laborum repellat alias.
                 Ipsa, obcaecati. Ut molestias adipisci vero natus, quibusdam nihil consequatur, obcaecati ipsa repellendus
-                non earum? Molestiae, veritatis.</small>
+                non earum? Molestiae, veritatis.</p>
             </div>
           </div>
         </section>
