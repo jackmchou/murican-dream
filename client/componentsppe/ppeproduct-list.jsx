@@ -22,28 +22,15 @@ class PPEProductList extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
+      <section className="container-fluid">
+        <div className="row mb-5 d-flex flex-column align-items-center justify-content-center ppemain-img">
           <div className="display-3">Website Demo</div>
           <div className="h1 mb-5">Subtitles and text descriptions</div>
           <button className="mt-5 px-5 py-3 btn btn-warning"
             onClick={() => scroll({ top: 1000, left: 0, behavior: 'smooth' })}>Explore</button>
         </div>
-        <div className="container">
-          <div className="row ppe-about pt-5 mb-5 text-center">
-            <div className="col-md-4 col-sm-12"><i className="fas fa-pump-medical fa-10x"></i>
-              <p>Feature Text</p>
-            </div>
-            <div className="col-md-4 col-sm-12"><i className="fas fa-virus-slash fa-10x"></i>
-              <p>Feature Text</p>
-
-            </div>
-            <div className="col-md-4 col-sm-12"><i className="fas fa-shield-virus fa-10x"></i>
-              <p>Feature Text</p>
-            </div>
-          </div>
-        </div>
-        <div className="container-lg">
+        <section className="container-lg">
+          <h1 className="text-center mb-5">Our Products</h1>
           <div className="row">
             {
               this.state.products.map(product => {
@@ -55,8 +42,24 @@ class PPEProductList extends React.Component {
               })
             }
           </div>
-        </div>
-      </div>
+        </section>
+        <section className="container">
+          <div className="row ppe-about pt-5 mb-5 text-center">
+            <div className="col-md-4 col-sm-12"><i className="fas fa-pump-medical fa-10x pb-3"></i>
+              <p>Feature Text</p>
+              <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusamus fugit consequatur eius alias veniam, ut temporibus explicabo nesciunt necessitatibus sunt quisquam! Obcaecati ex sequi quidem, perferendis unde consequuntur voluptatem!</small>
+            </div>
+            <div className="col-md-4 col-sm-12"><i className="fas fa-virus-slash fa-10x pb-3"></i>
+              <p>Feature Text</p>
+              <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde hic cupiditate aut recusandae laborum id quae saepe vitae illo soluta. Amet perferendis sunt eos impedit dolores illo praesentium tempore reprehenderit.</small>
+            </div>
+            <div className="col-md-4 col-sm-12"><i className="fas fa-shield-virus fa-10x pb-3"></i>
+              <p>Feature Text</p>
+              <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt obcaecati laborum repellat alias. Ipsa, obcaecati. Ut molestias adipisci vero natus, quibusdam nihil consequatur, obcaecati ipsa repellendus non earum? Molestiae, veritatis.</small>
+            </div>
+          </div>
+        </section>
+      </section>
     );
   }
 }
