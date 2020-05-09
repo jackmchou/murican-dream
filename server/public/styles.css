@@ -38,15 +38,9 @@ img {
   line-height: 2rem;
 }
 
-/* .ppe-about {
-  background: #FFFFFF;
-} */
-
 .footer {
   position: relative;
   width: 100%;
-  height: 10vh;
-  line-height: 60px;
 }
 
 .text-vertical {
