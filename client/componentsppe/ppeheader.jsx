@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function PPEHeader(props) {
   return (
-    <div className="container-fluid p-3 px-4 text-white">
+    <div className="container-fluid bg-primary pt-3 px-4 text-white">
       <div className="row">
         <div className="col-md-7 col-sm-12">
           <i className="fas fa-head-side-mask fa-2x text-dark interactable-text mr-2"></i>
@@ -15,12 +15,11 @@ export default function PPEHeader(props) {
           <NavLink to="/ppeabout">
             <span className="text-dark pr-2 interactable-text">About</span>
           </NavLink>
-          <NavLink to="/ppeproducts">
+          <NavLink to="/ppeproductlist">
             <span className="text-dark pr-2 interactable-text">Products</span>
           </NavLink>
-          <NavLink to="/ppecontact">
-            <span className="text-dark pr-2 interactable-text">Contact</span>
-          </NavLink>
+          <span className="text-dark pr-2 interactable-text"
+            onClick={() => scroll({ top: 3000, left: 0, behavior: 'smooth' })}>Contact</span>
           <NavLink to="/ppecartsummary">
             <span className="text-dark h5 float-right interactable-text">
               {props.ppeCartItemCount > 1

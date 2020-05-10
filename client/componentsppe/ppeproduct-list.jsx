@@ -8,10 +8,20 @@ class PPEProductList extends React.Component {
     this.state = {
       products: []
     };
+    this.productSection = React.createRef();
   }
 
   componentDidMount() {
     this.getProducts();
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.products !== prevState.product) {
+      this.productSection.current.scrollIntoView({
+        behavior: 'smooth',
+        nearest: 'block'
+      });
+    }
   }
 
   getProducts() {
@@ -22,27 +32,38 @@ class PPEProductList extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
-          <div className="display-3">Website Presentation</div>
-          <div className="h1 mb-5">Subtitles and text descriptions</div>
-          <button className="mt-5 px-5 py-3 btn btn-warning" onClick={() => scroll({ top: 900, left: 0, behavior: 'smooth' })}>Explore</button>
-        </div>
-        <div className="row">
-          <a href="#about">About</a>
-        </div>
-        <div className="row mt-5">
-          {
-            this.state.products.map(product => {
-              return (<PPEProductListItem
-                key={product.productId}
-                products={product}
-                setParams={this.props.setParams}
-              />);
-            })
-          }
-        </div>
-      </div>
+      <React.Fragment>
+        <section className="container-fluid">
+          <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
+            <div className="display-3">Website Demo</div>
+            <div className="h1 mb-5">Subtitles and text descriptions</div>
+            <button className="mt-5 px-5 py-3 btn btn-warning font-weight-bold btn-lg"
+              onClick={() => this.productSection.current.scrollIntoView({ behavior: 'smooth', nearest: 'block' })}
+            >Explore</button>
+          </div>
+        </section>
+        <section className="container-fluid bg-lightblue" ref={this.productSection}>
+          <h1 className="text-center pt-4 mb-4">Our Products</h1>
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-lg-8 col-md-12">
+              <div className="row">
+                {
+                  this.state.products.map(product => {
+                    return (<PPEProductListItem
+                      key={product.productId}
+                      products={product}
+                      setParams={this.props.setParams}
+                    />);
+                  })
+                }
+              </div>
+
+            </div>
+            <div className="col-2"></div>
+          </div>
+        </section>
+      </React.Fragment>
     );
   }
 }
