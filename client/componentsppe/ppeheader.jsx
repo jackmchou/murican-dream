@@ -15,11 +15,11 @@ export default function PPEHeader(props) {
           <NavLink to="/ppeabout">
             <span className="text-dark pr-2 interactable-text">About</span>
           </NavLink>
-          <span className="text-dark pr-2 interactable-text"
-            onClick={() => scroll({ top: 1000, left: 0, behavior: 'smooth' })}>Products</span>
-          <NavLink to="/ppecontact">
-            <span className="text-dark pr-2 interactable-text">Contact</span>
+          <NavLink to="/ppeproductlist">
+            <span className="text-dark pr-2 interactable-text">Products</span>
           </NavLink>
+          <span className="text-dark pr-2 interactable-text"
+            onClick={() => scroll({ top: 3000, left: 0, behavior: 'smooth' })}>Contact</span>
           <NavLink to="/ppecartsummary">
             <span className="text-dark h5 float-right interactable-text">
               {props.ppeCartItemCount > 1
