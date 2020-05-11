@@ -34,7 +34,7 @@ class PPEProductDetails extends React.Component {
   render() {
     const { ppeProduct } = this.state;
     return (
-      <div className="row no-gutters mt-5 p-5">
+      <div className="row no-gutters p-5 bg-lightblue">
         {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card text-white bg-dark p-3">
