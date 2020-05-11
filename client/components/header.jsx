@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthButton from './authbutton';
+import Title from './title';
 
 export default function Header(props) {
   return (
     <div className="container-fluid p-3 px-5 bg-secondary text-white fixed-top">
+      <Title pageTitle="Murican Dream"/>
       <NavLink to="/productlist">
         <span className="text-dark h4 interactable-element">Murican Dream</span>
       </NavLink>
