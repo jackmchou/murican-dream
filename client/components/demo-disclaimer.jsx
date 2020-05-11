@@ -1,10 +1,12 @@
 import React from 'react';
 import MuricanLogin from './murican-login';
+import Title from './title';
 
 export default function DemoDisclaimer(props) {
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
+      <Title />
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content text-white">
           <div className="modal-header bg-primary d-inline">
