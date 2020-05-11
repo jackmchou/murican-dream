@@ -17,10 +17,7 @@ class PPEProductList extends React.Component {
 
   componentDidUpdate(prevState) {
     if (this.state.products !== prevState.product) {
-      this.productSection.current.scrollIntoView({
-        behavior: 'smooth',
-        nearest: 'block'
-      });
+      this.productSection.current.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -38,12 +35,12 @@ class PPEProductList extends React.Component {
             <div className="display-3">Website Demo</div>
             <div className="h1 mb-5">Subtitles and text descriptions</div>
             <button className="mt-5 px-5 py-3 btn btn-warning font-weight-bold btn-lg"
-              onClick={() => this.productSection.current.scrollIntoView({ behavior: 'smooth', nearest: 'block' })}
+              onClick={() => this.productSection.current.scrollIntoView({ behavior: 'smooth' })}
             >Explore</button>
           </div>
         </section>
-        <section className="container-fluid bg-lightblue" ref={this.productSection}>
-          <h1 className="text-center pt-4 mb-4">Our Products</h1>
+        <section className="container-fluid bg-lightblue">
+          <h1 className="text-center pt-4 mb-4" ref={this.productSection}>Our Products</h1>
           <div className="row">
             <div className="col-2"></div>
             <div className="col-lg-8 col-md-12">
