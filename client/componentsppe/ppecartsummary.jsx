@@ -7,7 +7,7 @@ export default function PPECartSummary(props) {
   const itemsArr = props.ppeCart;
   const emptyCart = itemsArr.length === 0;
   return (
-    <div className="p-5 bg-lightblue">
+    <div className="p-5 bg-lightblue min-100vh">
       <div className="bg-dark text-white p-4">
         <Link to="/ppeproductlist">
           <button className="m-2 btn btn-outline-info">Back to Catalog</button>
