@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function PPEHeader(props) {
   return (
-    <div className="container-fluid bg-primary pt-3 px-4 text-white">
+    <header className="container-fluid bg-primary pt-3 px-4 text-white">
       <div className="row">
         <div className="col-md-7 col-sm-12 text-center text-md-left">
           <NavLink to="/ppeabout">
@@ -30,6 +30,6 @@ export default function PPEHeader(props) {
           </NavLink>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

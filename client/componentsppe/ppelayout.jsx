@@ -5,11 +5,11 @@ import Title from '../components/title';
 
 export default function PPELayOut(props) {
   return (
-    <div className="ppe-bg overflow-auto">
+    <main className="ppe-bg overflow-auto">
       <Title pageTitle="PPE Agora"/>
       <PPEHeader ppeCartItemCount={props.ppeCartItemCount} />
       {props.children}
       <PPEFooter />
-    </div>
+    </main>
   );
 }

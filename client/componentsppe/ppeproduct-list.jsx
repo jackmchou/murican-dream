@@ -50,12 +50,10 @@ class PPEProductList extends React.Component {
                     return (<PPEProductListItem
                       key={product.productId}
                       products={product}
-                      setParams={this.props.setParams}
                     />);
                   })
                 }
               </div>
-
             </div>
             <div className="col-2"></div>
           </div>

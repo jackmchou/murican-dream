@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PPEFooter(props) {
   return (
-    <div className="container-fluid footer bg-lightblue">
+    <footer className="container-fluid footer bg-lightblue">
       <div className="row py-5">
         <div className="col-7 pl-5 py-5 bg-primary">
           <h4>Contact US</h4>
@@ -30,6 +30,6 @@ export default function PPEFooter(props) {
             onClick={() => scroll({ top: 0, left: 0, behavior: 'smooth' })}>BACK TO TOP ^</button>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

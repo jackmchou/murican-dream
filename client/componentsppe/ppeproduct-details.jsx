@@ -34,7 +34,7 @@ class PPEProductDetails extends React.Component {
   render() {
     const { ppeProduct } = this.state;
     return (
-      <div className="row no-gutters p-5 bg-lightblue">
+      <section className="row no-gutters p-5 bg-lightblue">
         {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card text-white bg-dark p-3">
@@ -56,7 +56,7 @@ class PPEProductDetails extends React.Component {
             </div>
         }
         <PPECartNaviModal showModal={this.showModal} show={this.state.show} />
-      </div>
+      </section>
     );
   }
 }
