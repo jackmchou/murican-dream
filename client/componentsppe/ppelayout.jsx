@@ -9,7 +9,7 @@ export default function PPELayOut(props) {
       <Title pageTitle="PPE Agora"/>
       <PPEHeader ppeCartItemCount={props.ppeCartItemCount} />
       {props.children}
-      <PPEFooter />
+      <PPEFooter ppeAcceptTerms={props.ppeAcceptTerms}/>
     </main>
   );
 }
