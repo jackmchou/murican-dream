@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function PPEFooter(props) {
   return (
-    <div className="container-fluid footer bg-lightblue">
+    <footer className="container-fluid footer bg-lightblue">
       <div className="row py-5">
         <div className="col-7 pl-5 py-5 bg-primary">
           <h4>Contact US</h4>
@@ -28,8 +29,12 @@ export default function PPEFooter(props) {
         <div className="col-12 d-flex justify-content-center">
           <button className="btn btn-light btn-lg font-weight-bold"
             onClick={() => scroll({ top: 0, left: 0, behavior: 'smooth' })}>BACK TO TOP ^</button>
+          <Link to="/">
+            <button onClick={() => props.ppeAcceptTerms()}
+              className="btn btn-danger btn-lg font-weight-bold ml-3">Exit Demo</button>
+          </Link>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

@@ -17,6 +17,7 @@ import PPECartSummary from '../componentsppe/ppecartsummary';
 import PPECheckOut from '../componentsppe/ppecheckout';
 import PPEOrderConfirm from '../componentsppe/ppeorderconfirm';
 import PPELayOut from '../componentsppe/ppelayout';
+import PPEAbout from '../componentsppe/ppeabout';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -186,9 +187,15 @@ export default class App extends React.Component {
           </Route>
           <Route path="/ppeproductlist">
             {!ppeTermsAccepted ? <PPEDemoDisclaimer ppeAcceptTerms={this.ppeAcceptTerms} />
-              : <PPELayOut ppeCartItemCount={ppeCart.length}>
+              : <PPELayOut ppeCartItemCount={ppeCart.length}
+                ppeAcceptTerms={this.ppeAcceptTerms}>
                 <PPEProductList addPPEToCart={this.addPPEToCart} />
               </PPELayOut>}
+          </Route>
+          <Route path="/ppeabout">
+            <PPELayOut ppeCartItemCount={ppeCart.length}>
+              <PPEAbout />
+            </PPELayOut>
           </Route>
           <Route path="/">
             <VersionModal />

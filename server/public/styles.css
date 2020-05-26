@@ -1,7 +1,5 @@
 body {
   height: 100vh;
-  /* background: #1e1e1e; */
-  /* url(./images/bg.png); */
   background-repeat: no-repeat;
   background-position: 50% 0%;
   font-family: 'Public Sans', sans-serif;
@@ -31,6 +29,10 @@ img {
 
 .h-100-px {
   height: 100px;
+}
+
+.min-100vh {
+  min-height: 100vh;
 }
 
 .story-text {

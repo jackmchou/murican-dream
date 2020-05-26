@@ -99,7 +99,7 @@ export default class PPECheckOut extends React.Component {
     const { name, creditCard, shippingAddress } = this.state;
     const emptyFields = !(name && creditCard && shippingAddress);
     return (
-      <form className="p-5 mt-5" onSubmit={this.handleSubmit}>
+      <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="bg-dark p-3 text-white">
           <h1>My Cart</h1>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price, 0) * 0.01).toFixed(2)}</p>
