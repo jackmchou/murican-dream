@@ -15,12 +15,6 @@ class PPEProductList extends React.Component {
     this.getProducts();
   }
 
-  componentDidUpdate(prevState) {
-    if (this.state.products !== prevState.product) {
-      this.productSection.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
   getProducts() {
     fetch('/api/ppeproducts')
       .then(res => res.json())
@@ -45,14 +39,11 @@ class PPEProductList extends React.Component {
             <div className="col-2"></div>
             <div className="col-lg-8 col-md-12">
               <div className="row">
-                {
-                  this.state.products.map(product => {
-                    return (<PPEProductListItem
-                      key={product.productId}
-                      products={product}
-                    />);
-                  })
-                }
+                {this.state.products.map(product => {
+                  return (<PPEProductListItem
+                    key={product.productId}
+                    products={product} />);
+                })}
               </div>
             </div>
             <div className="col-2"></div>
