@@ -220,7 +220,8 @@ CREATE TABLE public."ppeCartItems" (
     "ppeCartItemId" integer NOT NULL,
     "ppeCartId" integer NOT NULL,
     "productId" integer NOT NULL,
-    price integer NOT NULL
+    price integer NOT NULL,
+    quantity integer NOT NULL
 );
 
 
@@ -423,12 +424,15 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 34	20	5	9900
 35	20	6	830
 201	39	1	999999999
+203	40	2	0
+204	41	5	500
 40	23	2	2595
 41	24	2	2595
 42	25	3	2900
 43	26	2	2595
 44	27	3	2900
 45	27	5	9900
+205	42	2	0
 47	28	2	2595
 49	28	3	2900
 71	34	2	39900
@@ -480,6 +484,10 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 36	2020-04-18 15:02:12.500266-07
 37	2020-04-24 16:50:24.546282-07
 39	2020-05-02 09:52:05.175395-07
+40	2020-05-03 06:55:27.845959-07
+41	2020-05-03 07:44:06.358065-07
+42	2020-05-03 07:45:46.912908-07
+43	2020-05-05 16:23:50.68821-07
 \.
 
 
@@ -496,6 +504,9 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 6	25	afewf	0000000000000000	12fewafarwr	2020-03-10 17:53:46.130245-07
 7	28	Jane Doe	123124151231231	111 Main St 	2020-04-06 09:35:04.15409-07
 8	39	fwafwef	2312312321321321	gfegfegesgregesrgresgsregesrg	2020-05-02 10:16:29.167613-07
+9	40	fewafwaefweffewaef	3243242343242342	frewagrgwaegwagweagwegwegweg	2020-05-03 07:43:29.098917-07
+10	41	efwaefweafwfeewaf	2423424234234242	agfesargresgesrgregesrgsregerrgse	2020-05-03 07:44:43.487558-07
+11	42	fewfweafewfweaf	2134324234323423	rgesrgsregregresgrsegregreg	2020-05-03 07:45:57.298248-07
 \.
 
 
@@ -503,9 +514,7 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 -- Data for Name: ppeCartItems; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price) FROM stdin;
-1	1	1	100
-11	2	1	100
+COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price, quantity) FROM stdin;
 \.
 
 
@@ -516,6 +525,19 @@ COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price) FR
 COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 1	2020-05-02 06:52:40.902399-07
 2	2020-05-02 07:22:33.776256-07
+3	2020-05-03 06:30:40.361616-07
+4	2020-05-03 07:27:41.05456-07
+5	2020-05-03 07:34:05.712695-07
+6	2020-05-03 07:40:03.584452-07
+7	2020-05-04 16:50:11.357947-07
+8	2020-05-06 09:34:46.218972-07
+9	2020-05-09 10:27:46.669468-07
+10	2020-05-10 08:49:00.94396-07
+11	2020-05-11 08:53:11.886592-07
+12	2020-05-11 16:23:12.120281-07
+13	2020-05-13 11:47:33.119024-07
+14	2020-05-24 09:28:25.073527-07
+15	2020-05-26 08:54:39.908178-07
 \.
 
 
@@ -524,6 +546,11 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 --
 
 COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
+1	2	fewfefaefewfwafe	4243324234324324	ewafweafwefewfewfewfaewfewf	2020-05-02 18:46:08.476578-07
+2	3	gesrgregesgreg	3421413244324213	fsafgweafewfwefewfewaf	2020-05-03 07:20:58.072416-07
+3	4	wafewfwafewaf	3432423432432432	wefewfwefwefwafwafawef	2020-05-03 07:28:04.578235-07
+4	5	fewafewafew	3214342433241421	afeaewrfefaefeffafagregersgregreg	2020-05-03 07:39:38.628249-07
+5	6	ewfaewfwfewf	4234324343243242	ergresgegegesgergergesgesgersg	2020-05-03 07:40:15.854377-07
 \.
 
 
@@ -584,42 +611,42 @@ SELECT pg_catalog.setval('public."PPEproducts_productId_seq"', 1, false);
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 201, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 206, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 39, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 43, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 8, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 11, true);
 
 
 --
 -- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 12, true);
+SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 64, true);
 
 
 --
 -- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 2, true);
+SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 15, true);
 
 
 --
 -- Name: ppeOrders_ppeOrderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 5, true);
 
 
 --
