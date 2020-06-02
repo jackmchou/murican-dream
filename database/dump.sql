@@ -16,6 +16,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE ONLY public."ppeCartItems" DROP CONSTRAINT uniqconst_productid;
 ALTER TABLE ONLY public.products DROP CONSTRAINT products_pkey;
 ALTER TABLE ONLY public."ppeOrders" DROP CONSTRAINT "ppeOrders_pkey";
 ALTER TABLE ONLY public."ppeCarts" DROP CONSTRAINT "ppeCarts_pkey";
@@ -505,6 +506,8 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 13	2020-05-13 11:47:33.119024-07
 14	2020-05-24 09:28:25.073527-07
 15	2020-05-26 08:54:39.908178-07
+16	2020-06-02 12:10:36.442097-07
+17	2020-06-02 12:11:45.695732-07
 \.
 
 
@@ -606,7 +609,7 @@ SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 64, true);
 -- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 15, true);
+SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 17, true);
 
 
 --
@@ -685,6 +688,14 @@ ALTER TABLE ONLY public."ppeOrders"
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY ("productId");
+
+
+--
+-- Name: ppeCartItems uniqconst_productid; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ppeCartItems"
+    ADD CONSTRAINT uniqconst_productid UNIQUE ("ppeCartId", "productId");
 
 
 --
