@@ -86,6 +86,7 @@ app.get('/api/ppecart', (req, res, next) => {
     const sql = `
     select "c"."ppeCartItemId",
        "c"."price",
+       "c"."quantity",
        "p"."productId",
        "p"."image",
        "p"."name",
@@ -176,16 +177,19 @@ app.post('/api/ppecart', (req, res, next) => {
       .then(ppeCartIdPriceObj => {
         req.session.ppeCartId = ppeCartIdPriceObj.ppeCartId;
         const sql = `
-        INSERT INTO "ppeCartItems" ("ppeCartId", "productId", "price")
-          VALUES ($1, $2, $3)
+        INSERT INTO "ppeCartItems" ("ppeCartId", "productId", "price", "quantity")
+          VALUES ($1, $2, $3, $4)
+          ON CONFLICT ON CONSTRAINT uniqconst_productId
+          DO UPDATE SET "quantity" = LEAST("ppeCartItems"."quantity" + 1, 99)
           RETURNING "ppeCartItemId"`;
-        const params = [ppeCartIdPriceObj.ppeCartId, productId, ppeCartIdPriceObj.price];
+        const params = [ppeCartIdPriceObj.ppeCartId, productId, ppeCartIdPriceObj.price, 1];
         return db.query(sql, params).then(ppeCartItemId => ppeCartItemId.rows[0].ppeCartItemId);
       })
       .then(ppeCartItemId => {
         const sql = `
         SELECT "c"."ppeCartItemId",
             "c"."price",
+            "c"."quantity",
             "p"."productId",
             "p"."image",
             "p"."name",
