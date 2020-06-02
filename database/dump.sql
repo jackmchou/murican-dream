@@ -124,7 +124,8 @@ CREATE TABLE public."cartItems" (
     "cartItemId" integer NOT NULL,
     "cartId" integer NOT NULL,
     "productId" integer NOT NULL,
-    price integer NOT NULL
+    price integer NOT NULL,
+    quantity integer NOT NULL
 );
 
 
@@ -403,41 +404,7 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 -- Data for Name: cartItems; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
-14	15	2	2595
-15	15	3	2900
-16	15	3	2900
-17	15	3	2900
-18	15	3	2900
-19	15	5	9900
-20	16	3	2900
-21	17	3	2900
-22	17	3	2900
-23	18	3	2900
-24	18	2	2595
-27	19	2	2595
-28	19	4	999
-29	19	3	2900
-30	19	4	999
-31	19	6	830
-33	20	4	999
-34	20	5	9900
-35	20	6	830
-201	39	1	999999999
-203	40	2	0
-204	41	5	500
-40	23	2	2595
-41	24	2	2595
-42	25	3	2900
-43	26	2	2595
-44	27	3	2900
-45	27	5	9900
-205	42	2	0
-47	28	2	2595
-49	28	3	2900
-71	34	2	39900
-73	35	1	27500
-76	36	1	27500
+COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
 \.
 
 
