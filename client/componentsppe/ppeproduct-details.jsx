@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import PPECartNaviModal from '../componentsppe/ppecart-navi-modal';
 
 class PPEProductDetails extends React.Component {
   constructor(props) {
@@ -24,17 +23,41 @@ class PPEProductDetails extends React.Component {
 
   addItem() {
     this.props.addPPEToCart(this.state.ppeProduct);
-    this.showModal();
+    this.setState({ show: !this.state.show });
   }
 
   showModal() {
-    this.setState({ show: !this.state.show });
+    const modalClassMod = this.state.show ? 'modal overlay d-block' : 'modal overlay';
+    return (
+      <div className={modalClassMod} id="demoDisclaimerModal" tabIndex="-1" role="dialog"
+        aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered animate__animated animate__bounceIn" role="document">
+          <div className="modal-content">
+            <div className="modal-header d-inline">
+              <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Item Added!</h5>
+            </div>
+            <div className="modal-body">
+              Would you like to continue shopping? or view shopping cart?
+            </div>
+            <div className="modal-footer">
+              <Link to="/ppeproductlist">
+                <button type="button" className="btn btn-info">Continue Shopping</button>
+              </Link>
+              <Link to="/ppecartsummary">
+                <button type="button" className="btn btn-success">View Cart</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
     const { ppeProduct } = this.state;
     return (
       <section className="row no-gutters p-5 bg-lightblue">
+        {this.showModal()}
         {
           this.state.isLoading ? <h1>Loading...</h1>
             : <div className="card text-white bg-dark p-3">
@@ -55,7 +78,6 @@ class PPEProductDetails extends React.Component {
               <p className="card-text">{ppeProduct.longDescription}</p>
             </div>
         }
-        <PPECartNaviModal showModal={this.showModal} show={this.state.show} />
       </section>
     );
   }
