@@ -203,6 +203,29 @@ app.post('/api/ppecart', (req, res, next) => {
   }
 });
 
+app.patch('/api/ppecart', (req, res, next) => {
+  const { ppeCartId } = req.session;
+  const { quantity, productId } = req.body;
+  if (!ppeCartId) return res.status(400).json({ error: 'No cart found!' });
+  if (!parseInt(quantity, 10)) return res.status(400).json({ error: 'quantity is required and must be a positive integer' });
+  if (!parseInt(productId, 10)) return res.status(400).json({ error: 'productId is required and must be a positive integer' });
+
+  const sql = `
+    UPDATE    "ppeCartItems"
+    SET       "quantity" = $1
+    WHERE     "ppeCartId" = $2
+    AND       "productId" = $3
+    RETURNING *;
+  `;
+  const values = [quantity, ppeCartId, productId];
+  db.query(sql, values)
+    .then(data => {
+      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist in cart`, 404);
+      return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.delete('/api/cart/:cartItemId', (req, res, next) => {
   const { cartItemId } = req.params;
   if (!parseInt(cartItemId, 10)) return res.status(400).json({ error: 'productId must be a positive integer' });
