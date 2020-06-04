@@ -38,6 +38,7 @@ export default class App extends React.Component {
     this.getPPECartItems = this.getPPECartItems.bind(this);
     this.addPPEToCart = this.addPPEToCart.bind(this);
     this.deletePPECartItem = this.deletePPECartItem.bind(this);
+    this.updatePPEQuantity = this.updatePPEQuantity.bind(this);
     this.placePPEOrder = this.placePPEOrder.bind(this);
     this.ppeAcceptTerms = this.ppeAcceptTerms.bind(this);
   }
@@ -195,7 +196,7 @@ export default class App extends React.Component {
           </Route>
           <Route path="/ppecartsummary">
             <PPELayOut ppeCartItemCount={ppeCart.length}>
-              <PPECartSummary ppeCart={ppeCart} deletePPECartItem={this.deletePPECartItem} />
+              <PPECartSummary ppeCart={ppeCart} updatePPEQuantity={this.updatePPEQuantity} deletePPECartItem={this.deletePPECartItem} />
             </PPELayOut>
           </Route>
           <Route path="/ppecheckout">
