@@ -86,6 +86,7 @@ app.get('/api/ppecart', (req, res, next) => {
     const sql = `
     select "c"."ppeCartItemId",
        "c"."price",
+       "c"."quantity",
        "p"."productId",
        "p"."image",
        "p"."name",
@@ -176,16 +177,19 @@ app.post('/api/ppecart', (req, res, next) => {
       .then(ppeCartIdPriceObj => {
         req.session.ppeCartId = ppeCartIdPriceObj.ppeCartId;
         const sql = `
-        INSERT INTO "ppeCartItems" ("ppeCartId", "productId", "price")
-          VALUES ($1, $2, $3)
+        INSERT INTO "ppeCartItems" ("ppeCartId", "productId", "price", "quantity")
+          VALUES ($1, $2, $3, $4)
+          ON CONFLICT ON CONSTRAINT uniqconst_productId
+          DO UPDATE SET "quantity" = LEAST("ppeCartItems"."quantity" + 1, 99)
           RETURNING "ppeCartItemId"`;
-        const params = [ppeCartIdPriceObj.ppeCartId, productId, ppeCartIdPriceObj.price];
+        const params = [ppeCartIdPriceObj.ppeCartId, productId, ppeCartIdPriceObj.price, 1];
         return db.query(sql, params).then(ppeCartItemId => ppeCartItemId.rows[0].ppeCartItemId);
       })
       .then(ppeCartItemId => {
         const sql = `
         SELECT "c"."ppeCartItemId",
             "c"."price",
+            "c"."quantity",
             "p"."productId",
             "p"."image",
             "p"."name",
@@ -197,6 +201,29 @@ app.post('/api/ppecart', (req, res, next) => {
       })
       .catch(err => next(err));
   }
+});
+
+app.patch('/api/ppecart', (req, res, next) => {
+  const { ppeCartId } = req.session;
+  const { quantity, productId } = req.body;
+  if (!ppeCartId) return res.status(400).json({ error: 'No cart found!' });
+  if (!parseInt(quantity, 10)) return res.status(400).json({ error: 'quantity is required and must be a positive integer' });
+  if (!parseInt(productId, 10)) return res.status(400).json({ error: 'productId is required and must be a positive integer' });
+
+  const sql = `
+    UPDATE "ppeCartItems"
+      SET "quantity" = $1
+      WHERE "ppeCartId" = $2
+      AND "productId" = $3
+      RETURNING *;
+  `;
+  const values = [quantity, ppeCartId, productId];
+  db.query(sql, values)
+    .then(data => {
+      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist in cart`, 404);
+      return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
 });
 
 app.delete('/api/cart/:cartItemId', (req, res, next) => {

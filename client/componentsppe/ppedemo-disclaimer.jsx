@@ -5,7 +5,7 @@ export default function PPEDemoDisclaimer(props) {
   return (
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
-      <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-dialog modal-dialog-centered animate__animated animate__backInLeft" role="document">
         <div className="modal-content text-white">
           <div className="modal-header bg-dark d-inline">
             <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Welcome to PPE Agora</h5>

@@ -38,6 +38,7 @@ export default class App extends React.Component {
     this.getPPECartItems = this.getPPECartItems.bind(this);
     this.addPPEToCart = this.addPPEToCart.bind(this);
     this.deletePPECartItem = this.deletePPECartItem.bind(this);
+    this.updatePPEQuantity = this.updatePPEQuantity.bind(this);
     this.placePPEOrder = this.placePPEOrder.bind(this);
     this.ppeAcceptTerms = this.ppeAcceptTerms.bind(this);
   }
@@ -116,6 +117,25 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  updatePPEQuantity(productId, quantity) {
+    fetch('/api/ppecart/', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId, quantity })
+    })
+      .then(res => res.json())
+      .then(data => {
+        const newCart = [...this.state.ppeCart];
+        const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
+        newCart[index].quantity = data.quantity;
+        this.setState({ ppeCart: newCart });
+      })
+      .catch(err => {
+        this.setState({ canClick: true });
+        console.error(err);
+      });
+  }
+
   placeOrder(orderObj) {
     const req = {
       method: 'POST',
@@ -176,7 +196,7 @@ export default class App extends React.Component {
           </Route>
           <Route path="/ppecartsummary">
             <PPELayOut ppeCartItemCount={ppeCart.length}>
-              <PPECartSummary ppeCart={ppeCart} deletePPECartItem={this.deletePPECartItem} />
+              <PPECartSummary ppeCart={ppeCart} updatePPEQuantity={this.updatePPEQuantity} deletePPECartItem={this.deletePPECartItem} />
             </PPELayOut>
           </Route>
           <Route path="/ppecheckout">
@@ -186,6 +206,10 @@ export default class App extends React.Component {
             </PPELayOut>
           </Route>
           <Route path="/ppeproductlist">
+            {/* <PPELayOut ppeCartItemCount={ppeCart.length}
+              ppeAcceptTerms={this.ppeAcceptTerms}>
+              <PPEProductList addPPEToCart={this.addPPEToCart} />
+            </PPELayOut>} */}
             {!ppeTermsAccepted ? <PPEDemoDisclaimer ppeAcceptTerms={this.ppeAcceptTerms} />
               : <PPELayOut ppeCartItemCount={ppeCart.length}
                 ppeAcceptTerms={this.ppeAcceptTerms}>

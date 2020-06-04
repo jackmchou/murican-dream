@@ -7,7 +7,7 @@ export default function DemoDisclaimer(props) {
     <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
       <Title />
-      <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-dialog modal-dialog-centered animate__animated animate__backInRight" role="document">
         <div className="modal-content text-white">
           <div className="modal-header bg-primary d-inline">
             <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Welcome to Murican Dream</h5>
