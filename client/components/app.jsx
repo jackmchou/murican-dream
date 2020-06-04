@@ -131,7 +131,6 @@ export default class App extends React.Component {
         this.setState({ ppeCart: newCart });
       })
       .catch(err => {
-        this.setState({ canClick: true });
         console.error(err);
       });
   }
