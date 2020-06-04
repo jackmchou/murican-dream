@@ -211,11 +211,11 @@ app.patch('/api/ppecart', (req, res, next) => {
   if (!parseInt(productId, 10)) return res.status(400).json({ error: 'productId is required and must be a positive integer' });
 
   const sql = `
-    UPDATE    "ppeCartItems"
-    SET       "quantity" = $1
-    WHERE     "ppeCartId" = $2
-    AND       "productId" = $3
-    RETURNING *;
+    UPDATE "ppeCartItems"
+      SET "quantity" = $1
+      WHERE "ppeCartId" = $2
+      AND "productId" = $3
+      RETURNING *;
   `;
   const values = [quantity, ppeCartId, productId];
   db.query(sql, values)
