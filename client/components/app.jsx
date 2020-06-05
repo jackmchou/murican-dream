@@ -97,8 +97,8 @@ export default class App extends React.Component {
     fetch(`/api/cart/${cartItemId}`, req)
       .then(res => res.json())
       .then(deletedItem => {
-        const cartItems = this.state.cart.filter(deleted => deletedItem.cartItemId !== deleted.cartItemId);
-        this.setState({ cart: cartItems });
+        const [...cart] = this.state.cart.filter(deleted => deletedItem.cartItemId !== deleted.cartItemId);
+        this.setState({ cart });
       })
       .catch(err => console.error(err));
   }
@@ -111,8 +111,8 @@ export default class App extends React.Component {
     fetch(`/api/ppecart/${ppeCartItemId}`, req)
       .then(res => res.json())
       .then(deletedItem => {
-        const ppeCartItems = this.state.ppeCart.filter(deleted => deletedItem.ppeCartItemId !== deleted.ppeCartItemId);
-        this.setState({ ppeCart: ppeCartItems });
+        const [...ppeCart] = this.state.ppeCart.filter(deleted => deletedItem.ppeCartItemId !== deleted.ppeCartItemId);
+        this.setState({ ppeCart });
       })
       .catch(err => console.error(err));
   }
@@ -125,10 +125,10 @@ export default class App extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        const newCart = [...this.state.ppeCart];
-        const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
-        newCart[index].quantity = data.quantity;
-        this.setState({ ppeCart: newCart });
+        const [...ppeCart] = this.state.ppeCart;
+        const index = ppeCart.findIndex(cartItem => cartItem.productId === data.productId);
+        ppeCart[index].quantity = data.quantity;
+        this.setState({ ppeCart });
       })
       .catch(err => {
         console.error(err);
