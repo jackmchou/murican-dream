@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PPEConfirmDelete from '../componentsppe/ppeconfirm-delete';
 
 export default class PPECartSummaryItem extends Component {
   constructor(props) {
@@ -34,16 +33,37 @@ export default class PPECartSummaryItem extends Component {
     const { productId } = this.props.item;
     if (id === 'up' && quantity < 99) {
       return this.setState({ quantity: Number(quantity) + 1 },
-        () => this.props.updatePPEQuantity(productId, quantity));
+        () => this.props.updatePPEQuantity(productId, quantity + 1));
     }
     if (id === 'down' && quantity > 1) {
       return this.setState({ quantity: Number(quantity) - 1 },
-        () => this.props.updatePPEQuantity(productId, quantity));
+        () => this.props.updatePPEQuantity(productId, quantity - 1));
     }
   }
 
   showModal() {
-    this.setState({ show: !this.state.show });
+    const modalClassMod = this.state.show ? 'modal overlay d-block' : 'modal overlay';
+    return (
+      <div className={modalClassMod} id="demoDisclaimerModal" tabIndex="-1" role="dialog"
+        aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered animate__animated animate__bounceIn" role="document">
+          <div className="modal-content">
+            <div className="modal-header d-inline">
+              <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Please confirm</h5>
+            </div>
+            <div className="modal-body">
+              {`You want to remove ${this.state.quantity} of ${this.props.item.name} from your cart?`}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-danger"
+                onClick={() => this.props.deletePPECartItem(this.props.item.ppeCartItemId)}>DELETE</button>
+              <button type="button" className="btn btn-secondary"
+                onClick={() => this.setState({ show: !this.state.show })}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -51,6 +71,7 @@ export default class PPECartSummaryItem extends Component {
     return (
       <div className="card bg-light text-dark m-3">
         <div className="row no-gutters">
+          {this.showModal()}
           <div className="col-md-4">
             <img src={cartItem.image} className="card-img" alt={cartItem.name} />
           </div>
@@ -71,13 +92,10 @@ export default class PPECartSummaryItem extends Component {
                   <i className="fas fa-chevron-up text-success"></i>
                 </button>
               </form>
-              <button className="btn btn-danger" onClick={this.showModal}>Remove from Cart</button>
+              <button className="btn btn-danger" onClick={() => this.setState({ show: !this.state.show })}>Remove from Cart</button>
             </div>
           </span>
         </div>
-        <PPEConfirmDelete showModal={this.showModal} show={this.state.show}
-          deletePPECartItem={this.props.deletePPECartItem}
-          cartItem={cartItem} />
       </div>
     );
   }
