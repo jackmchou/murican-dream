@@ -12,7 +12,7 @@ export default class PPECartSummaryItem extends Component {
 
   handleChange(event) {
     const quant = event.target;
-    const patt = /(?!^0)(^[0-9]*)/;
+    const patt = /(?!^0)(^[0-9]*$)/;
     if (patt.test(quant.value)) this.setState({ quantity: quant.value });
   }
 
