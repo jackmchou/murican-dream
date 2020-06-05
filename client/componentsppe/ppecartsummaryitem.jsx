@@ -56,7 +56,7 @@ export default class PPECartSummaryItem extends Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-danger"
-                onClick={() => this.props.deletePPECartItem(this.props.item.ppeCartItemId)}>DELETE</button>
+                onClick={() => this.props.deletePPECartItem(this.props.item.ppeCartItemId)}>Delete</button>
               <button type="button" className="btn btn-secondary"
                 onClick={() => this.setState({ show: !this.state.show })}>Cancel</button>
             </div>
