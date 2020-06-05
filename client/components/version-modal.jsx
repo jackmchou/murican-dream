@@ -4,13 +4,13 @@ import Title from './title';
 
 export default function VersionModal(props) {
   return (
-    <div className="modal bg-light d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
-      aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
+    <div className="modal overlay d-block" id="versionModal" tabIndex="-1" role="dialog"
+      aria-labelledby="versionModalTitle" aria-hidden="true">
       <Title/>
       <div className="modal-dialog modal-dialog-centered animate__animated animate__fadeIn" role="document">
         <div className="modal-content text-white">
           <div className="modal-header bg-dark d-inline">
-            <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Storefronts</h5>
+            <h5 className="modal-title text-center" id="versionModalTitle">Storefronts</h5>
           </div>
           <div className="modal-body bg-secondary ">
             Welcome to my e-commerce site demo, please choose a storefront.

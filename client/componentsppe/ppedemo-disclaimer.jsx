@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function PPEDemoDisclaimer(props) {
   return (
-    <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
+    <div className="modal overlay d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
       aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered animate__animated animate__backInLeft" role="document">
         <div className="modal-content text-white">
