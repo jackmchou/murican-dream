@@ -7,6 +7,8 @@ export default class PPECartSummaryItem extends Component {
     this.state = { show: false, quantity: this.props.item.quantity };
     this.showModal = this.showModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.toggleQuantity = this.toggleQuantity.bind(this);
   }
 
   handleChange(event) {
@@ -15,12 +17,29 @@ export default class PPECartSummaryItem extends Component {
     if (patt.test(quant.value)) this.setState({ quantity: quant.value });
   }
 
-  handleBlur(event) {
-    if (!this.state.quantity) {
+  handleBlur() {
+    const { productId } = this.props.item;
+    const { quantity } = this.state;
+    if (!quantity) {
       return this.setState({ quantity: 1 },
-        () => this.props.updatePPEQuantity(this.props.item.productId, Number(this.state.quantity)));
+        () => this.props.updatePPEQuantity(productId, Number(quantity)));
     }
-    this.props.updatePPEQuantity(this.props.item.productId, Number(this.state.quantity));
+    this.props.updatePPEQuantity(productId, Number(quantity));
+  }
+
+  toggleQuantity(event) {
+    event.preventDefault();
+    const { id } = event.currentTarget;
+    const { quantity } = this.state;
+    const { productId } = this.props.item;
+    if (id === 'up' && quantity < 99) {
+      return this.setState({ quantity: Number(quantity) + 1 },
+        () => this.props.updatePPEQuantity(productId, quantity));
+    }
+    if (id === 'down' && quantity > 1) {
+      return this.setState({ quantity: Number(quantity) - 1 },
+        () => this.props.updatePPEQuantity(productId, quantity));
+    }
   }
 
   showModal() {
@@ -42,13 +61,13 @@ export default class PPECartSummaryItem extends Component {
               <p className="card-text">{cartItem.shortDescription}</p>
               <form className="form-group d-flex align-items-center mb-3">
                 <label htmlFor="quantity" className="mb-0 mr-3">Quantity:</label>
-                <button className="btn">
+                <button className="btn" id="down" onClick={this.toggleQuantity}>
                   <i className="fas fa-chevron-down text-danger"></i>
                 </button>
-                <input type="text" className="text-center mx-2"
-                  value={this.state.quantity} onChange={this.handleChange}
+                <input type="text" className="text-center mx-1"
+                  value={this.state.quantity} onChange={this.handleChange} onBlur={this.handleBlur}
                   minLength="1" maxLength="2" size="3" required />
-                <button className="btn">
+                <button className="btn" id="up" onClick={this.toggleQuantity}>
                   <i className="fas fa-chevron-up text-success"></i>
                 </button>
               </form>
