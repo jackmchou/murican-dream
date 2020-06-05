@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 export default function PPEOrderConfirm(props) {
   return (
-    <div className="modal d-block" id="demoDisclaimerModal" tabIndex="-1" role="dialog"
-      aria-labelledby="demoDisclaimerModalTitle" aria-hidden="true">
+    <div className="modal overlay d-block" id="orderConfirmModal" tabIndex="-1" role="dialog"
+      aria-labelledby="orderConfirmModalTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header d-inline">
-            <h5 className="modal-title text-center" id="demoDisclaimerModalTitle">Order confirmed!</h5>
+            <h5 className="modal-title text-center" id="orderConfirmModalTitle">Order confirmed!</h5>
           </div>
           <div className="modal-body">
             Thank you for your order!
