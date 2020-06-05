@@ -72,7 +72,17 @@ export default class App extends React.Component {
     };
     fetch('/api/ppeCart', req)
       .then(res => res.json())
-      .then(ppeProduct => this.setState({ ppeCart: this.state.ppeCart.concat(ppeProduct) }));
+      .then(ppeProduct => {
+        const [...ppeCart] = this.state.ppeCart;
+        const inCart = ppeCart.some(cartItem => cartItem.productId === ppeProduct.productId);
+        if (!inCart) this.setState({ ppeCart: ppeCart.concat(ppeProduct) });
+        else {
+          const index = ppeCart.findIndex(cartItem => cartItem.productId === ppeProduct.productId);
+          ppeCart[index] = ppeProduct;
+          this.setState({ ppeCart });
+        }
+      })
+      .catch(err => console.error(err));
   }
 
   getCartItems() {
