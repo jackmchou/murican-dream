@@ -100,8 +100,8 @@ export default class PPECheckOut extends React.Component {
     const emptyFields = !(name && creditCard && shippingAddress);
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
-        <div className="bg-dark p-3 text-white">
-          <h1>My Cart</h1>
+        <div className="container bg-dark p-3 text-white">
+          <h1>Order Form</h1><small>Please DO NOT use personal information, this site is a demo</small>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
@@ -112,6 +112,43 @@ export default class PPECheckOut extends React.Component {
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
+          <div className="form-row d-flex flex-column flex-lg-row">
+            <div className="form-group col-12 col-lg-6 mb-5">
+              <label htmlFor="name">Address Line 1</label>
+              <input type="text" id="addressOne" className='form-control'
+                minLength={6} maxLength={42} required />
+              <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+            </div>
+            <div className="form-group col-12 col-lg-6 mb-5">
+              <label htmlFor="name">Address Line 2 (optional)</label>
+              <input type="text" id="addressTwo" className='form-control'
+                minLength={0} maxLength={42} required />
+            </div>
+          </div>
+          <div className="form-row d-flex flex-column flex-lg-row">
+            <div className="form-group col-12 col-lg-7 mb-5">
+              <label htmlFor="city">City</label>
+              <input type="text" id="city"
+                minLength={3} maxLength={50} required />
+              <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
+            </div>
+            <div className="form-group col-12 col-lg-2 mb-5">
+              <label htmlFor="state">State</label>
+              <select id="state" name="state" form="checkout" required>
+                <option hidden disabled>--</option>
+              </select>
+              <small className="invalid-feedback position-absolute">Please select a state.</small>
+            </div>
+            <div className="form-group col-12 col-lg-3 mb-5">
+              <label htmlFor="zipCode">ZIP Code</label>
+              <input type="text" id="zipCode"
+                minLength={5} maxLength={5} required />
+              <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
+            </div>
+          </div>
+          <div className="mb-3">
+            <h5>Payment</h5>
+          </div>
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.errors.creditCard}</small>
@@ -120,6 +157,28 @@ export default class PPECheckOut extends React.Component {
               maxLength="16" minLength="16" title="16 Digits only" required />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardMonth">Month</label>
+            <select id="cardMonth" name="cardMonth" form="checkout"
+              required>
+              <option hidden disabled>--</option>
+            </select>
+            <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardYear">Year</label>
+            <select id="cardYear" name="cardYear" form="checkout"
+              required>
+              <option hidden disabled>--</option>
+            </select>
+            <small className="invalid-feedback position-absolute fade-in">Please select a year.</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardCVV">CVV</label>
+            <input type="text" id="cardCVV"
+              minLength={3} maxLength={4} required />
+            <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
           <div className="form-group">
             <label htmlFor="shippingAddress">Shipping Address</label>
