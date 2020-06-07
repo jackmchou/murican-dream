@@ -146,6 +146,9 @@ export default class PPECheckOut extends React.Component {
               <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
             </div>
           </div>
+          <div className="mb-3">
+            <h5>Payment</h5>
+          </div>
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.errors.creditCard}</small>
@@ -154,6 +157,28 @@ export default class PPECheckOut extends React.Component {
               maxLength="16" minLength="16" title="16 Digits only" required />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardMonth">Month</label>
+            <select id="cardMonth" name="cardMonth" form="checkout"
+              required>
+              <option hidden disabled>--</option>
+            </select>
+            <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardYear">Year</label>
+            <select id="cardYear" name="cardYear" form="checkout"
+              required>
+              <option hidden disabled>--</option>
+            </select>
+            <small className="invalid-feedback position-absolute fade-in">Please select a year.</small>
+          </div>
+          <div className="form-group col-12 col-lg-2 mb-5">
+            <label htmlFor="cardCVV">CVV</label>
+            <input type="text" id="cardCVV"
+              minLength={3} maxLength={4} required />
+            <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
           <div className="form-group">
             <label htmlFor="shippingAddress">Shipping Address</label>
