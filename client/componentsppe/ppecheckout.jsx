@@ -125,6 +125,27 @@ export default class PPECheckOut extends React.Component {
                 minLength={0} maxLength={42} required />
             </div>
           </div>
+          <div className="form-row d-flex flex-column flex-lg-row">
+            <div className="form-group col-12 col-lg-7 mb-5">
+              <label htmlFor="city">City</label>
+              <input type="text" id="city"
+                minLength={3} maxLength={50} required />
+              <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
+            </div>
+            <div className="form-group col-12 col-lg-2 mb-5">
+              <label htmlFor="state">State</label>
+              <select id="state" name="state" form="checkout" required>
+                <option hidden disabled>--</option>
+              </select>
+              <small className="invalid-feedback position-absolute">Please select a state.</small>
+            </div>
+            <div className="form-group col-12 col-lg-3 mb-5">
+              <label htmlFor="zipCode">ZIP Code</label>
+              <input type="text" id="zipCode"
+                minLength={5} maxLength={5} required />
+              <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
+            </div>
+          </div>
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.errors.creditCard}</small>
