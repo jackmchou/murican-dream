@@ -100,7 +100,7 @@ export default class PPECheckOut extends React.Component {
     const emptyFields = !(name && creditCard && shippingAddress);
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
-        <div className="bg-dark p-3 text-white">
+        <div className="container bg-dark p-3 text-white">
           <h1>Order Form</h1><small>Please DO NOT use personal information, this site is a demo</small>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
@@ -115,7 +115,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 1</label>
-              <input type="text" id="addressOne"
+              <input type="text" id="addressOne" className='form-control'
                 minLength={6} maxLength={42} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
