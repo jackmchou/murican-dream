@@ -112,6 +112,19 @@ export default class PPECheckOut extends React.Component {
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
+          <div className="form-row d-flex flex-column flex-lg-row">
+            <div className="form-group col-12 col-lg-6 mb-5">
+              <label htmlFor="name">Address Line 1</label>
+              <input type="text" id="addressOne"
+                minLength={6} maxLength={42} required />
+              <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+            </div>
+            <div className="form-group col-12 col-lg-6 mb-5">
+              <label htmlFor="name">Address Line 2 (optional)</label>
+              <input type="text" id="addressTwo" className='form-control'
+                minLength={0} maxLength={42} required />
+            </div>
+          </div>
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.errors.creditCard}</small>
