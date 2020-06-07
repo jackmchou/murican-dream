@@ -101,7 +101,7 @@ export default class PPECheckOut extends React.Component {
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="bg-dark p-3 text-white">
-          <h1>My Cart</h1>
+          <h1>Order Form</h1><small>Please DO NOT use personal information, this site is a demo</small>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
