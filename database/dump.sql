@@ -17,6 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 ALTER TABLE ONLY public."ppeCartItems" DROP CONSTRAINT uniqconst_productid;
+ALTER TABLE ONLY public."cartItems" DROP CONSTRAINT uniqconst_mdproductid;
 ALTER TABLE ONLY public.products DROP CONSTRAINT products_pkey;
 ALTER TABLE ONLY public."ppeOrders" DROP CONSTRAINT "ppeOrders_pkey";
 ALTER TABLE ONLY public."ppeCarts" DROP CONSTRAINT "ppeCarts_pkey";
@@ -286,8 +287,16 @@ CREATE TABLE public."ppeOrders" (
     "ppeCartId" integer NOT NULL,
     name text NOT NULL,
     "creditCard" text NOT NULL,
-    "shippingAddress" text NOT NULL,
-    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
+    "addressOne" text NOT NULL,
+    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL,
+    city text NOT NULL,
+    state text NOT NULL,
+    "zipCode" text NOT NULL,
+    "cardNumber" text NOT NULL,
+    "cardMonth" text NOT NULL,
+    "cardYear" text NOT NULL,
+    "cardCVV" text NOT NULL,
+    "addressTwo" text
 );
 
 
@@ -483,6 +492,13 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price, quantity) FROM stdin;
+180	24	2	50	1
+65	16	1	50	2
+67	18	1	50	1
+95	20	2	50	1
+96	21	1	50	3
+99	22	6	300	1
+100	22	3	7500	1
 \.
 
 
@@ -508,6 +524,13 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 15	2020-05-26 08:54:39.908178-07
 16	2020-06-02 12:10:36.442097-07
 17	2020-06-02 12:11:45.695732-07
+18	2020-06-02 12:49:33.186901-07
+19	2020-06-02 13:44:06.850972-07
+20	2020-06-03 10:06:13.832887-07
+21	2020-06-03 11:50:12.139235-07
+22	2020-06-03 16:02:39.973001-07
+23	2020-06-04 06:38:57.796693-07
+24	2020-06-07 09:03:49.734906-07
 \.
 
 
@@ -515,12 +538,7 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 -- Data for Name: ppeOrders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-1	2	fewfefaefewfwafe	4243324234324324	ewafweafwefewfewfewfaewfewf	2020-05-02 18:46:08.476578-07
-2	3	gesrgregesgreg	3421413244324213	fsafgweafewfwefewfewaf	2020-05-03 07:20:58.072416-07
-3	4	wafewfwafewaf	3432423432432432	wefewfwefwefwafwafawef	2020-05-03 07:28:04.578235-07
-4	5	fewafewafew	3214342433241421	afeaewrfefaefeffafagregersgregreg	2020-05-03 07:39:38.628249-07
-5	6	ewfaewfwfewf	4234324343243242	ergresgegegesgergergesgesgersg	2020-05-03 07:40:15.854377-07
+COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "addressOne", "createdAt", city, state, "zipCode", "cardNumber", "cardMonth", "cardYear", "cardCVV", "addressTwo") FROM stdin;
 \.
 
 
@@ -602,14 +620,14 @@ SELECT pg_catalog.setval('public."orders_orderId_seq"', 11, true);
 -- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 64, true);
+SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 180, true);
 
 
 --
 -- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 17, true);
+SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 24, true);
 
 
 --
@@ -688,6 +706,14 @@ ALTER TABLE ONLY public."ppeOrders"
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY ("productId");
+
+
+--
+-- Name: cartItems uniqconst_mdproductid; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."cartItems"
+    ADD CONSTRAINT uniqconst_mdproductid UNIQUE ("cartId", "productId");
 
 
 --
