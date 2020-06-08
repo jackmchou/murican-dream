@@ -292,7 +292,6 @@ CREATE TABLE public."ppeOrders" (
     city text NOT NULL,
     state text NOT NULL,
     "zipCode" text NOT NULL,
-    "cardNumber" text NOT NULL,
     "cardMonth" text NOT NULL,
     "cardYear" text NOT NULL,
     "cardCVV" text NOT NULL,
@@ -538,7 +537,7 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 -- Data for Name: ppeOrders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "addressOne", "createdAt", city, state, "zipCode", "cardNumber", "cardMonth", "cardYear", "cardCVV", "addressTwo") FROM stdin;
+COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "addressOne", "createdAt", city, state, "zipCode", "cardMonth", "cardYear", "cardCVV", "addressTwo") FROM stdin;
 \.
 
 
