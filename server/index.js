@@ -292,9 +292,9 @@ app.post('/api/ppeorders', (req, res, next) => {
   if (!name || !creditCard || !addressOne || !addressTwo || !city || !state || !zipCode || !cardMonth || !cardYear || !cardCVV) {
     return res.status(400).json({ error: 'name, creditcard, address line 1, city, state, zip, cardMonth, cardYear, and cardCVV are required fields' });
   }
-  const sql = `INSERT INTO "ppeOrders" 
-    ("ppeCartId", "name", "creditCard", "addressOne")
-    VALUES($1, $2, $3, $4) RETURNING *;`;
+  const sql = `INSERT INTO "ppeOrders" "
+    ("ppeCartId", "name", "creditCard", "addressOne", "addressTwo", "city", "state", "zipCode", "cardMonth", "cardYear", "cardCVV")
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
   db.query(sql, [ppeCartId, name, creditCard, addressOne])
     .then(order => {
       delete req.session.ppeCartId;
