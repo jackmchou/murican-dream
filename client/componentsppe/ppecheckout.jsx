@@ -7,12 +7,12 @@ export default class PPECheckOut extends React.Component {
     this.state = {
       name: '',
       creditCard: '',
-      shippingAddress: '',
+      addressOne: '',
       toggleButton: false,
       errors: {
         name: '',
         creditCard: '',
-        shippingAddress: ''
+        addressOne: ''
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,10 +41,10 @@ export default class PPECheckOut extends React.Component {
           }
         });
         break;
-      case 'shippingAddress':
+      case 'addressOne':
         this.setState({
           errors: {
-            shippingAddress: value.length > 21 && value.length < 156
+            addressOne: value.length > 21 && value.length < 156
               ? '' : 'Shipping Address is between 21 and 156 characters'
           }
         });
@@ -61,7 +61,7 @@ export default class PPECheckOut extends React.Component {
         {
           name: 'Please enter a valid full name. i.e James Smith',
           creditCard: 'Please enter a valid VISA card',
-          shippingAddress: 'Shipping Address is between 21 and 156 characters'
+          addressOne: 'Shipping Address is between 21 and 156 characters'
         }
       });
     }
@@ -74,7 +74,7 @@ export default class PPECheckOut extends React.Component {
       return this.setState({
         [name]: value,
         // toggleButton: !this.state.toggleButton,
-        errors: { name: '', errors: '', shippingAddress: '' }
+        errors: { name: '', errors: '', addressOne: '' }
       });
     }
   }
@@ -84,7 +84,7 @@ export default class PPECheckOut extends React.Component {
     const orderObj = {
       name: this.state.name,
       creditCard: this.state.creditCard,
-      shippingAddress: this.state.shippingAddress
+      addressOne: this.state.addressOne
     };
     this.props.onSubmit(orderObj);
   }
@@ -96,12 +96,12 @@ export default class PPECheckOut extends React.Component {
   render() {
     const submitButton = Object.values(this.state.errors).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
-    const { name, creditCard, shippingAddress } = this.state;
-    const emptyFields = !(name && creditCard && shippingAddress);
+    const { name, creditCard, addressOne } = this.state;
+    const emptyFields = !(name && creditCard && addressOne);
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
-          <h1>Order Form</h1><small>Please DO NOT use personal information, this site is a demo</small>
+          <h1>Order Form</h1>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
@@ -181,9 +181,9 @@ export default class PPECheckOut extends React.Component {
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
           <div className="form-group">
-            <label htmlFor="shippingAddress">Shipping Address</label>
-            <small className="text-danger float-right">{this.state.errors.shippingAddress}</small>
-            <textarea onChange={this.handleChange} onBlur={this.handleBlur} name="shippingAddress" rows="4"
+            <label htmlFor="addressOne">Shipping Address</label>
+            <small className="text-danger float-right">{this.state.errors.addressOne}</small>
+            <textarea onChange={this.handleChange} onBlur={this.handleBlur} name="addressOne" rows="4"
               className="form-control" placeholder="Shipping Address"
               minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required />
             <small id="infoHelp" className="form-text text-muted text-center">
