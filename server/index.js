@@ -271,13 +271,13 @@ app.delete('/api/ppecart/:ppeCartItemId', (req, res, next) => {
 });
 
 app.post('/api/orders', (req, res, next) => {
-  const { name, creditCard, shippingAddress } = req.body;
+  const { name, creditCard, addressOne } = req.body;
   const { cartId } = req.session;
   if (!cartId) return res.status(400).json({ error: `cartId not found ${cartId}` });
-  if (!name || !creditCard || !shippingAddress) return res.status(400).json({ error: 'name, creditcard and shippingAddress are required fields' });
-  const sql = `INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
+  if (!name || !creditCard || !addressOne) return res.status(400).json({ error: 'name, creditcard and address line 1 are required fields' });
+  const sql = `INSERT INTO "orders" ("cartId", "name", "creditCard", "addressOne")
                 VALUES($1, $2, $3, $4) RETURNING *;`;
-  db.query(sql, [cartId, name, creditCard, shippingAddress])
+  db.query(sql, [cartId, name, creditCard, addressOne])
     .then(order => {
       delete req.session.cartId;
       res.status(201).json(order.rows[0]);
