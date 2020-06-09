@@ -8,6 +8,13 @@ export default class PPECheckOut extends React.Component {
       name: '',
       creditCard: '',
       addressOne: '',
+      addressTwo: '',
+      city: '',
+      state: '--',
+      zipCode: '',
+      cardMonth: '--',
+      cardYear: '--',
+      cardCVV: '',
       toggleButton: false,
       errors: {
         name: '',
@@ -83,8 +90,15 @@ export default class PPECheckOut extends React.Component {
     event.preventDefault();
     const orderObj = {
       name: this.state.name,
+      addressOne: this.state.addressOne,
+      addressTwo: this.state.addressTwo,
+      city: this.state.city,
+      state: this.state.state,
+      zipCode: this.state.zipCode,
       creditCard: this.state.creditCard,
-      addressOne: this.state.addressOne
+      cardMonth: this.state.cardMonth,
+      cardYear: this.state.cardYear,
+      cardCVV: this.state.cardCVV
     };
     this.props.onSubmit(orderObj);
   }
@@ -116,19 +130,21 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 1</label>
               <input type="text" id="addressOne" className='form-control'
+                onChange={this.handleChange}
                 minLength={6} maxLength={42} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control'
+                onChange={this.handleChange}
                 minLength={0} maxLength={42} required />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city"
+              <input type="text" id="city" onChange={this.handleChange}
                 minLength={3} maxLength={50} required />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
@@ -141,7 +157,7 @@ export default class PPECheckOut extends React.Component {
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode"
+              <input type="text" id="zipCode" onChange={this.handleChange}
                 minLength={5} maxLength={5} required />
               <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
             </div>
@@ -176,7 +192,7 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardCVV">CVV</label>
-            <input type="text" id="cardCVV"
+            <input type="text" id="cardCVV" onChange={this.handleChange}
               minLength={3} maxLength={4} required />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
