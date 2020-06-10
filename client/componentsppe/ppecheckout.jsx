@@ -139,7 +139,7 @@ export default class PPECheckOut extends React.Component {
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
-              <input type="text" id="addressTwo" className='form-control'
+              <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
                 onChange={this.handleChange}
                 minLength={0} maxLength={42} required />
             </div>
@@ -147,7 +147,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" onChange={this.handleChange}
+              <input type="text" id="city" onChange={this.handleChange} placeholder="City"
                 minLength={3} maxLength={50} required />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
@@ -160,7 +160,7 @@ export default class PPECheckOut extends React.Component {
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode" onChange={this.handleChange}
+              <input type="text" id="zipCode" onChange={this.handleChange} placeholder="Zip Code"
                 minLength={5} maxLength={5} required />
               <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
             </div>
@@ -195,7 +195,7 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardCVV">CVV</label>
-            <input type="text" id="cardCVV" onChange={this.handleChange}
+            <input type="text" id="cardCVV" onChange={this.handleChange} placeholder="CVV"
               minLength={3} maxLength={4} required />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
