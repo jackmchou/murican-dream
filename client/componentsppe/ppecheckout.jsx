@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export default class PPECheckOut extends React.Component {
   constructor(props) {
     super(props);
+    this.fields = ['name', 'addressOne', 'city', 'state', 'zipCode', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV'];
     this.state = {
       name: '',
       creditCard: '',
@@ -16,49 +17,14 @@ export default class PPECheckOut extends React.Component {
       cardYear: '--',
       cardCVV: '',
       toggleButton: false,
-      errors: {
-        name: '',
-        creditCard: '',
-        addressOne: ''
-      }
+      error: Array.from(this.fields),
+      showErrors: []
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
     this.passValidation = this.passValidation.bind(this);
-  }
-
-  handleBlur(event) {
-    const { name, value } = event.target;
-    switch (name) {
-      case 'name':
-        this.setState({
-          errors: {
-            name: /[A-Za-z]{5,65}/g.test(value)
-              ? '' : 'Please enter a valid full name. i.e James Smith'
-          }
-        });
-        break;
-      case 'creditCard':
-        this.setState({
-          errors: {
-            creditCard: /\d{16}/g.test(value)
-              ? '' : 'Please enter a valid 16 digit credit card'
-          }
-        });
-        break;
-      case 'addressOne':
-        this.setState({
-          errors: {
-            addressOne: value.length > 21 && value.length < 156
-              ? '' : 'Shipping Address is between 21 and 156 characters'
-          }
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   handleClick(event) {
@@ -74,14 +40,12 @@ export default class PPECheckOut extends React.Component {
     }
   }
 
-  handleChange(event) {
+  handleInputChange(event) {
     this.passValidation();
-    const { id, value } = event.target;
-    if (this.passValidation) {
+    const input = event.target;
+    if (this.passValidation(input)) {
       return this.setState({
-        [id]: value,
-        // toggleButton: !this.state.toggleButton,
-        errors: { name: '', errors: '', addressOne: '' }
+        [input.id]: input.value
       });
     }
   }
@@ -103,12 +67,25 @@ export default class PPECheckOut extends React.Component {
     this.props.onSubmit(orderObj);
   }
 
+  handleInputBlur(event) {
+    const input = event.currentTarget;
+    this.setState({
+      showErrors: !this.state.showErrors.includes(input.id)
+        ? [...this.state.showErrors, input.id] : [...this.state.showErrors],
+      [input.id]: this.state[input.id].trim()
+    }, () => {
+      if (this.state[input.id].trim().length >= input.minLength) {
+        this.setState({ error: this.state.error.filter(elem => elem !== input.id) });
+      } else if (!this.state.error.includes(input.id)) this.setState({ error: [...this.state.error, input.id] });
+    });
+  }
+
   passValidation() {
     if (Object.values(this.state.errors).every(idx => idx === '')) return true;
   }
 
   render() {
-    const submitButton = Object.values(this.state.errors).every(idx => idx === '') ? 'Submit'
+    const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
     const { name, creditCard, addressOne } = this.state;
     const emptyFields = !(name && creditCard && addressOne);
@@ -119,8 +96,8 @@ export default class PPECheckOut extends React.Component {
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
-            <small className="text-danger float-right"> {this.state.errors.name}</small>
-            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" id="name"
+            <small className="text-danger float-right"> {this.state.error.name}</small>
+            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="name"
               className="form-control" placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
               required title="Minimum 5 characters, max 65" />
             <small id="infoHelp" className="form-text text-muted text-center">
@@ -129,9 +106,9 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 1</label>
-              <small className="text-danger float-right">{this.state.errors.addressOne}</small>
+              <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
-                onChange={this.handleChange}
+                onChange={this.handleInputChange}
                 minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required />
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
@@ -140,14 +117,14 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
-                onChange={this.handleChange}
+                onChange={this.handleInputChange}
                 minLength={0} maxLength={42} required />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" onChange={this.handleChange} placeholder="City"
+              <input type="text" id="city" onChange={this.handleInputChange} placeholder="City"
                 minLength={3} maxLength={50} required />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
@@ -160,7 +137,7 @@ export default class PPECheckOut extends React.Component {
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode" onChange={this.handleChange} placeholder="Zip Code"
+              <input type="text" id="zipCode" onChange={this.handleInputChange} placeholder="Zip Code"
                 minLength={5} maxLength={5} required />
               <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
             </div>
@@ -170,8 +147,8 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
-            <small className="text-danger float-right">{this.state.errors.creditCard}</small>
-            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" id="creditCard"
+            <small className="text-danger float-right">{this.state.error.creditCard}</small>
+            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="creditCard"
               className="form-control" placeholder="Credit Card #" pattern="\d{16}"
               maxLength="16" minLength="16" title="16 Digits only" required />
             <small id="infoHelp" className="form-text text-muted text-center">
@@ -195,7 +172,7 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardCVV">CVV</label>
-            <input type="text" id="cardCVV" onChange={this.handleChange} placeholder="CVV"
+            <input type="text" id="cardCVV" onChange={this.handleInputChange} placeholder="CVV"
               minLength={3} maxLength={4} required />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
