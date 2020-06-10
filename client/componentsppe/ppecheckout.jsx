@@ -87,8 +87,8 @@ export default class PPECheckOut extends React.Component {
   render() {
     const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
-    const { name, creditCard, addressOne } = this.state;
-    const emptyFields = !(name && creditCard && addressOne);
+    const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV } = this.state;
+    const emptyFields = !(name && creditCard && addressOne && addressTwo && city && state && zipCode && cardMonth && cardYear && cardCVV);
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
