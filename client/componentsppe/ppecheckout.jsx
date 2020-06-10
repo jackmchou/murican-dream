@@ -24,7 +24,6 @@ export default class PPECheckOut extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
-    this.passValidation = this.passValidation.bind(this);
   }
 
   handleClick(event) {
@@ -44,9 +43,7 @@ export default class PPECheckOut extends React.Component {
     this.passValidation();
     const input = event.target;
     if (this.passValidation(input)) {
-      return this.setState({
-        [input.id]: input.value
-      });
+      return this.setState({ [input.id]: input.value }, () => this.passValidation(input));
     }
   }
 
@@ -73,15 +70,13 @@ export default class PPECheckOut extends React.Component {
       showErrors: !this.state.showErrors.includes(input.id)
         ? [...this.state.showErrors, input.id] : [...this.state.showErrors],
       [input.id]: this.state[input.id].trim()
-    }, () => {
-      if (this.state[input.id].trim().length >= input.minLength) {
-        this.setState({ error: this.state.error.filter(elem => elem !== input.id) });
-      } else if (!this.state.error.includes(input.id)) this.setState({ error: [...this.state.error, input.id] });
-    });
+    }, () => this.passValidation(input));
   }
 
-  passValidation() {
-    if (Object.values(this.state.errors).every(idx => idx === '')) return true;
+  passValidation(input) {
+    if (this.state[input.id].trim().length >= input.minLength) {
+      this.setState({ error: this.state.error.filter(elem => elem !== input.id) });
+    } else if (!this.state.error.includes(input.id)) this.setState({ error: [...this.state.error, input.id] });
   }
 
   render() {
