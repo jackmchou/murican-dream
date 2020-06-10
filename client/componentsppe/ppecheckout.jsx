@@ -76,10 +76,10 @@ export default class PPECheckOut extends React.Component {
 
   handleChange(event) {
     this.passValidation();
-    const { name, value } = event.target;
+    const { id, value } = event.target;
     if (this.passValidation) {
       return this.setState({
-        [name]: value,
+        [id]: value,
         // toggleButton: !this.state.toggleButton,
         errors: { name: '', errors: '', addressOne: '' }
       });
@@ -120,7 +120,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
             <small className="text-danger float-right"> {this.state.errors.name}</small>
-            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" name="name"
+            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" id="name"
               className="form-control" placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
               required title="Minimum 5 characters, max 65" />
             <small id="infoHelp" className="form-text text-muted text-center">
@@ -129,9 +129,12 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 1</label>
-              <input type="text" id="addressOne" className='form-control'
+              <small className="text-danger float-right">{this.state.errors.addressOne}</small>
+              <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
                 onChange={this.handleChange}
-                minLength={6} maxLength={42} required />
+                minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required />
+              <small id="infoHelp" className="form-text text-muted text-center">
+                Please DO NOT use personal information</small>
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
@@ -168,7 +171,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.errors.creditCard}</small>
-            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" name="creditCard"
+            <input onChange={this.handleChange} onBlur={this.handleBlur} type="text" id="creditCard"
               className="form-control" placeholder="Credit Card #" pattern="\d{16}"
               maxLength="16" minLength="16" title="16 Digits only" required />
             <small id="infoHelp" className="form-text text-muted text-center">
@@ -195,15 +198,6 @@ export default class PPECheckOut extends React.Component {
             <input type="text" id="cardCVV" onChange={this.handleChange}
               minLength={3} maxLength={4} required />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="addressOne">Shipping Address</label>
-            <small className="text-danger float-right">{this.state.errors.addressOne}</small>
-            <textarea onChange={this.handleChange} onBlur={this.handleBlur} name="addressOne" rows="4"
-              className="form-control" placeholder="Shipping Address"
-              minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required />
-            <small id="infoHelp" className="form-text text-muted text-center">
-              Please DO NOT use personal information</small>
           </div>
           <div className="p-2">
             <Link to="/ppeproductlist">
