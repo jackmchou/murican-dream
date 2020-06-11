@@ -113,7 +113,7 @@ export default class PPECheckOut extends React.Component {
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
                 onChange={this.handleInputChange} onBlur={this.handleInputBlur}
-                minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required/>
+                minLength="4" maxLength="62" pattern="[A-Za-z]{6,42}" title="Between 4 and 62 characters of any kind" required/>
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
