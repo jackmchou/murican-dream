@@ -103,7 +103,7 @@ export default class PPECheckOut extends React.Component {
             <small className="text-danger float-right"> {this.state.error.name}</small>
             <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="name"
               className="form-control" placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
-              title="Minimum 5 characters, max 65" required/>
+              title="Minimum 5 characters, max 65" required />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
@@ -113,10 +113,10 @@ export default class PPECheckOut extends React.Component {
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
                 onChange={this.handleInputChange} onBlur={this.handleInputBlur}
-                minLength="4" maxLength="62" pattern="[A-Za-z]{6,42}" title="Between 4 and 62 characters of any kind" required/>
+                minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required />
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
-              <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+              <small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
@@ -129,7 +129,7 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
               <input type="text" id="city" onChange={this.handleInputChange} placeholder="City"
-                minLength={3} maxLength={50} required />
+                minLength="3" maxLength="50" title="Minimum of 3 characters" required />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-2 mb-5">
@@ -142,8 +142,8 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
               <input type="text" id="zipCode" onChange={this.handleInputChange} placeholder="Zip Code"
-                minLength={5} maxLength={5} required />
-              <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
+                minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required />
+              <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
             </div>
           </div>
           <div className="mb-3">
