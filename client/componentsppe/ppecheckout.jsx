@@ -42,10 +42,10 @@ export default class PPECheckOut extends React.Component {
   handleInputChange(event) {
     const input = event.target;
     const regexTests = {
-      name: /[A-Za-z]{5,65}/,
-      addressOne: /[\w.,# ]{6,42}/,
-      addressTwo: /[\w.,# ]{0,42}/,
-      city: /[\w]{3,50}/,
+      name: /^(?! )[A-Za-z ]*$/,
+      addressOne: /^(?! )[\w.,# ]*$/,
+      addressTwo: /^(?! )[\w.,# ]*$/,
+      city: /^(?! )[\w]*$/,
       zipCode: /^[\d]*$/,
       cardNumber: /^[\d]*$/,
       cardCVV: /^[\d]*$/
@@ -100,9 +100,9 @@ export default class PPECheckOut extends React.Component {
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
-            <small className="text-danger float-right"> {this.state.error.name}</small>
+            <small className="text-danger float-right">{this.state.error.name}</small>
             <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="name"
-              className="form-control" placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
+              className="form-control" value={this.state.name} placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
               title="Minimum 5 characters, max 65" required />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
@@ -112,7 +112,7 @@ export default class PPECheckOut extends React.Component {
               <label htmlFor="name">Address Line 1</label>
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur}
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressOne}
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required />
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
@@ -121,14 +121,15 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur}
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressTwo}
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional" />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" onChange={this.handleInputChange} placeholder="City"
+              <input type="text" id="city" placeholder="City"
+                onChange={this.handleInputChange} value={this.state.city}
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
