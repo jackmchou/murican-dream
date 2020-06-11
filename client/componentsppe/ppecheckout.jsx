@@ -101,9 +101,9 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
             <small className="text-danger float-right">{this.state.error.name}</small>
-            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="name"
-              className="form-control" value={this.state.name} placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
-              title="Minimum 5 characters, max 65" required />
+            <input type="text" id="name" className="form-control" placeholder="Name" minLength="5"
+              maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
+              value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
@@ -112,8 +112,8 @@ export default class PPECheckOut extends React.Component {
               <label htmlFor="name">Address Line 1</label>
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressOne}
-                minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required />
+                minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressOne} />
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
               <small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
@@ -121,29 +121,29 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressTwo}
-                minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional" />
+                minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressTwo} />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" placeholder="City"
-                onChange={this.handleInputChange} value={this.state.city}
-                minLength="3" maxLength="50" title="Minimum of 3 characters" required />
+              <input type="text" id="city" placeholder="City" minLength="3" maxLength="50"
+                title="Minimum of 3 characters" required onChange={this.handleInputChange} value={this.state.city} />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-2 mb-5">
               <label htmlFor="state">State</label>
-              <select id="state" name="state" form="checkout" required>
+              <select id="state" name="state" form="checkout" value={this.state.state} required>
                 <option hidden disabled>--</option>
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode" onChange={this.handleInputChange} placeholder="Zip Code"
-                minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required />
+              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5" maxLength="5"
+                pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required value={this.state.zipCode}
+                onChange={this.handleInputChange} />
               <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.error.creditCard}</small>
-            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="creditCard"
+            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.creditCard} type="text" id="creditCard"
               className="form-control" placeholder="Credit Card #" pattern="\d{16}"
               maxLength="16" minLength="16" title="16 Digits only" required />
             <small id="infoHelp" className="form-text text-muted text-center">
