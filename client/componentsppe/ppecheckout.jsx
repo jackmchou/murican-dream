@@ -22,8 +22,8 @@ export default class PPECheckOut extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleClick(event) {
@@ -56,6 +56,15 @@ export default class PPECheckOut extends React.Component {
     }
   }
 
+  handleInputBlur(event) {
+    const input = event.currentTarget;
+    this.setState({
+      showErrors: !this.state.showErrors.includes(input.id)
+        ? [...this.state.showErrors, input.id] : [...this.state.showErrors],
+      [input.id]: this.state[input.id].trim()
+    }, () => this.passValidation(input));
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const orderObj = {
@@ -71,15 +80,6 @@ export default class PPECheckOut extends React.Component {
       cardCVV: this.state.cardCVV
     };
     this.props.onSubmit(orderObj);
-  }
-
-  handleInputBlur(event) {
-    const input = event.currentTarget;
-    this.setState({
-      showErrors: !this.state.showErrors.includes(input.id)
-        ? [...this.state.showErrors, input.id] : [...this.state.showErrors],
-      [input.id]: this.state[input.id].trim()
-    }, () => this.passValidation(input));
   }
 
   passValidation(input) {
@@ -113,7 +113,7 @@ export default class PPECheckOut extends React.Component {
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressOne} />
+                value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
               <small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
@@ -122,30 +122,28 @@ export default class PPECheckOut extends React.Component {
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.addressTwo} />
+                value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" placeholder="City" minLength="3" maxLength="50"
-                title="Minimum of 3 characters" required
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.city} />
+              <input type="text" id="city" placeholder="City" minLength="3" maxLength="50" title="Minimum of 3 characters" required
+                value={this.state.city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-2 mb-5">
               <label htmlFor="state">State</label>
               <select id="state" name="state" form="checkout" required
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.state} >
+                value={this.state.state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
                 <option hidden disabled>--</option>
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
-              <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5"
-                maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
-                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.zipCode} />
+              <label htmlFor="zipCode">Zip Code</label>
+              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
+                value={this.state.zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
             </div>
           </div>
@@ -155,9 +153,9 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group">
             <label htmlFor="creditCard">Credit Card</label>
             <small className="text-danger float-right">{this.state.error.creditCard}</small>
-            <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.creditCard} type="text" id="creditCard"
-              className="form-control" placeholder="Credit Card #" pattern="\d{16}"
-              maxLength="16" minLength="16" title="16 Digits only" required />
+            <input type="text" id="creditCard" className="form-control" placeholder="Credit Card #"
+              pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
+              value={this.state.creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
@@ -179,8 +177,9 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardCVV">CVV</label>
-            <input type="text" id="cardCVV" onChange={this.handleInputChange} placeholder="CVV"
-              minLength="3" maxLength="4" pattern="\d{3,4}" title="Digits only" required />
+            <input type="text" id="cardCVV" placeholder="CVV" minLength="3" maxLength="4"
+              pattern="\d{3,4}" title="3 to 4 digits only" required
+              value={this.state.cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
           <div className="p-2">
