@@ -129,21 +129,23 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
               <input type="text" id="city" placeholder="City" minLength="3" maxLength="50"
-                title="Minimum of 3 characters" required onChange={this.handleInputChange} value={this.state.city} />
+                title="Minimum of 3 characters" required
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.city} />
               <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-2 mb-5">
               <label htmlFor="state">State</label>
-              <select id="state" name="state" form="checkout" value={this.state.state} required>
+              <select id="state" name="state" form="checkout" required
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.state} >
                 <option hidden disabled>--</option>
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
             <div className="form-group col-12 col-lg-3 mb-5">
               <label htmlFor="zipCode">ZIP Code</label>
-              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5" maxLength="5"
-                pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required value={this.state.zipCode}
-                onChange={this.handleInputChange} />
+              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5"
+                maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur} value={this.state.zipCode} />
               <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
             </div>
           </div>
