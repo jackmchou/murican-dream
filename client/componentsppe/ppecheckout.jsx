@@ -103,7 +103,7 @@ export default class PPECheckOut extends React.Component {
             <small className="text-danger float-right"> {this.state.error.name}</small>
             <input onChange={this.handleInputChange} onBlur={this.handleInputBlur} type="text" id="name"
               className="form-control" placeholder="Name" minLength="5" maxLength="65" pattern="[A-Za-z]{5,65}"
-              required title="Minimum 5 characters, max 65" />
+              title="Minimum 5 characters, max 65" required/>
             <small id="infoHelp" className="form-text text-muted text-center">
               Please DO NOT use personal information</small>
           </div>
@@ -112,8 +112,8 @@ export default class PPECheckOut extends React.Component {
               <label htmlFor="name">Address Line 1</label>
               <small className="text-danger float-right">{this.state.error.addressOne}</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
-                onChange={this.handleInputChange}
-                minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required />
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur}
+                minLength="21" maxLength="156" title="Between 21 and 156 characters of any kind" required/>
               <small id="infoHelp" className="form-text text-muted text-center">
                 Please DO NOT use personal information</small>
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
@@ -121,8 +121,8 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="name">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
-                onChange={this.handleInputChange}
-                minLength={0} maxLength={42} required />
+                onChange={this.handleInputChange} onBlur={this.handleInputBlur}
+                minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional" />
             </div>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
