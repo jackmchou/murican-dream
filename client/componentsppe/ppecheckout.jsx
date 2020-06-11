@@ -40,10 +40,19 @@ export default class PPECheckOut extends React.Component {
   }
 
   handleInputChange(event) {
-    this.passValidation();
     const input = event.target;
-    if (this.passValidation(input)) {
-      return this.setState({ [input.id]: input.value }, () => this.passValidation(input));
+    const regexTests = {
+      name: /[A-Za-z]{5,65}/,
+      addressOne: /[\w.,# ]{6,42}/,
+      addressTwo: /[\w.,# ]{0,42}/,
+      city: /[\w]{3,50}/,
+      zipCode: /^[\d]*$/,
+      cardNumber: /^[\d]*$/,
+      cardCVV: /^[\d]*$/
+    };
+    if (regexTests[input.id].test(input.value)) {
+      this.setState({ [input.id]: input.value },
+        () => this.passValidation(input));
     }
   }
 
