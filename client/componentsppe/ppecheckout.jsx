@@ -177,7 +177,7 @@ export default class PPECheckOut extends React.Component {
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardCVV">CVV</label>
             <input type="text" id="cardCVV" onChange={this.handleInputChange} placeholder="CVV"
-              minLength={3} maxLength={4} required />
+              minLength="3" maxLength="4" pattern="\d{3,4}" title="Digits only" required />
             <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
           </div>
           <div className="p-2">
