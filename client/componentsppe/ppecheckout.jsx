@@ -104,14 +104,14 @@ export default class PPECheckOut extends React.Component {
             <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
           </div>
           <div className="form-row">
-            <div className="form-group col-12 col-lg-6 col-md-8 mb-4 position-relative">
+            <div className="form-group col-12 col-lg-7 col-md-8 mb-4 position-relative">
               <label htmlFor="addressOne">Address Line 1</label>
               <input type="text" id="addressOne" className={this.validClassToggle('addressOne')} placeholder="123 Main St"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
             </div>
-            <div className="form-group col-12 col-lg-6 col-md-4 mb-4">
+            <div className="form-group col-12 col-lg-5 col-md-4 mb-4">
               <label htmlFor="addressTwo">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className={this.validClassToggle('addressTwo')} placeholder="Apt/Unit/#"
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
@@ -119,14 +119,14 @@ export default class PPECheckOut extends React.Component {
             </div>
           </div>
           <div className="form-row">
-            <div className="form-group col-12 col-lg-7 col-md-7 mb-4 position-relative">
+            <div className="form-group col-sm-12 col-lg-7 col-md-7 mb-4 position-relative">
               <label htmlFor="city">City</label>
               <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 3 characters please.</small>
             </div>
-            <div className="form-group col-12 col-lg-2 col-md-2 mb-4">
+            <div className="form-group col-sm-12 col-lg-2 col-md-2 mb-4">
               <label htmlFor="state">State</label>
               <select id="state" name="state" form="checkout" className="custom-select" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
