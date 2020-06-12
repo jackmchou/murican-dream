@@ -88,6 +88,11 @@ export default class PPECheckOut extends React.Component {
     } else if (!this.state.error.includes(input.id)) this.setState({ error: [...this.state.error, input.id] });
   }
 
+  validClassToggle(input) {
+    const { error, showErrors } = this.state;
+    return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control is-valid';
+  }
+
   render() {
     const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
@@ -100,26 +105,21 @@ export default class PPECheckOut extends React.Component {
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
-            <small className="text-danger float-right">{this.state.error.name}</small>
-            <input type="text" id="name" className="form-control" placeholder="Name" minLength="5"
+            <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name" minLength="5"
               maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
               value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small id="infoHelp" className="form-text text-muted text-center">
-              Please DO NOT use personal information</small>
+            <small className="valid-feedback animate__animated animate__fadeIn">Nice!</small>
+            <small className="invalid-feedback animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-6 mb-5">
-              <label htmlFor="name">Address Line 1</label>
-              <small className="text-danger float-right">{this.state.error.addressOne}</small>
+              <label htmlFor="addressOne">Address Line 1</label><small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
               <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small id="infoHelp" className="form-text text-muted text-center">
-                Please DO NOT use personal information</small>
-              <small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
-              <label htmlFor="name">Address Line 2 (optional)</label>
+              <label htmlFor="addressTwo">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
                 value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
@@ -156,8 +156,6 @@ export default class PPECheckOut extends React.Component {
             <input type="text" id="creditCard" className="form-control" placeholder="Credit Card #"
               pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
               value={this.state.creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small id="infoHelp" className="form-text text-muted text-center">
-              Please DO NOT use personal information</small>
           </div>
           <div className="form-group col-12 col-lg-2 mb-5">
             <label htmlFor="cardMonth">Month</label>
@@ -189,6 +187,8 @@ export default class PPECheckOut extends React.Component {
             <span className="float-right" onClick={this.handleClick}>
               <button type="submit" className="btn btn-success" disabled={emptyFields}>{submitButton}</button>
             </span>
+            <small id="infoHelp" className="form-text text-muted text-center">
+              This is a demo, please do not use any personal identifiable information, no product will be purchased or shipped</small>
           </div>
         </div>
       </form>
