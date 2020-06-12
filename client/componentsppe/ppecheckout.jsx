@@ -71,18 +71,7 @@ export default class PPECheckOut extends React.Component {
       name, addressOne, addressTwo, city, state, zipCode,
       creditCard, cardMonth, cardYear, cardCVV
     } = this.state;
-    this.props.onSubmit({
-      name,
-      addressOne,
-      addressTwo,
-      city,
-      state,
-      zipCode,
-      creditCard,
-      cardMonth,
-      cardYear,
-      cardCVV
-    });
+    this.props.onSubmit({ name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV });
   }
 
   passValidation(input) {
@@ -94,7 +83,7 @@ export default class PPECheckOut extends React.Component {
 
   validClassToggle(input) {
     const { error, showErrors } = this.state;
-    return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control is-valid';
+    return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
   render() {
@@ -107,49 +96,48 @@ export default class PPECheckOut extends React.Component {
         <div className="container bg-dark p-3 text-white">
           <h1>Order Form</h1>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
-          <div className="form-group">
+          <div className="form-group position-relative mb-4">
             <label htmlFor="name">Full Name</label>
             <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name" minLength="5"
               maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
               value={name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small className="valid-feedback animate__animated animate__fadeIn">Perfect!</small>
-            <small className="invalid-feedback animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
+            <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
           </div>
-          <div className="form-row d-flex flex-column flex-lg-row">
-            <div className="form-group col-12 col-lg-6 mb-5">
+          <div className="form-row">
+            <div className="form-group col-12 col-lg-6 col-md-8 mb-4 position-relative">
               <label htmlFor="addressOne">Address Line 1</label>
               <input type="text" id="addressOne" className={this.validClassToggle('addressOne')} placeholder="123 Main St"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="valid-feedback animate__animated animate__fadeIn">Perfect!</small>
-              <small className="invalid-feedback animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
             </div>
-            <div className="form-group col-12 col-lg-6 mb-5">
+            <div className="form-group col-12 col-lg-6 col-md-4 mb-4">
               <label htmlFor="addressTwo">Address Line 2 (optional)</label>
               <input type="text" id="addressTwo" className={this.validClassToggle('addressTwo')} placeholder="Apt/Unit/#"
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
                 value={addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             </div>
           </div>
-          <div className="form-row d-flex flex-column flex-lg-row">
-            <div className="form-group col-12 col-lg-7 mb-5">
+          <div className="form-row">
+            <div className="form-group col-12 col-lg-7 col-md-7 mb-4">
               <label htmlFor="city">City</label>
               <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-feedback">Minimum of 3 characters required.</small>
             </div>
-            <div className="form-group col-12 col-lg-2 mb-5">
+            <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="state">State</label>
-              <select id="state" name="state" form="checkout" required
+              <select id="state" name="state" form="checkout" className="custom-select" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
                 <option hidden disabled>--</option>
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
-            <div className="form-group col-12 col-lg-3 mb-5">
+            <div className="form-group col-12 col-lg-3 col-md-3 mb-5">
               <label htmlFor="zipCode">Zip Code</label>
-              <input type="text" id="zipCode" placeholder="Zip Code" minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
+              <input type="text" id="zipCode" placeholder="Zip Code" className={this.validClassToggle('zipCode')}
+                minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
                 value={zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
             </div>
