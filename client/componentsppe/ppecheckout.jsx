@@ -47,7 +47,7 @@ export default class PPECheckOut extends React.Component {
       addressTwo: /^(?! )[\w.,# ]*$/,
       city: /^(?! )[A-Za-z ]*$/,
       zipCode: /^[\d]*$/,
-      cardNumber: /^[\d]*$/,
+      creditCard: /^[\d]*$/,
       cardCVV: /^[\d]*$/
     };
     if (regexTests[input.id].test(input.value)) {
@@ -119,14 +119,14 @@ export default class PPECheckOut extends React.Component {
             </div>
           </div>
           <div className="form-row">
-            <div className="form-group col-12 col-lg-7 col-md-7 mb-4">
+            <div className="form-group col-12 col-lg-7 col-md-7 mb-4 position-relative">
               <label htmlFor="city">City</label>
               <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-feedback">Minimum of 3 characters required.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 3 characters please.</small>
             </div>
-            <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
+            <div className="form-group col-12 col-lg-2 col-md-2 mb-4">
               <label htmlFor="state">State</label>
               <select id="state" name="state" form="checkout" className="custom-select" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
@@ -134,46 +134,48 @@ export default class PPECheckOut extends React.Component {
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
-            <div className="form-group col-12 col-lg-3 col-md-3 mb-5">
+            <div className="form-group col-12 col-lg-3 col-md-3 mb-4 position-relative">
               <label htmlFor="zipCode">Zip Code</label>
               <input type="text" id="zipCode" placeholder="Zip Code" className={this.validClassToggle('zipCode')}
                 minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
                 value={zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
+              <small className="invalid-tooltip">Valid ZIP please.</small>
             </div>
           </div>
           <div className="mb-3">
             <h5>Payment</h5>
           </div>
-          <div className="form-group">
-            <label htmlFor="creditCard">Credit Card</label>
-            <small className="text-danger float-right">{this.state.error.creditCard}</small>
-            <input type="text" id="creditCard" className="form-control" placeholder="Credit Card #"
-              pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
-              value={creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-          </div>
-          <div className="form-group col-12 col-lg-2 mb-5">
-            <label htmlFor="cardMonth">Month</label>
-            <select id="cardMonth" name="cardMonth" form="checkout"
-              required>
-              <option hidden disabled>--</option>
-            </select>
-            <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
-          </div>
-          <div className="form-group col-12 col-lg-2 mb-5">
-            <label htmlFor="cardYear">Year</label>
-            <select id="cardYear" name="cardYear" form="checkout"
-              required>
-              <option hidden disabled>--</option>
-            </select>
-            <small className="invalid-feedback position-absolute fade-in">Please select a year.</small>
-          </div>
-          <div className="form-group col-12 col-lg-2 mb-5">
-            <label htmlFor="cardCVV">CVV</label>
-            <input type="text" id="cardCVV" placeholder="CVV" minLength="3" maxLength="4"
-              pattern="\d{3,4}" title="3 to 4 digits only" required
-              value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
+          <div className="form-row mb-3">
+            <div className="form-group col-12 col-lg-2 col-md-6">
+              <label htmlFor="creditCard">Credit Card</label>
+              <input type="text" id="creditCard" className={this.validClassToggle('creditCard')} placeholder="Credit Card #"
+                pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
+                value={creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
+              <small className="invalid-tooltip">Valid 16 digit card number please.</small>
+            </div>
+            <div className="form-group col-12 col-lg-2 col-md-2">
+              <label htmlFor="cardMonth">Month</label>
+              <select id="cardMonth" name="cardMonth" form="checkout" className="custom-select"
+                required>
+                <option hidden disabled>--</option>
+              </select>
+              <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
+            </div>
+            <div className="form-group col-12 col-lg-2 col-md-2">
+              <label htmlFor="cardYear">Year</label>
+              <select id="cardYear" name="cardYear" form="checkout" className="custom-select"
+                required>
+                <option hidden disabled>--</option>
+              </select>
+              <small className="invalid-feedback position-absolute fade-in">Please select a year.</small>
+            </div>
+            <div className="form-group col-12 col-lg-2 col-md-2">
+              <label htmlFor="cardCVV">CVV</label>
+              <input type="text" id="cardCVV" placeholder="CVV" className={this.validClassToggle('cardCVV')}
+                minLength="3" maxLength="4" pattern="\d{3,4}" title="3 to 4 digits only" required
+                value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
+              <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
+            </div>
           </div>
           <div className="p-2">
             <Link to="/ppeproductlist">
