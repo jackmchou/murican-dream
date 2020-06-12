@@ -113,14 +113,16 @@ export default class PPECheckOut extends React.Component {
           </div>
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-6 mb-5">
-              <label htmlFor="addressOne">Address Line 1</label><small className="invalid-feedback position-absolute">Minimum of 4 characters required.</small>
-              <input type="text" id="addressOne" className='form-control' placeholder="Address Line 1"
+              <label htmlFor="addressOne">Address Line 1</label>
+              <input type="text" id="addressOne" className={this.validClassToggle('addressOne')} placeholder="123 Main St"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
+              <small className="valid-feedback animate__animated animate__fadeIn">Nice!</small>
+              <small className="invalid-feedback animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
             </div>
             <div className="form-group col-12 col-lg-6 mb-5">
               <label htmlFor="addressTwo">Address Line 2 (optional)</label>
-              <input type="text" id="addressTwo" className='form-control' placeholder="Apt/Unit/#"
+              <input type="text" id="addressTwo" className={this.validClassToggle('addressTwo')} placeholder="Apt/Unit/#"
                 minLength="0" maxLength="42" title="Between 0 and 42 characters of any kind, optional"
                 value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             </div>
