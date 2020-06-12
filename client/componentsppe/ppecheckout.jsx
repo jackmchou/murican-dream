@@ -20,6 +20,11 @@ export default class PPECheckOut extends React.Component {
       error: Array.from(this.fields),
       showErrors: []
     };
+    this.stateAbbr = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
+      'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA',
+      'WA', 'WV', 'WI', 'WY'];
+    this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    this.years = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'];
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
@@ -91,12 +96,6 @@ export default class PPECheckOut extends React.Component {
   }
 
   render() {
-    const stateAbbr = [
-      'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
-      'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA',
-      'WA', 'WV', 'WI', 'WY'
-    ];
-    const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
     const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
     const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV } = this.state;
@@ -141,7 +140,7 @@ export default class PPECheckOut extends React.Component {
               <select id="state" name="state" form="checkout" className="custom-select" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
                 <option hidden disabled>--</option>
-                {this.generateOptionVal(stateAbbr)}
+                {this.generateOptionVal(this.stateAbbr)}
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
@@ -169,7 +168,7 @@ export default class PPECheckOut extends React.Component {
               <select id="cardMonth" name="cardMonth" form="checkout" className="custom-select"
                 required>
                 <option hidden disabled>--</option>
-                {this.generateOptionVal(months)}
+                {this.generateOptionVal(this.months)}
               </select>
               <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
             </div>
@@ -178,6 +177,7 @@ export default class PPECheckOut extends React.Component {
               <select id="cardYear" name="cardYear" form="checkout" className="custom-select"
                 required>
                 <option hidden disabled>--</option>
+                {this.generateOptionVal(this.years)}
               </select>
               <small className="invalid-feedback position-absolute fade-in">Please select a year.</small>
             </div>
@@ -186,13 +186,11 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="cardCVV" placeholder="CVV" className={this.validClassToggle('cardCVV')}
                 minLength="3" maxLength="4" pattern="\d{3,4}" title="3 to 4 digits only" required
                 value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-feedback position-absolute fade-in">Please enter a 3-4 digit CVV.</small>
+              <small className="invalid-feedback position-absolute fade-in">Please enter CVV #</small>
             </div>
           </div>
           <div className="p-2">
-            <Link to="/ppeproductlist">
-              <button className="btn btn-outline-info">Continue Shopping</button>
-            </Link>
+            <Link to="/ppeproductlist"><button className="btn btn-outline-info">Continue Shopping</button></Link>
             <span className="float-right" onClick={this.handleClick}>
               <button type="submit" className="btn btn-success" disabled={emptyFields}>{submitButton}</button>
             </span>
