@@ -86,7 +86,17 @@ export default class PPECheckOut extends React.Component {
     return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
+  generateOptionVal(optionVal) {
+    return optionVal.map(val => <option key={val} value={val}>{val}</option>);
+  }
+
   render() {
+    const stateAbbr = [
+      'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
+      'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA',
+      'WA', 'WV', 'WI', 'WY'
+    ];
+    const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
     const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
     const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV } = this.state;
@@ -131,6 +141,7 @@ export default class PPECheckOut extends React.Component {
               <select id="state" name="state" form="checkout" className="custom-select" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
                 <option hidden disabled>--</option>
+                {this.generateOptionVal(stateAbbr)}
               </select>
               <small className="invalid-feedback position-absolute">Please select a state.</small>
             </div>
@@ -158,6 +169,7 @@ export default class PPECheckOut extends React.Component {
               <select id="cardMonth" name="cardMonth" form="checkout" className="custom-select"
                 required>
                 <option hidden disabled>--</option>
+                {this.generateOptionVal(months)}
               </select>
               <small className="invalid-feedback position-absolute fade-in">Please select a month.</small>
             </div>
