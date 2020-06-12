@@ -45,7 +45,7 @@ export default class PPECheckOut extends React.Component {
       name: /^(?! )[A-Za-z ]*$/,
       addressOne: /^(?! )[\w.,# ]*$/,
       addressTwo: /^(?! )[\w.,# ]*$/,
-      city: /^(?! )[\w]*$/,
+      city: /^(?! )[A-Za-z ]*$/,
       zipCode: /^[\d]*$/,
       cardNumber: /^[\d]*$/,
       cardCVV: /^[\d]*$/
@@ -130,9 +130,10 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row d-flex flex-column flex-lg-row">
             <div className="form-group col-12 col-lg-7 mb-5">
               <label htmlFor="city">City</label>
-              <input type="text" id="city" placeholder="City" minLength="3" maxLength="50" title="Minimum of 3 characters" required
+              <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
+                minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={this.state.city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
+              <small className="invalid-feedback">Minimum of 3 characters required.</small>
             </div>
             <div className="form-group col-12 col-lg-2 mb-5">
               <label htmlFor="state">State</label>
