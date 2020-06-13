@@ -24,7 +24,7 @@ export default class PPECheckOut extends React.Component {
       'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA',
       'WA', 'WV', 'WI', 'WY'];
     this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    this.years = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'];
+    this.years = [];
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
@@ -51,8 +51,11 @@ export default class PPECheckOut extends React.Component {
       addressOne: /^(?! )[\w.,# ]*$/,
       addressTwo: /^(?! )[\w.,# ]*$/,
       city: /^(?! )[A-Za-z ]*$/,
+      state: /^[A-Z]/,
       zipCode: /^[\d]*$/,
       creditCard: /^[\d]*$/,
+      cardMonth: /^[\d]*$/,
+      cardYear: /^[\d]*$/,
       cardCVV: /^[\d]*$/
     };
     if (regexTests[input.id].test(input.value)) {
@@ -97,9 +100,7 @@ export default class PPECheckOut extends React.Component {
 
   generateYears() {
     const years = [];
-    for (let i = 0; i < 10; i++) {
-      years.push('' + ((new Date().getFullYear()) + i));
-    }
+    for (let i = 0; i < 10; i++) years.push('' + ((new Date().getFullYear()) + i));
     return this.generateOptionVal(years);
   }
 
@@ -174,7 +175,7 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardMonth">Month</label>
               <select id="cardMonth" name="cardMonth" form="checkout" className="custom-select"
-                required>
+                value={cardMonth} onChange={this.handleInputChange} required>
                 <option hidden disabled>--</option>
                 {this.generateOptionVal(this.months)}
               </select>
@@ -183,7 +184,7 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardYear">Year</label>
               <select id="cardYear" name="cardYear" form="checkout" className="custom-select"
-                required>
+                value={cardYear} onChange={this.handleInputChange} required>
                 <option hidden disabled>--</option>
                 {this.generateYears()}
               </select>
