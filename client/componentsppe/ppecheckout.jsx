@@ -95,6 +95,14 @@ export default class PPECheckOut extends React.Component {
     return optionVal.map(val => <option key={val} value={val}>{val}</option>);
   }
 
+  generateYears() {
+    const years = [];
+    for (let i = 0; i < 10; i++) {
+      years.push('' + ((new Date().getFullYear()) + i));
+    }
+    return this.generateOptionVal(years);
+  }
+
   render() {
     const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
       : 'Please complete form';
@@ -177,7 +185,7 @@ export default class PPECheckOut extends React.Component {
               <select id="cardYear" name="cardYear" form="checkout" className="custom-select"
                 required>
                 <option hidden disabled>--</option>
-                {this.generateOptionVal(this.years)}
+                {this.generateYears()}
               </select>
               <small className="invalid-feedback">Please select a year.</small>
             </div>
