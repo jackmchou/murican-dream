@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default class PPECheckOut extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'addressOne', 'city', 'state', 'zipCode', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV'];
+    this.fields = ['name', 'addressOne', 'city', 'state', 'zipCode', 'creditCard', 'cardMonth', 'cardYear', 'cardCVV'];
     this.state = {
       name: '',
       creditCard: '',
@@ -91,7 +91,7 @@ export default class PPECheckOut extends React.Component {
 
   validClassToggle(input) {
     const { error, showErrors } = this.state;
-    if (input === 'state') return error.includes(input) && showErrors.includes(input) ? 'custom-select is-invalid' : 'custom-select';
+    if (['state', 'cardMonth', 'cardYear'].includes(input)) return error.includes(input) && showErrors.includes(input) ? 'custom-select is-invalid' : 'custom-select';
     return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
@@ -106,10 +106,9 @@ export default class PPECheckOut extends React.Component {
   }
 
   render() {
-    const submitButton = Object.values(this.state.error).every(idx => idx === '') ? 'Submit'
-      : 'Please complete form';
-    const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV } = this.state;
-    const emptyFields = !(name && creditCard && addressOne && addressTwo && city && state && zipCode && cardMonth && cardYear && cardCVV);
+    const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV, error } = this.state;
+    const submitButton = !error.length ? 'Submit' : 'Please complete form';
+    const emptyFields = error.length > 0;
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
