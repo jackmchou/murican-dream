@@ -13,8 +13,8 @@ export default class PPECheckOut extends React.Component {
       city: '',
       state: '--',
       zipCode: '',
-      cardMonth: '--',
-      cardYear: '--',
+      cardMonth: 'MM',
+      cardYear: 'YYYY',
       cardCVV: '',
       toggleButton: false,
       error: Array.from(this.fields),
@@ -83,14 +83,15 @@ export default class PPECheckOut extends React.Component {
   }
 
   passValidation(input) {
-    const { error } = this.state;
-    if (this.state[input.id].trim().length >= input.minLength) {
+    const { error, state, cardMonth, cardYear } = this.state;
+    if (this.state[input.id].trim().length >= input.minLength || state !== '--' || cardMonth !== 'MM' || cardYear !== 'YYYY') {
       this.setState({ error: error.filter(elem => elem !== input.id) });
     } else if (!error.includes(input.id)) this.setState({ error: [...error, input.id] });
   }
 
   validClassToggle(input) {
     const { error, showErrors } = this.state;
+    if (input === 'state') return error.includes(input) && showErrors.includes(input) ? 'custom-select is-invalid' : 'custom-select';
     return error.includes(input) && showErrors.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
@@ -119,7 +120,7 @@ export default class PPECheckOut extends React.Component {
             <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name" minLength="5"
               maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
               value={name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small className="invalid-tooltip animate__animated animate__fadeInUp">Minimum of 5 characters please</small>
+            <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
           </div>
           <div className="form-row">
             <div className="form-group col-12 col-lg-7 col-md-8 mb-5 position-relative">
@@ -127,7 +128,7 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="addressOne" className={this.validClassToggle('addressOne')} placeholder="123 Main St"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInUp">Minimum of 4 characters please</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
             </div>
             <div className="form-group col-12 col-lg-5 col-md-4 mb-5">
               <label htmlFor="addressTwo">Address Line 2 (optional)</label>
@@ -142,23 +143,23 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInUp">Minimum of 3 characters please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 3 characters please.</small>
             </div>
             <div className="form-group col-sm-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="state">State</label>
-              <select id="state" name="state" form="checkout" className="custom-select" required
+              <select id="state" form="checkout" className={this.validClassToggle('state')} minLength="2" required
                 value={state} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
                 <option hidden disabled>--</option>
                 {this.generateOptionVal(this.stateAbbr)}
               </select>
-              <small className="invalid-feedback position-absolute">Please select a state.</small>
+              <small className="invalid-tooltip">Please select a state.</small>
             </div>
             <div className="form-group col-12 col-lg-3 col-md-3 mb-5 position-relative">
               <label htmlFor="zipCode">Zip Code</label>
               <input type="text" id="zipCode" placeholder="Zip Code" className={this.validClassToggle('zipCode')}
                 minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
                 value={zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInUp">Valid ZIP please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Valid ZIP please.</small>
             </div>
           </div>
           <div className="mb-3">
@@ -170,32 +171,32 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="creditCard" className={this.validClassToggle('creditCard')} placeholder="Credit Card #"
                 pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
                 value={creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInUp">Valid 16 digit card number please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Valid 16 digit card number please.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardMonth">Month</label>
-              <select id="cardMonth" name="cardMonth" form="checkout" className="custom-select"
-                value={cardMonth} onChange={this.handleInputChange} required>
-                <option hidden disabled>--</option>
+              <select id="cardMonth" form="checkout" className={this.validClassToggle('cardMonth')} required
+                value={cardMonth} onChange={this.handleInputChange} onBlur={this.handleInputBlur}>
+                <option hidden disabled>MM</option>
                 {this.generateOptionVal(this.months)}
               </select>
-              <small className="invalid-feedback">Please select a month.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please select a month.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardYear">Year</label>
-              <select id="cardYear" name="cardYear" form="checkout" className="custom-select"
-                value={cardYear} onChange={this.handleInputChange} required>
-                <option hidden disabled>--</option>
+              <select id="cardYear" form="checkout" className={this.validClassToggle('cardYear')} required
+                value={cardYear} onChange={this.handleInputChange} onBlur={this.handleInputBlur} >
+                <option hidden disabled>YYYY</option>
                 {this.generateYears()}
               </select>
-              <small className="invalid-feedback">Please select a year.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please select a year.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardCVV">CVV</label>
               <input type="text" id="cardCVV" placeholder="CVV" className={this.validClassToggle('cardCVV')}
                 minLength="3" maxLength="4" pattern="\d{3,4}" title="3 to 4 digits only" required
                 value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-feedback animate__animated animate__fadeInUp">Please enter CVV #</small>
+              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please enter CVV #</small>
             </div>
           </div>
           <div className="p-2">
