@@ -190,8 +190,15 @@ CREATE TABLE public.orders (
     "cartId" integer NOT NULL,
     name text NOT NULL,
     "creditCard" text NOT NULL,
-    "shippingAddress" text NOT NULL,
-    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
+    "addressOne" text NOT NULL,
+    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL,
+    city text NOT NULL,
+    state text NOT NULL,
+    "zipCode" text NOT NULL,
+    "cardMonth" text NOT NULL,
+    "cardYear" text NOT NULL,
+    "cardCVV" text NOT NULL,
+    "addressTwo" text
 );
 
 
@@ -471,18 +478,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-1	14	J	212312	123 Main St	2020-03-10 15:47:14.227885-07
-2	21	J	212312	123 Main St	2020-03-10 15:51:53.007704-07
-3	22	J	212312	123 Main St	2020-03-10 15:53:00.25487-07
-4	23	JC	0000000000000	123 Main St.	2020-03-10 17:49:08.095251-07
-5	24	feawfewf	00000000	123 Main St	2020-03-10 17:51:45.02779-07
-6	25	afewf	0000000000000000	12fewafarwr	2020-03-10 17:53:46.130245-07
-7	28	Jane Doe	123124151231231	111 Main St 	2020-04-06 09:35:04.15409-07
-8	39	fwafwef	2312312321321321	gfegfegesgregesrgresgsregesrg	2020-05-02 10:16:29.167613-07
-9	40	fewafwaefweffewaef	3243242343242342	frewagrgwaegwagweagwegwegweg	2020-05-03 07:43:29.098917-07
-10	41	efwaefweafwfeewaf	2423424234234242	agfesargresgesrgregesrgsregerrgse	2020-05-03 07:44:43.487558-07
-11	42	fewfweafewfweaf	2134324234323423	rgesrgsregregresgrsegregreg	2020-05-03 07:45:57.298248-07
+COPY public.orders ("orderId", "cartId", name, "creditCard", "addressOne", "createdAt", city, state, "zipCode", "cardMonth", "cardYear", "cardCVV", "addressTwo") FROM stdin;
 \.
 
 
@@ -492,12 +488,25 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 
 COPY public."ppeCartItems" ("ppeCartItemId", "ppeCartId", "productId", price, quantity) FROM stdin;
 180	24	2	50	1
+181	25	1	50	1
+182	26	1	50	1
 65	16	1	50	2
 67	18	1	50	1
+183	27	5	10000	8
+186	28	5	10000	8
+187	29	2	50	2
+189	30	2	50	4
+190	31	3	7500	3
 95	20	2	50	1
 96	21	1	50	3
 99	22	6	300	1
 100	22	3	7500	1
+191	32	2	50	9
+192	33	1	50	13
+199	34	5	10000	2
+200	34	3	7500	2
+201	35	5	10000	2
+202	35	3	7500	2
 \.
 
 
@@ -530,6 +539,17 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 22	2020-06-03 16:02:39.973001-07
 23	2020-06-04 06:38:57.796693-07
 24	2020-06-07 09:03:49.734906-07
+25	2020-06-08 16:52:42.163849-07
+26	2020-06-08 17:00:43.659595-07
+27	2020-06-10 12:50:29.65312-07
+28	2020-06-10 17:28:10.289283-07
+29	2020-06-12 11:41:47.914064-07
+30	2020-06-13 13:10:55.700314-07
+31	2020-06-14 13:38:12.296275-07
+32	2020-06-14 16:09:31.407418-07
+33	2020-06-14 18:36:53.120524-07
+34	2020-06-15 10:34:44.523245-07
+35	2020-06-15 14:41:10.598156-07
 \.
 
 
@@ -538,6 +558,12 @@ COPY public."ppeCarts" ("ppeCartId", "createdAt") FROM stdin;
 --
 
 COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "addressOne", "createdAt", city, state, "zipCode", "cardMonth", "cardYear", "cardCVV", "addressTwo") FROM stdin;
+6	25	K	1234	123	2020-06-08 17:00:00.94232-07	LA	CA	92457	06	23	784	321
+7	26	K	1234	123	2020-06-08 17:00:48.566246-07	LA	CA	92457	06	23	784	\N
+8	31	ewfawef	7578657867867867	ewfawfew	2020-06-14 13:56:02.486329-07	ewafwefwef	KY	95994	10	2022	655	
+9	32	grdgdgrd	7837863873738738	dgdrgrdg	2020-06-14 17:17:15.844043-07	thth	MD	37378	11	2021	3763	
+10	34	Walter White	8758657678678678	sdsadsad	2020-06-15 14:35:55.41809-07	asdasdsa	AR	68777	03	2022	877	
+11	35	Walter White	4664654654658788	123 Blue Majik St	2020-06-15 14:42:12.924095-07	Albuquerque	NM	95684	02	2024	545	
 \.
 
 
@@ -547,11 +573,11 @@ COPY public."ppeOrders" ("ppeOrderId", "ppeCartId", name, "creditCard", "address
 
 COPY public."ppeProducts" ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
 1	Surgical Mask	50	/images/surgicalmask.png	Designed to prevent infections in patients and treating personnel	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
-2	N95 Mask	50	/images/N95mask.png	A particulate-filtering facepiece respirator that meets the U.S N95 classification of air filtration	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
 3	Respirator	7500	/images/respirator.png	Designed to protect the wearer from inhaling hazardous atmospheres	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
 4	Gloves	100	/images/gloves.png	Protect hands against cold or heat, damage by friction, abrasion or chemicals, and disease	Trust fund tacos tumeric fanny pack, kogi tofu mustache venmo small batch. Beard dreamcatcher direct trade 3 wolf moon, humblebrag vaporware fingerstache. Fixie palo santo flexitarian glossier keytar gochujang snackwave. Ethical pop-up meggings, succulents banh mi migas shoreditch jianbing tousled before they sold out forage typewriter raclette humblebrag skateboard. Four dollar toast 8-bit taiyaki paleo poutine kinfolk everyday carry cronut austin authentic. Try-hard next level jean shorts, tacos wolf hexagon aesthetic fixie distillery. Man braid vaporware squid street art farm-to-table heirloom 90's fingerstache vegan keytar cornhole enamel pin hashtag man bun.
 5	Hazmat Suit	10000	/images/hazmat.png	Whole-body garment worn as protection against hazardous materials	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
 6	Hand Sanitizer	300	/images/handsanitizer.png	Alcohol based liquid gel used to protect against germs and viruses	Pop-up venmo listicle keytar hoodie flannel kogi sartorial echo park pinterest man bun put a bird on it prism yr. Sriracha echo park tumeric, williamsburg brooklyn viral wayfarers food truck hell of blog irony meditation. Single-origin coffee meditation fanny pack hashtag keytar raclette chillwave plaid fixie iceland raw denim mustache tumeric literally. Blue bottle gluten-free shaman adaptogen everyday carry tumeric echo park you probably haven't heard of them actually pop-up hot chicken ennui stumptown kombucha ethical. Yr literally godard flexitarian hammock, XOXO tilde squid authentic stumptown. Unicorn offal jean shorts lo-fi pork belly.
+2	N95 Mask	50	/images/n95mask.png	A particulate-filtering facepiece respirator that meets the U.S N95 classification of air filtration	Disrupt chambray listicle adaptogen. Raclette offal asymmetrical subway tile post-ironic yr. Semiotics yr enamel pin cliche microdosing bicycle rights. Franzen af asymmetrical cornhole meditation. Neutra trust fund everyday carry intelligentsia shabby chic gochujang schlitz, poke pok pok retro ennui photo booth. Pork belly paleo gentrify mustache, locavore meggings blog.
 \.
 
 
@@ -619,21 +645,21 @@ SELECT pg_catalog.setval('public."orders_orderId_seq"', 11, true);
 -- Name: ppeCartItems_ppeCartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 180, true);
+SELECT pg_catalog.setval('public."ppeCartItems_ppeCartItemId_seq"', 202, true);
 
 
 --
 -- Name: ppeCarts_ppeCartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 24, true);
+SELECT pg_catalog.setval('public."ppeCarts_ppeCartId_seq"', 35, true);
 
 
 --
 -- Name: ppeOrders_ppeOrderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 5, true);
+SELECT pg_catalog.setval('public."ppeOrders_ppeOrderId_seq"', 11, true);
 
 
 --
