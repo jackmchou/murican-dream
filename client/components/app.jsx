@@ -215,10 +215,6 @@ export default class App extends React.Component {
             </PPELayOut>
           </Route>
           <Route path="/ppeproductlist">
-            {/* <PPELayOut ppeCartItemCount={ppeCart.length}
-              ppeAcceptTerms={this.ppeAcceptTerms}>
-              <PPEProductList addPPEToCart={this.addPPEToCart} />
-            </PPELayOut>} */}
             {!ppeTermsAccepted ? <PPEDemoDisclaimer ppeAcceptTerms={this.ppeAcceptTerms} />
               : <PPELayOut ppeCartItemCount={ppeCart.length}
                 ppeAcceptTerms={this.ppeAcceptTerms}>
