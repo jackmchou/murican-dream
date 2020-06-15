@@ -27,7 +27,7 @@ export default class App extends React.Component {
       isLoading: true,
       cart: [],
       orderConfirmed: false,
-      ppeTermsAccepted: sessionStorage.getItem('ppeTermsAccepted') || false,
+      ppeTermsAccepted: Boolean(sessionStorage.getItem('ppeTermsAccepted')),
       ppeCart: [],
       ppeOrderConfirmed: false
     };
