@@ -183,14 +183,12 @@ export default class PPECheckOut extends React.Component {
               <small className="invalid-tooltip animate__animated animate__fadeIn">Please enter CVV #</small>
             </div>
           </div>
-          <div className="p-2">
-            <Link to="/ppeproductlist"><button className="btn btn-outline-info">Continue Shopping</button></Link>
-            <span className="float-right" onClick={this.handleClick}>
-              <button type="submit" className="btn btn-success" disabled={errorCheck}>{errorCheck ? 'Please complete form' : 'Submit'}</button>
-            </span>
-            <small id="infoHelp" className="form-text text-muted text-center">
-              This is a demo, please do not use any personal identifiable information, no product will be purchased or shipped</small>
+          <div className="p-2 d-flex justify-content-between">
+            <Link to="/ppeproductlist" className="mr-2"><button className="btn btn-outline-info">Continue Shopping</button></Link>
+            <button type="submit" className="btn btn-success" disabled={errorCheck}>{errorCheck ? 'Form Incomplete' : 'Submit'}</button>
           </div>
+          <small id="infoHelp" className="form-text text-muted text-center">
+              This is a demo, please do not use any personal identifiable information, no product will be purchased or shipped</small>
         </div>
       </form>
     );
