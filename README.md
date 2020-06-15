@@ -67,12 +67,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
   ```shell
   npm db:import
   ```
-7. Access the Murican Dream database using pgweb in your default web browser
-  ```shell
-  pgweb --db=muricanDream
-  ```
-  - Then navigate to http://localhost:8081 and click on the "Query" tab
-8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+7. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
   ```shell
   npm run dev
   ```
