@@ -98,14 +98,14 @@ export default class PPECheckOut extends React.Component {
     const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV, error } = this.state;
     const errorCheck = error.length > 0;
     return (
-      <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
+      <form className="p-5 bg-lightblue need-validation" noValidate onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
           <h1>Order Form</h1>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
           <div className="form-group position-relative mb-5">
             <label htmlFor="name">Full Name</label>
-            <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name" minLength="5"
-              maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
+            <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name"
+              minLength="5" maxLength="65" title="Minimum 5 characters, max 65" required
               value={name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
             <small className="invalid-tooltip animate__animated animate__fadeIn">Minimum of 5 characters please</small>
           </div>
@@ -143,8 +143,8 @@ export default class PPECheckOut extends React.Component {
             </div>
             <div className="form-group col-12 col-lg-3 col-md-3 mb-5 position-relative">
               <label htmlFor="zipCode">Zip Code</label>
-              <input type="text" id="zipCode" placeholder="Zip Code" className={this.validClassToggle('zipCode')}
-                minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
+              <input type="text" id="zipCode" className={this.validClassToggle('zipCode')}
+                minLength="5" maxLength="5" placeholder="Zip Code" required
                 value={zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-tooltip animate__animated animate__fadeIn">Valid ZIP please.</small>
             </div>
@@ -155,8 +155,8 @@ export default class PPECheckOut extends React.Component {
           <div className="form-row">
             <div className="form-group col-12 col-lg-6 col-md-6 mb-5">
               <label htmlFor="creditCard">Credit Card</label>
-              <input type="text" id="creditCard" className={this.validClassToggle('creditCard')} placeholder="Credit Card #"
-                pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
+              <input type="text" id="creditCard" className={this.validClassToggle('creditCard')}
+                placeholder="Credit Card #" maxLength="16" minLength="16" title="16 Digits only" required
                 value={creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-tooltip animate__animated animate__fadeIn">Valid 16 digit card number please.</small>
             </div>
@@ -181,7 +181,7 @@ export default class PPECheckOut extends React.Component {
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardCVV">CVV</label>
               <input type="text" id="cardCVV" placeholder="CVV" className={this.validClassToggle('cardCVV')}
-                minLength="3" maxLength="4" pattern="\d{3,4}" title="3 to 4 digits only" required
+                minLength="3" maxLength="4" title="3 to 4 digits only" required
                 value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
               <small className="invalid-tooltip animate__animated animate__fadeIn">Please enter CVV #</small>
             </div>
