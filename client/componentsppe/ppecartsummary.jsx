@@ -10,7 +10,7 @@ export default function PPECartSummary(props) {
     <section className="p-5 bg-lightblue min-100vh">
       <div className="bg-dark text-white p-4">
         <Link to="/ppeproductlist">
-          <button className="m-2 btn btn-outline-info">Back to Catalog</button>
+          <button className="m-2 btn btn-outline-info d-md-inline d-block mx-auto">Back to Catalog</button>
         </Link>
         <h1>My Cart</h1>
         {
