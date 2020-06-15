@@ -27,7 +27,7 @@ export default class App extends React.Component {
       isLoading: true,
       cart: [],
       orderConfirmed: false,
-      ppeTermsAccepted: false,
+      ppeTermsAccepted: Boolean(sessionStorage.getItem('ppeTermsAccepted')),
       ppeCart: [],
       ppeOrderConfirmed: false
     };
@@ -170,7 +170,8 @@ export default class App extends React.Component {
   }
 
   ppeAcceptTerms() {
-    this.setState({ ppeTermsAccepted: !this.state.ppeTermsAccepted });
+    sessionStorage.setItem('ppeTermsAccepted', true);
+    this.setState({ ppeTermsAccepted: Boolean(sessionStorage.ppeTermsAccepted) });
   }
 
   render() {

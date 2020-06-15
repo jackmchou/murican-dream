@@ -76,20 +76,20 @@ export default class PPECartSummaryItem extends Component {
             <img src={cartItem.image} className="card-img" alt={cartItem.name} />
           </div>
           <span className="col-md-8 text-vertical">
-            <div className="card-body">
+            <div className="card-body overflow-auto">
               <h5 className="card-title">{cartItem.name}</h5>
               <p className="card-subtitle text-muted">$ {(cartItem.price * 0.01).toFixed(2)}</p>
               <p className="card-text">{cartItem.shortDescription}</p>
-              <form className="form-group d-flex align-items-center mb-3">
+              <form className="form-group d-flex flex-column flex-sm-row align-items-center mb-3">
                 <label htmlFor="quantity" className="mb-0 mr-3">Quantity:</label>
-                <button className="btn" id="down" onClick={this.toggleQuantity}>
-                  <i className="fas fa-chevron-down text-danger"></i>
+                <button className="btn" id="up" onClick={this.toggleQuantity}>
+                  <i className="fas fa-chevron-up text-success"></i>
                 </button>
                 <input type="text" className="text-center mx-1"
                   value={this.state.quantity} onChange={this.handleChange} onBlur={this.handleBlur}
                   minLength="1" maxLength="2" size="3" required />
-                <button className="btn" id="up" onClick={this.toggleQuantity}>
-                  <i className="fas fa-chevron-up text-success"></i>
+                <button className="btn" id="down" onClick={this.toggleQuantity}>
+                  <i className="fas fa-chevron-down text-danger"></i>
                 </button>
               </form>
               <button className="btn btn-danger" onClick={() => this.setState({ show: !this.state.show })}>Remove from Cart</button>

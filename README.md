@@ -1,5 +1,5 @@
-# PPE Agora / Murican Dream
-A full stack Node.js and React.js shopping app containing two separate storefronts. PPE Agora, a store demo showcasing bootstrap layouts and Personal Protection Equipment products with cart and check out capability. Murican Dream, a store demo for fun where users can simulate the murican dream via virtual consumption
+# PPE Agora
+A full stack Node.js and React.js shopping app containing two separate storefronts. PPE Agora, a store demo showcasing bootstrap layouts and Personal Protection Equipment products with shopping cart and check out capability. Murican Dream, a store demo for fun where users can simulate the murican dream via virtual consumption
 
 ## Technologies Used
 |             Dependency             |   Version   |
@@ -21,7 +21,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
 | Webpack                            |    4.42.0   |
 | Webpack-CLI                        |    3.3.11   |
 ## Live Demo
-[Murican Dream](https://murican-dream.jackmchou.com/)
+[PPE Agora](https://ppe-agora.jackmchou.com/)
 ## Features
 - User can navigate between the two store fronts
 - User can view the products for sale
@@ -32,7 +32,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
 - User can delete an item from the cart summary
 - User can place an order
 ## Preview
-![Murican Dream Preview](preview.gif "Murican Preview")
+![PPE Agora Preview](preview.gif "PPE Preview")
 ## Development
 #### System Requirements
 |   Requirement   |     Version      |
@@ -67,12 +67,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
   ```shell
   npm db:import
   ```
-7. Access the Murican Dream database using pgweb in your default web browser
-  ```shell
-  pgweb --db=muricanDream
-  ```
-  - Then navigate to http://localhost:8081 and click on the "Query" tab
-8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+7. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
   ```shell
   npm run dev
   ```

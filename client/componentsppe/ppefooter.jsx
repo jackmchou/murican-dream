@@ -30,8 +30,7 @@ export default function PPEFooter(props) {
           <button className="btn btn-light btn-lg font-weight-bold"
             onClick={() => scroll({ top: 0, left: 0, behavior: 'smooth' })}>BACK TO TOP ^</button>
           <Link to="/">
-            <button onClick={() => props.ppeAcceptTerms()}
-              className="btn btn-danger btn-lg font-weight-bold ml-3">Exit Demo</button>
+            <button className="btn btn-danger btn-lg font-weight-bold ml-3">Exit Demo</button>
           </Link>
         </div>
       </div>

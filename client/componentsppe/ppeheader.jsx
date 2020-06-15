@@ -21,7 +21,7 @@ export default function PPEHeader(props) {
           <span className="text-dark pr-2 interactable-text"
             onClick={() => scroll({ top: 5000, left: 0, behavior: 'smooth' })}>Contact</span>
           <NavLink to="/ppecartsummary">
-            <span className="text-dark h5 float-right interactable-text">
+            <span className="text-dark text-nowrap h5 float-right interactable-text">
               {props.ppeCartItemCount > 1
                 ? props.ppeCartItemCount + ' items '
                 : props.ppeCartItemCount + ' item '}

@@ -26,8 +26,8 @@ class PPEProductList extends React.Component {
       <React.Fragment>
         <section className="container-fluid">
           <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
-            <div className="display-3">Website Demo</div>
-            <div className="h1 mb-5">Subtitles and text descriptions</div>
+            <div className="display-3 text-center">Website Demo</div>
+            <div className="h1 mb-5 text-center">Subtitles and text descriptions</div>
             <button className="mt-5 px-5 py-3 btn btn-warning font-weight-bold btn-lg"
               onClick={() => this.productSection.current.scrollIntoView({ behavior: 'smooth' })}
             >Explore</button>
