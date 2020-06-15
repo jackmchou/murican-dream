@@ -98,7 +98,7 @@ export default class PPECheckOut extends React.Component {
     const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV, error } = this.state;
     const errorCheck = error.length > 0;
     return (
-      <form className="p-5 bg-lightblue need-validation" noValidate onSubmit={this.handleSubmit}>
+      <form className="p-5 bg-lightblue needs-validation" noValidate onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
           <h1>Order Form</h1>
           <p>Order Total: ${(this.props.ppeCart.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</p>
