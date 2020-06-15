@@ -25,23 +25,9 @@ export default class PPECheckOut extends React.Component {
       'WA', 'WV', 'WI', 'WY'];
     this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
     this.years = [];
-    this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleClick(event) {
-    if (this.state.toggleButton) {
-      return this.setState({
-        errors:
-        {
-          name: 'Please enter a valid full name. i.e James Smith',
-          creditCard: 'Please enter a valid VISA card',
-          addressOne: 'Shipping Address is between 21 and 156 characters'
-        }
-      });
-    }
   }
 
   handleInputChange(event) {
@@ -107,8 +93,7 @@ export default class PPECheckOut extends React.Component {
 
   render() {
     const { name, addressOne, addressTwo, city, state, zipCode, creditCard, cardMonth, cardYear, cardCVV, error } = this.state;
-    const submitButton = !error.length ? 'Submit' : 'Please complete form';
-    const emptyFields = error.length > 0;
+    const errorCheck = error.length > 0;
     return (
       <form className="p-5 bg-lightblue" onSubmit={this.handleSubmit}>
         <div className="container bg-dark p-3 text-white">
@@ -119,7 +104,7 @@ export default class PPECheckOut extends React.Component {
             <input type="text" id="name" className={this.validClassToggle('name')} placeholder="Name" minLength="5"
               maxLength="65" pattern="[A-Za-z]{5,65}" title="Minimum 5 characters, max 65" required
               value={name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-            <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 5 characters please</small>
+            <small className="invalid-tooltip animate__animated animate__fadeIn">Minimum of 5 characters please</small>
           </div>
           <div className="form-row">
             <div className="form-group col-12 col-lg-7 col-md-8 mb-5 position-relative">
@@ -127,7 +112,7 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="addressOne" className={this.validClassToggle('addressOne')} placeholder="123 Main St"
                 minLength="4" maxLength="62" title="Between 4 and 62 characters of any kind" required
                 value={addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 4 characters please</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Minimum of 4 characters please</small>
             </div>
             <div className="form-group col-12 col-lg-5 col-md-4 mb-5">
               <label htmlFor="addressTwo">Address Line 2 (optional)</label>
@@ -142,7 +127,7 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="city" className={this.validClassToggle('city')} placeholder="City"
                 minLength="3" maxLength="50" title="Minimum of 3 characters" required
                 value={city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Minimum of 3 characters please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Minimum of 3 characters please.</small>
             </div>
             <div className="form-group col-sm-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="state">State</label>
@@ -151,14 +136,14 @@ export default class PPECheckOut extends React.Component {
                 <option hidden disabled>--</option>
                 {this.generateOptionVal(this.stateAbbr)}
               </select>
-              <small className="invalid-tooltip">Please select a state.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Please select a state.</small>
             </div>
             <div className="form-group col-12 col-lg-3 col-md-3 mb-5 position-relative">
               <label htmlFor="zipCode">Zip Code</label>
               <input type="text" id="zipCode" placeholder="Zip Code" className={this.validClassToggle('zipCode')}
                 minLength="5" maxLength="5" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required
                 value={zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Valid ZIP please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Valid ZIP please.</small>
             </div>
           </div>
           <div className="mb-3">
@@ -170,7 +155,7 @@ export default class PPECheckOut extends React.Component {
               <input type="text" id="creditCard" className={this.validClassToggle('creditCard')} placeholder="Credit Card #"
                 pattern="\d{16}" maxLength="16" minLength="16" title="16 Digits only" required
                 value={creditCard} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Valid 16 digit card number please.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Valid 16 digit card number please.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardMonth">Month</label>
@@ -179,7 +164,7 @@ export default class PPECheckOut extends React.Component {
                 <option hidden disabled>MM</option>
                 {this.generateOptionVal(this.months)}
               </select>
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please select a month.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Please select a month.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardYear">Year</label>
@@ -188,20 +173,20 @@ export default class PPECheckOut extends React.Component {
                 <option hidden disabled>YYYY</option>
                 {this.generateYears()}
               </select>
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please select a year.</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Please select a year.</small>
             </div>
             <div className="form-group col-12 col-lg-2 col-md-2 mb-5">
               <label htmlFor="cardCVV">CVV</label>
               <input type="text" id="cardCVV" placeholder="CVV" className={this.validClassToggle('cardCVV')}
                 minLength="3" maxLength="4" pattern="\d{3,4}" title="3 to 4 digits only" required
                 value={cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} />
-              <small className="invalid-tooltip animate__animated animate__fadeInRight">Please enter CVV #</small>
+              <small className="invalid-tooltip animate__animated animate__fadeIn">Please enter CVV #</small>
             </div>
           </div>
           <div className="p-2">
             <Link to="/ppeproductlist"><button className="btn btn-outline-info">Continue Shopping</button></Link>
             <span className="float-right" onClick={this.handleClick}>
-              <button type="submit" className="btn btn-success" disabled={emptyFields}>{submitButton}</button>
+              <button type="submit" className="btn btn-success" disabled={errorCheck}>{errorCheck ? 'Please complete form' : 'Submit'}</button>
             </span>
             <small id="infoHelp" className="form-text text-muted text-center">
               This is a demo, please do not use any personal identifiable information, no product will be purchased or shipped</small>
