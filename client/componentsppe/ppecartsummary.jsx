@@ -23,12 +23,10 @@ export default function PPECartSummary(props) {
                 updatePPEQuantity={props.updatePPEQuantity} />;
             })
         }
-        <div>
-          <h3 className="d-inline">Subtotal: ${(itemsArr.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</h3>
-          <Link to="/ppecheckout">
-            <button className="btn btn-primary float-right" disabled={emptyCart}>Check Out</button>
-          </Link>
-        </div>
+        <h3 className="d-md-inline">Subtotal: ${(itemsArr.reduce((cur, acc) => cur + acc.price * acc.quantity, 0) * 0.01).toFixed(2)}</h3>
+        <Link to="/ppecheckout">
+          <button className="btn btn-primary float-md-right d-md-inline d-block mx-auto" disabled={emptyCart}>Check Out</button>
+        </Link>
       </div>
     </section>
   );
