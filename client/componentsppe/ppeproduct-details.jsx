@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import LinkButton from '../components/linkbutton';
 
 class PPEProductDetails extends React.Component {
   constructor(props) {
@@ -40,12 +41,12 @@ class PPEProductDetails extends React.Component {
               Would you like to continue shopping? or view shopping cart?
             </div>
             <div className="modal-footer">
-              <Link to="/ppeproductlist">
-                <button type="button" className="btn btn-info">Continue Shopping</button>
-              </Link>
-              <Link to="/ppecartsummary">
-                <button type="button" className="btn btn-success">View Cart</button>
-              </Link>
+              <LinkButton to="/ppeproductlist" type="button" className="btn btn-info">
+                Continue Shopping
+              </LinkButton>
+              <LinkButton to="/ppecartsummary" type="button" className="btn btn-success">
+                View Cart
+              </LinkButton>
             </div>
           </div>
         </div>

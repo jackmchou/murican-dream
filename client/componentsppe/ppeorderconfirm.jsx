@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/linkbutton';
 
 export default function PPEOrderConfirm(props) {
   return (
@@ -14,12 +14,10 @@ export default function PPEOrderConfirm(props) {
             Thank you for your order!
           </div>
           <div className="modal-footer">
-            <Link to="/ppeproductlist">
-              <button type="button" className="btn btn-info">Continue Shopping</button>
-            </Link>
-            <Link to="/">
-              <button type="button" className="btn btn-success">Back to Storefront Selection</button>
-            </Link>
+            <LinkButton to="/ppeproductlist" type="button" className="btn btn-info">
+              Continue Shopping</LinkButton>
+            <LinkButton to="/" type="button" className="btn btn-success">
+              Back to Storefront Selection</LinkButton>
           </div>
         </div>
       </div>
