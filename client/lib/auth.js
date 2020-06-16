@@ -1,6 +1,6 @@
 const auth = {
   isAuthenticated: false,
-  authenticate(cb, passphrase) {
+  authenticate(callback, passphrase) {
     const req = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -8,14 +8,14 @@ const auth = {
     };
     fetch('/api/auth', req)
       .then(res => {
-        if (res.status === 403) return;
+        if (res.status === 401) return;
         if (res.status === 200) auth.isAuthenticated = true;
       });
-    setTimeout(cb, 100);
+    setTimeout(callback, 1000);
   },
-  signout(cb) {
+  signout(callback) {
     auth.isAuthenticated = false;
-    setTimeout(cb, 100);
+    setTimeout(callback, 100);
   }
 };
 
