@@ -19,6 +19,7 @@ export default function DemoDisclaimer(props) {
               <li>The merchandise shown here is <b>NOT</b> available for purchase</li>
               <li>You will <b>NOT</b> provide genuine personal information</li>
               <li>You are aware no purchase will be made, no products will be shipped</li>
+              <li>🚧 This section of the site is under construction</li>
             </ol>
           </div>
           <MuricanLogin />
