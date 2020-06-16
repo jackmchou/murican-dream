@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/linkbutton';
 
 export default function PPEDemoDisclaimer(props) {
   return (
@@ -22,10 +22,7 @@ export default function PPEDemoDisclaimer(props) {
           <div className="modal-footer bg-dark">
             <button type="button" className="btn btn-primary"
               onClick={() => props.ppeAcceptTerms()} data-dismiss="modal">Accept</button>
-            <Link to="/">
-              <button type="button" className="btn btn-secondary"
-                data-dismiss="modal" aria-label="Close">Go Back</button>
-            </Link>
+            <LinkButton to="/" type="button" className="btn btn-secondary">Go Back</LinkButton>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/linkbutton';
 
 export default class PPECheckOut extends React.Component {
   constructor(props) {
@@ -187,8 +187,9 @@ export default class PPECheckOut extends React.Component {
             </div>
           </div>
           <div className="p-2 d-flex justify-content-between">
-            <Link to="/ppeproductlist" className="mr-2"><button className="btn btn-outline-info">Continue Shopping</button></Link>
-            <button type="submit" className="btn btn-success" disabled={errorCheck}>{errorCheck ? 'Form Incomplete' : 'Submit'}</button>
+            <LinkButton to="/ppeproductlist" className="btn btn-outline-info mr-2" type="button">
+              Continue Shopping</LinkButton>
+            <button type="submit" className={`btn ${errorCheck ? 'btn-danger' : 'btn-success'}`} disabled={errorCheck}>{errorCheck ? 'Form Incomplete' : 'Submit'}</button>
           </div>
           <small id="infoHelp" className="form-text text-muted text-center">
             This is a demo, please do not use any personal identifiable information, no product will be purchased or shipped</small>

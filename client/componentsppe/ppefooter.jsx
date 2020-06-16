@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/linkbutton';
 
 export default function PPEFooter(props) {
   return (
@@ -29,9 +29,7 @@ export default function PPEFooter(props) {
         <div className="col-12 d-flex justify-content-center">
           <button className="btn btn-light btn-lg font-weight-bold"
             onClick={() => scroll({ top: 0, left: 0, behavior: 'smooth' })}>BACK TO TOP ^</button>
-          <Link to="/">
-            <button className="btn btn-danger btn-lg font-weight-bold ml-3">Exit Demo</button>
-          </Link>
+          <LinkButton to="/" type="button" className="btn btn-danger btn-lg font-weight-bold ml-3">Exit Demo</LinkButton>
         </div>
       </div>
     </footer>
