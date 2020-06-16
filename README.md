@@ -14,6 +14,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
 | FontAwesome                        |    5.11.2   |
 | Node Postgres                      |    7.18.2   |
 | PM2                                |    4.2.3    |
+| Prop-Types                         |   15.7.2    |
 | React                              |   16.13.0   |
 | React-DOM                          |   16.13.0   |
 | React-Router-DOM                   |    5.1.2    |
