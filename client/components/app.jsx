@@ -179,19 +179,19 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/productdetails/:id">
+          <MuricanRoute path="/productdetails/:id">
             <Header cartItemCount={cart.length} />
             <ProductDetails addToCart={this.addToCart} />
-          </Route>
-          <Route path="/cartsummary">
+          </MuricanRoute>
+          <MuricanRoute path="/cartsummary">
             <Header cartItemCount={cart.length} />
             <CartSummary cart={cart} deleteCartItem={this.deleteCartItem} />
-          </Route>
-          <Route path="/checkout">
+          </MuricanRoute>
+          <MuricanRoute path="/checkout">
             <Header cartItemCount={cart.length} />
             {orderConfirmed ? <OrderConfirm />
               : <CheckoutForm onSubmit={this.placeOrder} cart={cart} />}
-          </Route>
+          </MuricanRoute>
           <Route path="/muricanlogin">
             <DemoDisclaimer />
           </Route>
