@@ -3,7 +3,8 @@ body {
 }
 
 img {
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   max-height: 350px;
 }
 
@@ -42,9 +43,14 @@ img {
 }
 
 .text-vertical {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .interactable-text {
@@ -67,22 +73,26 @@ i.interactable-text:hover {
 }
 
 .interactable-element {
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow;
+  -webkit-transition-property: -webkit-box-shadow;
+  transition-property: -webkit-box-shadow;
   transition-property: box-shadow;
+  transition-property: box-shadow, -webkit-box-shadow;
 }
 
 .interactable-element:hover {
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
+  -webkit-box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
+          box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
 }
 
 .overlay {
   background: rgba(0, 0, 0, 0.25);
 }
-
 /*# sourceMappingURL=styles.css.map */
