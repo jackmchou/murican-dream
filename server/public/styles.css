@@ -1,12 +1,10 @@
 body {
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-position: 50% 0%;
-  font-family: 'Public Sans', sans-serif;
+  font-family: "Public Sans", sans-serif;
 }
 
 img {
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   max-height: 350px;
 }
 
@@ -15,15 +13,14 @@ img {
 }
 
 .bg-lightblue {
-  background-color: rgb(147, 222, 247);
+  background-color: #93def7;
 }
 
 .ppemain-img {
   height: 100vh;
-  background-image: url(./images/ppebg.jpg);
+  background: no-repeat url(./images/ppebg.jpg);
   background-size: cover;
   background-attachment: fixed;
-  background-repeat: no-repeat;
   background-position: 25% 0%;
 }
 
@@ -46,15 +43,20 @@ img {
 }
 
 .text-vertical {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .interactable-text {
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: text-shadow;
@@ -71,42 +73,26 @@ i.interactable-text:hover {
 }
 
 .interactable-element {
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow;
+  -webkit-transition-property: -webkit-box-shadow;
+  transition-property: -webkit-box-shadow;
   transition-property: box-shadow;
+  transition-property: box-shadow, -webkit-box-shadow;
 }
 
 .interactable-element:hover {
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
+  -webkit-box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
+          box-shadow: 0 0 24px rgba(20, 20, 20, 0.75);
 }
 
 .overlay {
   background: rgba(0, 0, 0, 0.25);
 }
-
-/* Bootstrap BreakPoints */
-
-/* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { 
-
-}
-
-/* // Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-
-}
-
-/* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
-
-}
-
-/* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
-}
+/*# sourceMappingURL=styles.css.map */
