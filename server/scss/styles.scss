@@ -34,14 +34,6 @@ img {
   background-position: 25%;
 }
 
-// .ppemain-img:after { 
-//   position: fixed; /* stretch a fixed position to the whole screen */
-//   height: 100vh; /* fix for mobile browser address bar appearing disappearing */
-//   z-index: -1; /* needed to keep in the background */
-//   background: no-repeat url(./images/ppebg.jpg);
-//   background-size: cover;
-// }
-
 .h-100-px { height: 100px; }
 
 .min-100vh { min-height: 100vh; }
@@ -87,10 +79,10 @@ i.interactable-text:hover { color: limegreen; }
 .overlay { background: rgba(0, 0, 0, 0.25); }
 
 // Small devices (landscape phones, 576px and up)
-// @media (min-width: 576px) { .ppemain-img { background-attachment:scroll } }
+// @media (min-width: 576px) { ... }
 
 // Medium devices (tablets, 768px and up)
-// @media (min-width: 768px) { .ppemain-img { background-attachment:scroll } }
+// @media (min-width: 768px) { ... }
 
 // Large devices (desktops, 992px and up)
 // @media (min-width: 992px) { ... }
