@@ -18,6 +18,7 @@ A full stack Node.js and React.js shopping app containing two separate storefron
 | React                              |   16.13.0   |
 | React-DOM                          |   16.13.0   |
 | React-Router-DOM                   |    5.1.2    |
+| SASS                               |    1.26.9   |
 | Session-File-Store                 |    1.4.0    |
 | Webpack                            |    4.42.0   |
 | Webpack-CLI                        |    3.3.11   |
