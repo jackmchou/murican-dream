@@ -12,7 +12,13 @@ $shadow: 0 0 1px rgba(0, 0, 0, 0);
   transition-property: $property;
 }
 
-body { font-family: $font-stack }
+body { font-family: $font-stack; }
+
+body:after { 
+  position: fixed; /* stretch a fixed position to the whole screen */
+  height: 100vh; /* fix for mobile browser address bar appearing disappearing */
+  z-index: -1; /* needed to keep in the background */
+}
 
 img {
   object-fit: contain;
