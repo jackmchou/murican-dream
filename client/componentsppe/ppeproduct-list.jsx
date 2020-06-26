@@ -24,8 +24,8 @@ class PPEProductList extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <section className="container-fluid">
-          <div className="row d-flex flex-column align-items-center justify-content-center ppemain-img">
+        <section className="container-fluid ppemain-img">
+          <div className="row d-flex flex-column align-items-center justify-content-center min-100vh">
             <div className="display-3 text-center">Website Demo</div>
             <div className="h1 mb-5 text-center">Subtitles and text descriptions</div>
             <button className="mt-5 px-5 py-3 btn btn-warning font-weight-bold btn-lg"
